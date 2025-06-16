@@ -4,10 +4,12 @@ import { User, BookOpen, Brain, Trophy, Mail } from 'lucide-react';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import { useUser } from '../../contexts/usercontext';
+import { useState } from 'react';
 
 export default function Header() {
   const location = useLocation();
   const { user, setUser } = useUser();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', icon: User },
@@ -42,7 +44,8 @@ export default function Header() {
             </motion.div>
             <span className="text-lg font-bold text-gray-800">Kaidan Quiz</span>
           </Link>
-          <div className="flex items-center space-x-2">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center space-x-2">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
@@ -60,7 +63,8 @@ export default function Header() {
               );
             })}
           </div>
-          <div className="flex items-center gap-2">
+          {/* Desktop Auth */}
+          <div className="hidden md:flex items-center gap-2">
             {user ? (
               <>
                 <img src={user.avatar} alt="avatar" className="w-8 h-8 rounded-full" />
@@ -82,7 +86,67 @@ export default function Header() {
               />
             )}
           </div>
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden flex items-center px-2 py-1"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Open navigation menu"
+          >
+            <svg className="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </button>
         </div>
+        {/* Mobile Nav */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200 py-2">
+            <div className="flex flex-col space-y-1">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = location.pathname === item.path;
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 ${
+                      isActive
+                        ? 'text-indigo-600 bg-indigo-50 shadow-md'
+                        : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
+                    }`}>
+                      <Icon size={18} />
+                      <span className="font-medium">{item.label}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+              <div className="flex items-center gap-2 px-4 py-2">
+                {user ? (
+                  <>
+                    <img src={user.avatar} alt="avatar" className="w-8 h-8 rounded-full" />
+                    <span>{user.name}</span>
+                    <button
+                      className="ml-2 px-2 py-1 bg-red-500 text-white rounded"
+                      onClick={() => {
+                        googleLogout();
+                        setUser(null);
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <GoogleLogin
+                    onSuccess={handleGoogleLogin}
+                    onError={() => alert('Google Login Failed')}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );
