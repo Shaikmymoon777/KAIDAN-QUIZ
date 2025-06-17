@@ -42,7 +42,7 @@ export default function Header() {
             >
               <span className="text-white font-bold text-lg">学</span>
             </motion.div>
-            <span className="text-lg font-bold text-gray-800">Kaidan Quiz</span>
+            <span className="text-lg font-bold text-gray-800">Quizuki</span>
           </Link>
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-2">
