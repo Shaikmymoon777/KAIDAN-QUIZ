@@ -40,7 +40,7 @@ export default function Header() {
               whileTap={{ scale: 0.95 }}
               className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg"
             >
-              <span className="text-white font-bold text-lg">日本語</span>
+              <span className="text-white font-bold text-lg">学</span>
             </motion.div>
             <span className="text-lg font-bold text-gray-800">Kaidan Quiz</span>
           </Link>
