@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Brain, 
   Volume2, 
@@ -126,7 +126,7 @@ const vocabularyData: { [key: string]: VocabWord[] } = {
 { id: 'v91', word: 'きる', reading: 'kiru', meaning: 'to cut', level: 'n5' },
 { id: 'v92', word: 'きれる', reading: 'kireru', meaning: 'to cut well/to be sharp', level: 'n5' },
 { id: 'v93', word: 'きっぷ', reading: 'kippu', meaning: 'ticket', level: 'n5' },
-{ id: 'v94', word: 'れっしゃ', reading: 'ressha', meaning: 'train', level: 'n5' },
+{ id: 'v94', word: 'もんだい', reading: 'mondai', meaning: 'problem/question', level: 'n5' },
 { id: 'v95', word: 'はじめて', reading: 'hajimete', meaning: 'for the first time', level: 'n5' },
 { id: 'v96', word: 'する', reading: 'suru', meaning: 'to print', level: 'n5' },
 { id: 'v97', word: 'さしみ', reading: 'sashimi', meaning: 'sliced raw fish', level: 'n5' },
@@ -338,7 +338,7 @@ const vocabularyData: { [key: string]: VocabWord[] } = {
 };
 
 export default function Practice() {
-  const { state, dispatch } = useApp();
+  const { state } = useApp();
   const [mode, setMode] = useState<'flashcards' | 'vocabulary' | null>(null);
   const [flashcardType, setFlashcardType] = useState<'hiragana' | 'katakana'>('hiragana');
   const [vocabularyLevel, setVocabularyLevel] = useState('n5');
@@ -347,9 +347,10 @@ export default function Practice() {
   const [isAutoplay, setIsAutoplay] = useState(false);
   const [flashcards, setFlashcards] = useState<FlashCard[]>([]);
   const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+
+  const [recognition, setRecognition] = useState<any>(null);
   const [userSpeech, setUserSpeech] = useState('');
-  const [practiceStats, setPracticeStats] = useState({
+  const [, setPracticeStats] = useState({
     correct: 0,
     total: 0,
     streak: 0
@@ -401,7 +402,7 @@ export default function Practice() {
   }, []);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isAutoplay && mode === 'flashcards') {
       interval = setInterval(() => {
         nextCard();

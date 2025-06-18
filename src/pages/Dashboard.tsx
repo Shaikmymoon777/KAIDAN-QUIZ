@@ -91,6 +91,8 @@ export default function Dashboard() {
       ? new Date(user.joinDate).toLocaleDateString()
       : new Date().toLocaleDateString();
 
+  console.log('quizProgress:', quizProgress);
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -218,24 +220,39 @@ export default function Dashboard() {
         </div>
 
         {/* Level Progress */}
-        <motion.div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+        <motion.div 
+          className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
           <div className="flex items-center space-x-3 mb-6">
-            <motion.div>
+            <motion.div
+              whileHover={{ rotate: 10, scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
               <BookOpen className="w-6 h-6 text-indigo-600" />
             </motion.div>
             <h3 className="text-xl font-bold text-gray-900">
               Level Progress
             </h3>
           </div>
+          
           <div className="space-y-4">
-            {levelProgress.map((level) => (
+            {levelProgress.map((level, index) => (
               <motion.div
                 key={level.level}
-                className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all duration-300"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
+                whileHover={{ scale: 1.02, x: 5 }}
+                className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-indigo-50 transition-all duration-300"
               >
                 <div className="flex-shrink-0">
                   <motion.span 
                     className="inline-flex items-center justify-center w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg font-bold shadow-lg"
+                    whileHover={{ rotate: 5, scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400 }}
                   >
                     {level.level}
                   </motion.span>
@@ -254,6 +271,7 @@ export default function Dashboard() {
                       className="h-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: `${level.percentage}%` }}
+                      transition={{ duration: 1, delay: 1 + index * 0.2 }}
                     />
                   </div>
                   <div className="flex justify-between items-center mt-1">
@@ -262,6 +280,7 @@ export default function Dashboard() {
                     </span>
                     <motion.span 
                       className="text-xs font-medium text-indigo-600"
+                      whileHover={{ scale: 1.1 }}
                     >
                       {level.percentage}%
                     </motion.span>
