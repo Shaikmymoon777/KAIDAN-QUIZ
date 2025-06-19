@@ -5,9 +5,11 @@ import {
   BookOpen, Award, Zap
 } from 'lucide-react';
 import { useUser } from '../contexts/usercontext';
+import { useApp } from '../contexts/AppContext'; // Add this import
 
 export default function Dashboard() {
   const { user, setUser } = useUser();
+  const { state } = useApp(); // Get global state
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -24,7 +26,8 @@ export default function Dashboard() {
     }
   };
 
-  const quizProgress = user?.quizProgress || { n5: {}, n4: {}, n3: {}, n2: {}, n1: {} };
+  // Use state.quizProgress instead of user?.quizProgress
+  const quizProgress = state.quizProgress || { n5: {}, n4: {}, n3: {}, n2: {}, n1: {} };
   const totalQuizzes = Object.values(quizProgress).reduce((total: number, level: any) => 
     total + Object.values(level).length, 0
   );

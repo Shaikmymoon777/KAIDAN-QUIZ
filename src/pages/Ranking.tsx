@@ -2,14 +2,19 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Medal, Award, Star, TrendingUp, Calendar, Target } from 'lucide-react';
 import { useUser } from '../contexts/usercontext';
+import { useApp } from '../contexts/AppContext'; // Add this import
 
 export default function Ranking() {
   const { user } = useUser();
+  const { state } = useApp(); // Get global state
+
+  // Use state.quizProgress instead of user?.quizProgress
+  const quizProgress = state.quizProgress || { n5: {}, n4: {}, n3: {}, n2: {}, n1: {} };
+
   const [sortBy, setSortBy] = useState<'score' | 'date'>('score');
   const [filterLevel, setFilterLevel] = useState<string>('all');
 
   const levels = ['N5', 'N4', 'N3', 'N2', 'N1'];
-  const quizProgress = user?.quizProgress || { n5: {}, n4: {}, n3: {}, n2: {}, n1: {} };
 
   // Simulate rankings using current user and some demo users
   const averageScore = Object.values(quizProgress).reduce((total: number, level: any) => {
