@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   User, Trophy, Target, Calendar, TrendingUp, Camera,
@@ -9,9 +9,31 @@ import { useApp } from '../contexts/AppContext'; // Add this import
 
 export default function Dashboard() {
   const { user, setUser } = useUser();
-  const { state } = useApp(); // Get global state
+  const { state } = useApp();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  // Add local state for backend stats
+  const [streak, setStreak] = useState(0);
+  const [activeDays, setActiveDays] = useState(0);
+
+  useEffect(() => {
+    // Fetch streak and active days from backend
+    fetch('/api/user-stats', {
+      headers: {
+        Authorization: `Bearer ${user?.token || ''}`,
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setStreak(data.streak || 0);
+        setActiveDays(data.activeDays || 0);
+      })
+      .catch(() => {
+        setStreak(0);
+        setActiveDays(0);
+      });
+  }, [user]);
 
   const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -66,7 +88,7 @@ export default function Dashboard() {
     {
       icon: Zap,
       label: 'Current Streak',
-      value: user?.streak || 0,
+      value: streak,
       total: 30,
       color: 'text-orange-600',
       bgColor: 'bg-orange-50',
@@ -76,7 +98,7 @@ export default function Dashboard() {
     {
       icon: Calendar,
       label: 'Days Active',
-      value: user?.joinDate ? Math.floor((Date.now() - new Date(user.joinDate).getTime()) / (1000 * 60 * 60 * 24)) : 0,
+      value: activeDays,
       total: 365,
       color: 'text-green-600',
       bgColor: 'bg-green-50',
