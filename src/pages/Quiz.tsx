@@ -63,7 +63,7 @@ export default function Quiz() {
     const levelProgress = state.quizProgress[level];
     if (!levelProgress) return false;
     const previousSet = levelProgress[`set${set - 1}`];
-    return previousSet?.completed && previousSet.bestScore >= 60;
+    return previousSet?.completed && previousSet?.bestScore >= 60;
   };
 
   const getSetProgress = (level: string, set: number) => {

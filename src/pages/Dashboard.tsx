@@ -26,18 +26,22 @@ export default function Dashboard() {
     }
   };
 
-  // Use state.quizProgress instead of user?.quizProgress
   const quizProgress = state.quizProgress || { n5: {}, n4: {}, n3: {}, n2: {}, n1: {} };
-  const totalQuizzes = Object.values(quizProgress).reduce((total: number, level: any) => 
-    total + Object.values(level).length, 0
+
+  const totalQuizzes = Object.values(quizProgress).reduce(
+    (total, level: any) => total + Object.values(level).length, 0
   );
-  const completedQuizzes = Object.values(quizProgress).reduce((total: number, level: any) => 
-    total + Object.values(level).filter((set: any) => set.completed).length, 0
+
+  const completedQuizzes = Object.values(quizProgress).reduce(
+    (total, level: any) => total + Object.values(level).filter((set: any) => set.completed).length, 0
   );
-  const averageScore = Object.values(quizProgress).reduce((total: number, level: any) => {
-    const scores = Object.values(level).map((set: any) => set.bestScore).filter((score: number) => score > 0);
-    return total + (scores.reduce((sum: number, score: number) => sum + score, 0) / (scores.length || 1));
-  }, 0) / (Object.keys(quizProgress).length || 1);
+
+  const allScores = Object.values(quizProgress).flatMap(
+    (level: any) => Object.values(level).map((set: any) => set.bestScore).filter((score: number) => score > 0)
+  );
+  const averageScore = allScores.length > 0
+    ? Math.round(allScores.reduce((a, b) => a + b, 0) / allScores.length)
+    : 0;
 
   const stats = [
     {
