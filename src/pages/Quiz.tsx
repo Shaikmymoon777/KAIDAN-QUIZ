@@ -49,12 +49,34 @@ export default function Quiz() {
       const response = await import(`../data/${level}/set${set}.json`);
       const allQuestions = response.default;
       const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
-      setQuestions(shuffled.slice(0, 25));
+      setQuestions(
+        shuffled
+          .filter(
+            (q): q is Question =>
+              typeof q.id === 'string' &&
+              typeof q.question === 'string' &&
+              Array.isArray(q.options) &&
+              typeof q.correct === 'number' &&
+              typeof q.explanation === 'string'
+          )
+          .slice(0, 25)
+      );
     } catch (error) {
       const response = await import('../data/n5/set1.json');
       const allQuestions = response.default;
       const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
-      setQuestions(shuffled.slice(0, 25));
+      setQuestions(
+        shuffled
+          .filter(
+            (q): q is Question =>
+              typeof q.id === 'string' &&
+              typeof q.question === 'string' &&
+              Array.isArray(q.options) &&
+              typeof q.correct === 'number' &&
+              typeof q.explanation === 'string'
+          )
+          .slice(0, 25)
+      );
     }
   };
 

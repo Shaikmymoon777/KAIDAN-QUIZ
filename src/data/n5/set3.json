@@ -1,181 +1,283 @@
 [
   {
-    "id": "n5s1q01",
-    "question": "ともだちと　_______ に　いきました。",
-    "options": ["いぬ", "いっしょ", "でんしゃ", "きょうしつ"],
+    "id": "n5s3q1",
+    "question": "えいご を にほんご に _______ の は むずかしい です。",
+    "options": ["やくす", "おどる", "あるく", "みせる"],
+    "correct": 0,
+    "explanation": "『やくす』 means 'to translate'. Translating English into Japanese is difficult."
+  },
+  {
+    "id": "n5s3q2",
+    "question": "まど を _______、すずしく なりました。",
+    "options": ["はじまったら", "とったら", "あけたら", "でたら"],
+    "correct": 2,
+    "explanation": "『あけたら』 means 'when (I) opened'. It became cool after opening the window."
+  },
+  {
+    "id": "n5s3q3",
+    "question": "かのじょ は じぶん で シャツ を _______。",
+    "options": ["いそぎました", "ぬいました", "のりました", "ありました"],
     "correct": 1,
-    "explanation": "いっしょ は「いっしょに」など、だれかと　いっしょに　なにかを　する　ときに　つかいます。"
+    "explanation": "『ぬいました』 means 'sewed'. She sewed the shirt herself."
   },
   {
-    "id": "n5s1q02",
-    "question": "ケーキを　_______　たべました。",
-    "options": ["さんぽ", "みっつ", "ほんや", "がいこくじん"],
+    "id": "n5s3q4",
+    "question": "テスト の まえ に もう いちど _______。",
+    "options": ["でんわ します", "ふくしゅう します", "しょくじ します", "うんてん します"],
     "correct": 1,
-    "explanation": "みっつ は　ものを　かぞえる　ときの　ことば　です。"
+    "explanation": "『ふくしゅう します』 means 'to review'. You review before a test."
   },
   {
-    "id": "n5s1q03",
-    "question": "あには　_______　で　りょこうに　いきました。",
-    "options": ["ひこうき", "しんぶん", "ひとり", "じしょ"],
-    "correct": 2,
-    "explanation": "ひとり は　ひとつの　ひと、または　ひとりだけの　いみ　です。"
-  },
-  {
-    "id": "n5s1q04",
-    "question": "つくえの　_______ に　ほんが　あります。",
-    "options": ["なか", "ひとつ", "うえ", "くるま"],
-    "correct": 2,
-    "explanation": "うえ は　なにかの　うえに　ある　ことを　いいます。"
-  },
-  {
-    "id": "n5s1q05",
-    "question": "おかしを　_______　たべました。",
-    "options": ["ひとつ", "じてんしゃ", "いちにち", "てがみ"],
-    "correct": 0,
-    "explanation": "ひとつ は　ものを　ひとつ　だけ　たべる　ときに　つかいます。"
-  },
-  {
-    "id": "n5s1q06",
-    "question": "このなかで　_______　すきですか？",
-    "options": ["でんわ", "いちばん", "がっこう", "ねこ"],
-    "correct": 1,
-    "explanation": "いちばん は　なにかの　なかで　いちばん　すき、または　さいこう　を　えらぶ　ときに　つかいます。"
-  },
-  {
-    "id": "n5s1q07",
-    "question": "きょうは　_______　にんが　きませんでした。",
-    "options": ["せんせい", "はし", "ひとり", "つくえ"],
-    "correct": 2,
-    "explanation": "ひとり は　ひとつの　にんげん、または　ひとり　だけの　いみです。"
-  },
-  {
-    "id": "n5s1q08",
-    "question": "おみせで　パンを　_______　かいました。",
-    "options": ["いち", "しごと", "えいが", "まど"],
-    "correct": 0,
-    "explanation": "いち は　すうじの 1。ひとつ、いちにちなどにも　つかわれます。"
-  },
-  {
-    "id": "n5s1q09",
-    "question": "きょうは　_______　がつ　です。",
-    "options": ["なな", "はな", "てんき", "さん"],
-    "correct": 0,
-    "explanation": "なな は　すうじの　7　を　あらわします。しち　とも　いいます。"
-  },
-  {
-    "id": "n5s1q10",
-    "question": "にほんの　じんこうは　１_______　いじょう　です。",
-    "options": ["まん", "いえ", "くすり", "うみ"],
-    "correct": 0,
-    "explanation": "まん は　10,000（じゅうせん）を　あらわす　すうじです。"
-  },
-  {
-    "id": "n5s2q11",
-    "question": "エレベーターから　_______　ください。",
-    "options": ["に", "まど", "おりる", "すわる"],
-    "correct": 2,
-    "explanation": "おりる は「のりものから　でる」という　いみです。"
-  },
-  {
-    "id": "n5s2q12",
-    "question": "この　へやの　_______ に　いぬが　います。",
-    "options": ["でんき", "がいこく", "した", "てがみ"],
-    "correct": 2,
-    "explanation": "した は　なにかの　したに　あることを　いいます。"
-  },
-  {
-    "id": "n5s2q13",
-    "question": "わたしは　テニスが　_______ です。",
-    "options": ["すき", "あかるい", "はやい", "へた"],
+    "id": "n5s3q5",
+    "question": "にほん の ぶんか に とても _______ があります。",
+    "options": ["ちゅうい", "へんじ", "ひつよう", "きょうみ"],
     "correct": 3,
-    "explanation": "へた は「じょうずではない」という　いみです。"
+    "explanation": "『きょうみ』 means 'interest'. I have interest in Japanese culture."
   },
   {
-    "id": "n5s2q14",
-    "question": "くるまが　ないと　_______ です。",
-    "options": ["ふべん", "しずか", "おなじ", "たかい"],
+    "id": "n5s3q6",
+    "question": "しゅくだい を わすれて、せんせい に _______。",
+    "options": ["おこられました", "たのしみました", "もらいました", "かけました"],
     "correct": 0,
-    "explanation": "ふべん は「べんりではない」という　いみです。"
+    "explanation": "『おこられました』 means 'was scolded'. I was scolded by the teacher for forgetting homework."
   },
   {
-    "id": "n5s2q15",
-    "question": "あの　やまの　まえに　ちいさい　_______ が　あります。",
-    "options": ["おか", "みず", "いす", "ほん"],
-    "correct": 0,
-    "explanation": "おか は　ちいさな　やまの　ような　ところ　です。"
-  },
-  {
-    "id": "n5s2q16",
-    "question": "かばんの　_______ に　ほんが　あります。",
-    "options": ["そと", "なか", "て", "かさ"],
-    "correct": 1,
-    "explanation": "なか は　なにかの　うちがわ、または　あいだの　いみです。"
-  },
-  {
-    "id": "n5s2q17",
-    "question": "この　テーブルは　_______ かたちです。",
-    "options": ["まるい", "ふべん", "はやい", "たかい"],
-    "correct": 0,
-    "explanation": "まるい は「まるの　かたちを　している」という　いみです。"
-  },
-  {
-    "id": "n5s2q18",
-    "question": "テストの　_______ を　せんせいに　はなしました。",
-    "options": ["くすり", "こと", "ともだち", "くるま"],
-    "correct": 1,
-    "explanation": "こと は　できごとや　じじょうを　いいます。"
-  },
-  {
-    "id": "n5s2q19",
-    "question": "かぞくは　_______ にん　です。",
-    "options": ["まるい", "に", "おりる", "なか"],
-    "correct": 1,
-    "explanation": "に は　すうじの「２（ふたつ）」を　あらわします。"
-  },
-  {
-    "id": "n5s2q20",
-    "question": "コップの　_______ に　みずが　あります。",
-    "options": ["ふべん", "へた", "こと", "した"],
+    "id": "n5s3q7",
+    "question": "あには りょうり が とても _______ です。",
+    "options": ["おいしい", "ひま", "きれい", "じょうず"],
     "correct": 3,
-    "explanation": "した は　ものの　したがわ　や　したの　ばしょを　あらわします。"
+    "explanation": "『じょうず』 means 'good at'. My older brother is good at cooking."
   },
   {
-    "id": "n5s1q21",
-    "question": "スーパー で たくさん の _______ を かいました。",
-    "options": ["ねこ", "しなもの", "ひこうき", "へや"],
+    "id": "n5s3q8",
+    "question": "ゆうびんきょく で てがみ を _______。",
+    "options": ["つくりました", "ならいました", "だしました", "はなしました"],
+    "correct": 2,
+    "explanation": "『だしました』 means 'sent'. I sent a letter at the post office."
+  },
+  {
+    "id": "n5s3q9",
+    "question": "しんかんせん は とても _______ です。",
+    "options": ["ながい", "はやい", "あつい", "ひろい"],
     "correct": 1,
-    "explanation": "「しなもの」 は かいもの で うられている どうぐ や たべもの の こと です。"
+    "explanation": "『はやい』 means 'fast'. The Shinkansen is very fast."
   },
   {
-    "id": "n5s1q22",
-    "question": "この ごはん の りょう は _______ です。",
-    "options": ["うるさい", "じゅうぶん", "およぐ", "ちかてつ"],
+    "id": "n5s3q10",
+    "question": "こども の とき、よく そと で _______。",
+    "options": ["たおれました", "まけました", "のみました", "あそびました"],
+    "correct": 3,
+    "explanation": "『あそびました』 means 'played'. I often played outside as a child."
+},
+{
+  "id": "n5s3q11",
+    "question": "あの ひと は ちょっと _______ です。",
+    "options": ["あつい", "へん", "ひくい", "おなじ"],
     "correct": 1,
-    "explanation": "「じゅうぶん」 は 「たりている／まんぞく」 という いみ です。"
+    "explanation": "『へん』 means 'strange'. That person is a little strange."
   },
   {
-    "id": "n5s1q23",
-    "question": "この ほん は _______ えん です。",
-    "options": ["せん", "やま", "えき", "じてんしゃ"],
+    "id": "n5s3q12",
+    "question": "りょこう に いく まえ に パスポート を _______。",
+    "options": ["じゅんびします", "りょうりします", "そうじします", "せんたくします"],
     "correct": 0,
-    "explanation": "「せん」 は かず の １つ、「１０００」 を あらわします。"
+    "explanation": "『じゅんびします』 means 'prepare'. You prepare your passport before a trip."
   },
   {
-    "id": "n5s1q24",
-    "question": "わたし は _______ ７じ に おきます。",
-    "options": ["ごご", "きょう", "ごぜん", "まいしゅう"],
-    "correct": 2,
-    "explanation": "「ごぜん」 は あさ の じかん（０じ〜１１じ）を さします。"
+    "id": "n5s3q13",
+    "question": "その しつもん に は こたえ が _______。",
+    "options": ["いります", "ありません", "むずかしい", "あらいます"],
+    "correct": 1,
+    "explanation": "『ありません』 means 'does not exist'. There is no answer to that question."
   },
   {
-    "id": "n5s1q25",
-    "question": "クラス は _______ ２じ から はじまります。",
-    "options": ["きって", "でんわ", "ごご", "あした"],
+    "id": "n5s3q14",
+    "question": "こたえ を まちがえて、テスト の てん が _______。",
+    "options": ["たかまりました", "へりました", "ふとりました", "さがりました"],
+    "correct": 1,
+    "explanation": "『へりました』 means 'decreased'. My test score decreased after getting it wrong."
+  },
+  {
+    "id": "n5s3q15",
+    "question": "でんわ で はなし を して いる とき、かれ は よく _______。",
+    "options": ["わらいます", "しずかです", "でかけます", "おこります"],
+    "correct": 0,
+    "explanation": "『わらいます』 means 'laughs'. He often laughs while talking on the phone."
+  },
+  {
+    "id": "n5s3q16",
+    "question": "まいにち の せいかつ を _______ に かえたい。",
+    "options": ["ゆうめい", "きけん", "べんり", "たのしい"],
     "correct": 2,
-    "explanation": "「ごご」 は ひる１２じ いこう の じかん を いみします。"
+    "explanation": "『べんり』 means 'convenient'. I want to make my daily life more convenient."
+  },
+  {
+    "id": "n5s3q17",
+    "question": "にほん の がっこう は はる と あき に _______ があります。",
+    "options": ["うんどうかい", "きゅうか", "しゅくだい", "テスト"],
+    "correct": 0,
+    "explanation": "『うんどうかい』 means 'sports day'. Japanese schools have a sports festival in spring and fall."
+  },
+  {
+    "id": "n5s3q18",
+    "question": "しゃしん を とる とき、みんな が _______。",
+    "options": ["おどります", "つかいます", "はらいます", "わらいます"],
+    "correct": 3,
+    "explanation": "『わらいます』 means 'smile/laugh'. People usually smile in photos."
+  },
+  {
+    "id": "n5s3q19",
+    "question": "あつい ので、クーラー を _______。",
+    "options": ["あけます", "しめます", "つけます", "もちます"],
+    "correct": 2,
+    "explanation": "『つけます』 means 'turn on'. I turned on the AC because it was hot."
+  },
+  {
+    "id": "n5s3q20",
+    "question": "ともだち に おみやげ を _______。",
+    "options": ["ならいました", "わたしました", "およぎました", "のぼりました"],
+    "correct": 1,
+    "explanation": "『わたしました』 means 'gave/handed over'. I gave a souvenir to a friend."
+  },
+  {
+    "id": "n5s3q21",
+    "question": "でんしゃ に のる まえ に きっぷ を _______。",
+    "options": ["かいます", "なきます", "みます", "いいます"],
+    "correct": 0,
+    "explanation": "『かいます』 means 'buy'. You buy a ticket before riding a train."
+  },
+  {
+    "id": "n5s3q22",
+    "question": "この ほん は こども に _______ です。",
+    "options": ["たいせつ", "やさしい", "ひくい", "つよい"],
+    "correct": 1,
+    "explanation": "『やさしい』 means 'easy'. This book is easy for children."
+  },
+  {
+    "id": "n5s3q23",
+    "question": "パーティー に くる ひと は みんな _______。",
+    "options": ["わらいました", "あつまりました", "さがしました", "かきました"],
+    "correct": 1,
+    "explanation": "『あつまりました』 means 'gathered'. Everyone who came to the party gathered."
+  },
+  {
+    "id": "n5s3q24",
+    "question": "せんせい に おくれる と _______。",
+    "options": ["わかりました", "おこられます", "しんぱいします", "はらいます"],
+    "correct": 1,
+    "explanation": "『おこられます』 means 'get scolded'. If you are late, the teacher will scold you."
+  },
+  {
+    "id": "n5s3q25",
+    "question": "この くつ は _______ すぎて、あるけません。",
+    "options": ["ながい", "あつい", "ちいさい", "かたい"],
+    "correct": 2,
+    "explanation": "『ちいさい』 means 'small'. These shoes are too small to walk in."
+  },
+  {
+    "id": "n5s3q26",
+    "question": "ともだち の たんじょうび に プレゼント を _______。",
+    "options": ["つくりました", "いれました", "あげました", "すいました"],
+    "correct": 2,
+    "explanation": "『あげました』 means 'gave'. I gave a birthday present to a friend."
+  },
+  {
+    "id": "n5s3q27",
+    "question": "にちようび は としょかん で ほん を _______。",
+    "options": ["かえしました", "およぎました", "ひきました", "かしました"],
+    "correct": 0,
+    "explanation": "『かえしました』 means 'returned'. I returned books at the library on Sunday."
+  },
+  {
+    "id": "n5s3q28",
+    "question": "コンビニ で パン と ジュース を _______。",
+    "options": ["とりました", "かいました", "つくりました", "よみました"],
+    "correct": 1,
+    "explanation": "『かいました』 means 'bought'. I bought bread and juice at the convenience store."
+  },
+  {
+    "id": "n5s3q29",
+    "question": "おかね を _______ から、レストラン に いけません。",
+    "options": ["わすれた", "いれた", "もらった", "つかって"],
+    "correct": 0,
+    "explanation": "『わすれた』 means 'forgot'. I forgot money so I can’t go to the restaurant."
+  },
+  {
+    "id": "n5s3q30",
+    "question": "バス を まって いたら、ゆき が _______。",
+    "options": ["ふりました", "はしりました", "きました", "のりました"],
+    "correct": 0,
+    "explanation": "『ふりました』 means 'fell'. It started to snow while I was waiting for the bus."
+  },
+  {
+    "id": "n5s3q31",
+    "question": "にほん では、くつ を ぬいで へや に _______。",
+    "options": ["かきます", "はいります", "つけます", "きります"],
+    "correct": 1,
+    "explanation": "『はいります』 means 'enter'. In Japan, you enter a room after taking off your shoes."
+  },
+  {
+    "id": "n5s3q32",
+    "question": "とけい を _______、いま なんじ か わかります。",
+    "options": ["ならいます", "みます", "ききます", "あそびます"],
+    "correct": 1,
+    "explanation": "『みます』 means 'look'. You look at the clock to check the time."
+  },
+  {
+    "id": "n5s3q33",
+    "question": "おきゃくさま が きた ので、おちゃ を _______。",
+    "options": ["のみました", "いれました", "うたいました", "ねました"],
+    "correct": 1,
+    "explanation": "『いれました』 means 'prepared'. I prepared tea for the guest."
+  },
+  {
+    "id": "n5s3q34",
+    "question": "あたらしい カメラ で しゃしん を _______。",
+    "options": ["とりました", "すいました", "うたいました", "ききました"],
+    "correct": 0,
+    "explanation": "『とりました』 means 'took (a photo)'. I took a picture with my new camera."
+  },
+  {
+    "id": "n5s3q35",
+    "question": "まいにち うんどう して、からだ が _______ なりました。",
+    "options": ["つよく", "やさしく", "きびしく", "ちいさく"],
+    "correct": 0,
+    "explanation": "『つよく』 means 'strong'. I got stronger by exercising every day."
+  },
+  {
+    "id": "n5s3q36",
+    "question": "でんわ を かけた けど、こたえ が _______。",
+    "options": ["ききました", "つきました", "ありません", "かかりました"],
+    "correct": 2,
+    "explanation": "『ありません』 means 'there wasn’t'. There was no answer when I called."
+  },
+  {
+    "id": "n5s3q37",
+    "question": "でぐち は この ビル の いちばん _______ に あります。",
+    "options": ["した", "なか", "うえ", "そと"],
+    "correct": 0,
+    "explanation": "『した』 means 'bottom'. The exit is at the bottom of the building."
+  },
+  {
+    "id": "n5s3q38",
+    "question": "あめ が ふっている から、かさ を _______。",
+    "options": ["とりました", "つかいました", "かけました", "たべました"],
+    "correct": 1,
+    "explanation": "『つかいました』 means 'used'. I used an umbrella because it was raining."
+  },
+  {
+    "id": "n5s3q39",
+    "question": "はは は まいにち うち で りょうり を _______。",
+    "options": ["しています", "いれています", "つくっています", "かいています"],
+    "correct": 2,
+    "explanation": "『つくっています』 means 'making'. My mom makes meals every day."
+  },
+  {
+    "id": "n5s3q40",
+    "question": "この シャツ は _______ から、きられません。",
+    "options": ["あつい", "きたない", "ながい", "ちいさい"],
+    "correct": 3,
+    "explanation": "『ちいさい』 means 'small'. I can’t wear this shirt because it’s too small."
   }
 ]
-
-
-
 

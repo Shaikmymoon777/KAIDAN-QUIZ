@@ -20,12 +20,11 @@ function App() {
               <Header />
               <main className="flex-1">
                 <Routes>
-                  <Route path="/" element={<Navigate to="/quiz\" replace />} />
+                  <Route path="/" element={<Navigate to="/quiz" replace />} />
                   <Route path="/quiz" element={<Quiz />} />
                   <Route path="/practice" element={<Practice />} />
                   <Route path="/ranking" element={<Ranking />} />
                   <Route path="/contact" element={<Contact />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
               </main>

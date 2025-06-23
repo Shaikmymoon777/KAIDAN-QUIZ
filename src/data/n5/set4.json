@@ -1,180 +1,282 @@
 [
   {
-    "id": "n5s3q01",
-    "question": "スーパーで　りんごを　_______ かいました。",
-    "options": ["ふたり", "ふたつ", "こんばんは", "みっつ"],
+    "id": "n5s4q1",
+    "question": "あした まで に この レポート を _______ ください。",
+    "options": ["なおして", "とって", "かして", "おして"],
+    "correct": 0,
+    "explanation": "『なおして』 means 'fix'. Please fix this report by tomorrow."
+  },
+  {
+    "id": "n5s4q2",
+    "question": "かばん の なか に パン が _______ います。",
+    "options": ["しまって", "はいって", "もって", "すわって"],
     "correct": 1,
-    "explanation": "ふたつ は　「２こ」の　いみです。"
+    "explanation": "『はいって』 means 'is in'. The bread is in the bag."
   },
   {
-    "id": "n5s3q02",
-    "question": "パーティーに　_______ が　きました。",
-    "options": ["ふたり", "ひと", "こんにちは", "いぬ"],
+    "id": "n5s4q3",
+    "question": "にほん に くる まえ に、 にほんご を _______ おきました。",
+    "options": ["べんきょうして", "たべて", "あそんで", "いれて"],
     "correct": 0,
-    "explanation": "ふたり は　「２にん」の　いみです。"
+    "explanation": "『べんきょうして』 means 'studied'. I studied Japanese before coming to Japan."
   },
   {
-    "id": "n5s3q03",
-    "question": "ノートを　_______　もって　きて　ください。",
-    "options": ["いつつ", "こと", "とけい", "こんしゅう"],
+    "id": "n5s4q4",
+    "question": "へや の でんき が _______ います。",
+    "options": ["ついて", "とまって", "かたづけて", "かけて"],
     "correct": 0,
-    "explanation": "いつつ は　「５こ」の　いみです。"
+    "explanation": "『ついて』 means 'on'. The room’s light is on."
   },
   {
-    "id": "n5s3q04",
-    "question": "いま　へやに　_______ が　います。",
-    "options": ["ひと", "いえ", "ふゆ", "いちばん"],
+    "id": "n5s4q5",
+    "question": "この シャツ は _______ から、 かわない ほう が いいです。",
+    "options": ["よごれている", "かわいい", "やすい", "ふるい"],
     "correct": 0,
-    "explanation": "ひと は　「ひとりの　ひと」の　いみです。"
+    "explanation": "『よごれている』 means 'dirty'. Since this shirt is dirty, you should not buy it."
   },
   {
-    "id": "n5s3q05",
-    "question": "ごご５じに　かいぎが　あります。いまは　_______ です。",
-    "options": ["ふたつ", "こんしゅう", "いま", "えき"],
+    "id": "n5s4q6",
+    "question": "この にもつ を へや に _______ おいて ください。",
+    "options": ["すわって", "つくって", "いれて", "とめて"],
     "correct": 2,
-    "explanation": "いま は　「いまの　じかん」という　いみです。"
+    "explanation": "『いれて』 means 'put in'. Please put this baggage in the room."
   },
   {
-    "id": "n5s3q06",
-    "question": "_______ は　あつい　ひ　ですね。",
-    "options": ["ふたり", "きょう", "てがみ", "ほん"],
-    "correct": 1,
-    "explanation": "きょう は　「きょうの　ひ」という　いみです。"
-  },
-  {
-    "id": "n5s3q07",
-    "question": "_______、はじめまして。",
-    "options": ["こんにちは", "きのう", "おちゃ", "くるま"],
-    "correct": 0,
-    "explanation": "こんにちは は　ひるの　あいさつ　です。"
-  },
-  {
-    "id": "n5s3q08",
-    "question": "_______、ねこが　そとに　います。",
-    "options": ["こんしゅう", "まど", "こんばんは", "なつ"],
+    "id": "n5s4q7",
+    "question": "この テスト は _______ いいですよ。",
+    "options": ["むずかしくて", "ながくて", "かんたんで", "やすくて"],
     "correct": 2,
-    "explanation": "こんばんは は　ゆうがたの　あいさつ　です。"
+    "explanation": "『かんたんで』 means 'easy'. This test is easy, so it’s okay."
   },
   {
-    "id": "n5s3q09",
-    "question": "_______ は　テストが　あります。",
-    "options": ["こんしゅう", "しゅくだい", "ふたり", "そと"],
+    "id": "n5s4q8",
+    "question": "こども の とき よく こうえん で _______。",
+    "options": ["あそびました", "すわりました", "たべました", "つかいました"],
     "correct": 0,
-    "explanation": "こんしゅう は　「こんしゅうの　よてい」という　いみです。"
+    "explanation": "『あそびました』 means 'played'. I often played in the park as a child."
   },
   {
-    "id": "n5s3q10",
-    "question": "わたしは　_______ の　りんごが　すきです。",
-    "options": ["ご", "いま", "まど", "はこ"],
-    "correct": 0,
-    "explanation": "ご は　「５」の　すうじの　いみです。"
+    "id": "n5s4q9",
+    "question": "この かんじ の よみかた が _______。",
+    "options": ["おぼえません", "しりません", "おしえません", "わかりません"],
+    "correct": 3,
+    "explanation": "『わかりません』 means 'don’t understand'. I don’t understand this kanji’s reading."
+  },
+  {
+    "id": "n5s4q10",
+    "question": "いま でんわ を _______ も いいですか？",
+    "options": ["いって", "おくって", "きいて", "して"],
+    "correct": 3,
+    "explanation": "『して』 means 'make (a call)'. Can I make a call now?"
   },
   {
     "id": "n5s4q11",
-    "question": "わたしの　_______ は　せんせい　です。",
-    "options": ["しんじる", "かいわ", "でぐち", "しごと"],
-    "correct": 3,
-    "explanation": "しごと は　「しごと／はたらく　こと」　です。"
+    "question": "でんしゃ の ドア が _______ から、 きを つけて ください。",
+    "options": ["しまります", "まがります", "おります", "おわります"],
+    "correct": 0,
+    "explanation": "『しまります』 means 'close'. The train doors close, so be careful."
   },
   {
     "id": "n5s4q12",
-    "question": "いい　_______ を　おしえて　ください。",
-    "options": ["しかた", "でる", "いま", "いる"],
-    "correct": 0,
-    "explanation": "しかた は　「やりかた」や「ほうほう」の　いみです。"
+    "question": "きょう は つま の たんじょうび ですから、 _______ を かいました。",
+    "options": ["パーティー", "デパート", "テスト", "プレゼント"],
+    "correct": 3,
+    "explanation": "『プレゼント』 means 'present'. I bought a present because today is my wife's birthday."
   },
   {
     "id": "n5s4q13",
-    "question": "クラスに　がいこくじんの　せいとが　_______。",
-    "options": ["かいぎ", "いる", "しごと", "いれる"],
-    "correct": 1,
-    "explanation": "「いる」 は　「ひとが　いる／ある」　の　いみです。"
+    "question": "この かさ は だれ の ですか。 _______ です。",
+    "options": ["あなた", "せんせい", "ともだち", "わたし"],
+    "correct": 3,
+    "explanation": "『わたし』 means 'me'. This umbrella is mine."
   },
   {
     "id": "n5s4q14",
-    "question": "へやに　ともだちが　_______。",
-    "options": ["でぐち", "かいわ", "でる", "はいる"],
-    "correct": 3,
-    "explanation": "「はいる」 は　「なかに　はいる／しゅうにゅう」　の　いみです。"
+    "question": "ごぜん ６じ に おきて、 _______ を しました。",
+    "options": ["うんどう", "ごはん", "べんきょう", "でんわ"],
+    "correct": 0,
+    "explanation": "『うんどう』 means 'exercise'. I got up at 6 a.m. and exercised."
   },
   {
     "id": "n5s4q15",
-    "question": "かばんに　ほんを　_______。",
-    "options": ["でぐち", "でる", "しんじる", "いれる"],
-    "correct": 3,
-    "explanation": "「いれる」 は　「なかに　いれる」　の　いみです。"
-  },
-  {
-    "id": "n5s4q16",
-    "question": "がっこうを　_______　ときに　ともだちに　あいました。",
-    "options": ["でる", "かいぎ", "しんじる", "はいる"],
-    "correct": 0,
-    "explanation": "「でる」 は　「そとに　でる」　という　いみです。"
+    "question": "スーパー で やさい を _______。",
+    "options": ["いきました", "ならいました", "かいました", "たべました"],
+    "correct": 2,
+    "explanation": "『かいました』 means 'bought'. I bought vegetables at the supermarket."
+},
+{
+  "id": "n5s4q16",
+    "question": "きのう ともだち と えいが を _______。",
+    "options": ["たべました", "いきました", "みました", "ききました"],
+    "correct": 2,
+    "explanation": "『みました』 means 'watched'. I watched a movie with my friend yesterday."
   },
   {
     "id": "n5s4q17",
-    "question": "こちらは　_______ です。きをつけて　ください。",
-    "options": ["しかた", "かいわ", "いる", "でぐち"],
-    "correct": 3,
-    "explanation": "でぐち は　「でる　ばしょ」　の　いみです。"
+    "question": "せんしゅう でんしゃ で ほん を _______。",
+    "options": ["ききました", "よみました", "たべました", "つかいました"],
+    "correct": 1,
+    "explanation": "『よみました』 means 'read'. I read a book on the train last week."
   },
   {
     "id": "n5s4q18",
-    "question": "にほんごの　_______ を　まいにち　れんしゅう　しています。",
-    "options": ["かいわ", "しごと", "しんじる", "でる"],
-    "correct": 0,
-    "explanation": "かいわ は　「はなすこと」　の　いみです。"
+    "question": "おとうと は へや を _______ いません。",
+    "options": ["でて", "そうじして", "つくって", "たべて"],
+    "correct": 1,
+    "explanation": "『そうじして』 means 'cleaning'. My younger brother isn’t cleaning his room."
   },
   {
     "id": "n5s4q19",
-    "question": "あした　たいせつな　_______ が　あります。",
-    "options": ["いれる", "かいぎ", "でぐち", "いる"],
-    "correct": 1,
-    "explanation": "かいぎ は　「はなしあう　ばしょ・じかん」　の　いみです。"
+    "question": "らいしゅう ともだち に プレゼント を _______ つもりです。",
+    "options": ["あげる", "のむ", "ならう", "きく"],
+    "correct": 0,
+    "explanation": "『あげる』 means 'give'. I’m planning to give a present to my friend next week."
   },
   {
     "id": "n5s4q20",
-    "question": "ともだちの　ことばを　_______。",
-    "options": ["しごと", "でる", "かいわ", "しんじる"],
-    "correct": 3,
-    "explanation": "しんじる は　「しんようする、しんずる」　の　いみです。"
-  },
-  {
-    "id": "n5s1q21",
-    "question": "ピザ を _______ たべました。",
-    "options": ["しゅくだい", "かよう", "はん", "いもうと"],
+    "question": "この ホテル は とても _______ です。",
+    "options": ["ふるい", "つよい", "きれい", "ひろい"],
     "correct": 2,
-    "explanation": "「はん」 は 「はんぶん」 や 「なかば」 の いみ が あります。"
+    "explanation": "『きれい』 means 'beautiful/clean'. This hotel is very clean."
   },
   {
-    "id": "n5s1q22",
-    "question": "この けーき は _______ に わけましょう。",
-    "options": ["はんぶん", "ごご", "こうこう", "でんしゃ"],
+    "id": "n5s4q21",
+    "question": "としょかん で しずか に _______ を します。",
+    "options": ["べんきょう", "くうこう", "みそ", "おりがみ"],
     "correct": 0,
-    "explanation": "「はんぶん」 は 「にぶんのいち」 の いみ、つまり ２つ に わけた ひとつ です。"
+    "explanation": "『べんきょう』 means 'study'. Libraries are places to study quietly."
   },
   {
-    "id": "n5s1q23",
-    "question": "らいしゅう、あね は だいがく を _______ します。",
-    "options": ["そつぎょう", "たべる", "しずか", "きれい"],
-    "correct": 0,
-    "explanation": "「そつぎょう」 は がっこう を おえる こと、「しゅうりょう」 の いみ です。"
-  },
-  {
-    "id": "n5s1q24",
-    "question": "かれ は にほん の _______ を べんきょう しています。",
-    "options": ["こてん", "やきゅう", "こうえん", "こうちゃ"],
-    "correct": 0,
-    "explanation": "「こてん」 は 「むかし の さくひん」 や 「でんとうてき な ぶんがく」 を さします。"
-  },
-  {
-    "id": "n5s1q25",
-    "question": "ねこ は とても _______ です。",
-    "options": ["べんきょう", "かわいい", "そつぎょう", "せいと"],
+    "id": "n5s4q22",
+    "question": "しごと の あと で、 レストラン で _______。",
+    "options": ["はしります", "たべます", "ききます", "おどります"],
     "correct": 1,
-    "explanation": "「かわいい」 は 「みため や しぐさ が すてき／いとしい」 という いみ です。"
+    "explanation": "『たべます』 means 'eat'. After work, I will eat at the restaurant."
+  },
+  {
+    "id": "n5s4q23",
+    "question": "にちようび は でんわ を _______ つもり です。",
+    "options": ["とる", "する", "するつもり", "かける"],
+    "correct": 3,
+    "explanation": "『かける』 means 'to make (a call)'. I plan to make a phone call on Sunday."
+  },
+  {
+    "id": "n5s4q24",
+    "question": "へや を _______ から、 ちょっと まって ください。",
+    "options": ["はしって", "かたづけて", "ならんで", "おきて"],
+    "correct": 1,
+    "explanation": "『かたづけて』 means 'tidy up'. Please wait while I clean the room."
+  },
+  {
+    "id": "n5s4q25",
+    "question": "ここ に なまえ を _______ ください。",
+    "options": ["かいて", "あって", "つけて", "あけて"],
+    "correct": 0,
+    "explanation": "『かいて』 means 'write'. Please write your name here."
+  },
+  {
+    "id": "n5s4q26",
+    "question": "この ふく は _______ から、 きません。",
+    "options": ["あつい", "たかい", "せまい", "ちいさい"],
+    "correct": 3,
+    "explanation": "『ちいさい』 means 'small'. I won’t wear these clothes because they are small."
+  },
+  {
+    "id": "n5s4q27",
+    "question": "えき で ともだち と _______。",
+    "options": ["あります", "あいます", "なきます", "よびます"],
+    "correct": 1,
+    "explanation": "『あいます』 means 'meet'. I will meet my friend at the station."
+  },
+  {
+    "id": "n5s4q28",
+    "question": "この にもつ は _______ から、 きを つけて。",
+    "options": ["かるい", "はやい", "おもい", "ひろい"],
+    "correct": 2,
+    "explanation": "『おもい』 means 'heavy'. This baggage is heavy, so be careful."
+  },
+  {
+    "id": "n5s4q29",
+    "question": "まいあさ ６じ に _______ います。",
+    "options": ["おきて", "つくって", "とって", "のぼって"],
+    "correct": 0,
+    "explanation": "『おきて』 means 'wake up'. I wake up at 6 every morning."
+  },
+  {
+    "id": "n5s4q30",
+    "question": "この バス は １０じ に _______。",
+    "options": ["とまります", "つきます", "でます", "あきます"],
+    "correct": 2,
+    "explanation": "『でます』 means 'leave'. This bus leaves at 10 o’clock."
+  },
+  {
+    "id": "n5s4q31",
+    "question": "けさ パン を _______、 がっこう へ いきました。",
+    "options": ["のんで", "たべて", "きいて", "あけて"],
+    "correct": 1,
+    "explanation": "『たべて』 means 'ate'. I ate bread this morning and went to school."
+  },
+  {
+    "id": "n5s4q32",
+    "question": "この えいが は とても _______。",
+    "options": ["きびしい", "たのしい", "にぎやか", "はやい"],
+    "correct": 1,
+    "explanation": "『たのしい』 means 'fun'. This movie is very fun."
+  },
+  {
+    "id": "n5s4q33",
+    "question": "まいばん テレビ を _______ から、 おそく ねます。",
+    "options": ["みる", "たべる", "かう", "きる"],
+    "correct": 0,
+    "explanation": "『みる』 means 'watch'. I sleep late every night because I watch TV."
+  },
+  {
+    "id": "n5s4q34",
+    "question": "つぎ の しんごう を みぎ に _______ ください。",
+    "options": ["はしって", "まがって", "あそんで", "いれて"],
+    "correct": 1,
+    "explanation": "『まがって』 means 'turn'. Please turn right at the next signal."
+  },
+  {
+    "id": "n5s4q35",
+    "question": "パーティー で たくさん の ともだち に _______。",
+    "options": ["はじまります", "あいます", "いきます", "でます"],
+    "correct": 1,
+    "explanation": "『あいます』 means 'meet'. I met many friends at the party."
+  },
+  {
+    "id": "n5s4q36",
+    "question": "きょう は あつい から、 エアコン を _______。",
+    "options": ["つけます", "あびます", "はきます", "でます"],
+    "correct": 0,
+    "explanation": "『つけます』 means 'turn on'. It’s hot today, so turn on the air conditioner."
+  },
+  {
+    "id": "n5s4q37",
+    "question": "へや に はいる とき、 くつ を _______ ください。",
+    "options": ["おいて", "ぬいで", "かいて", "みがいて"],
+    "correct": 1,
+    "explanation": "『ぬいで』 means 'take off'. Please take off your shoes before entering the room."
+  },
+  {
+    "id": "n5s4q38",
+    "question": "きのう の よる、 ともだち と いっしょ に _______。",
+    "options": ["ねました", "あいました", "のみました", "でました"],
+    "correct": 2,
+    "explanation": "『のみました』 means 'drank'. I drank together with my friend last night."
+  },
+  {
+    "id": "n5s4q39",
+    "question": "この ほん は とても おもしろい から、 _______。",
+    "options": ["ねません", "わかりません", "やめません", "やすみません"],
+    "correct": 0,
+    "explanation": "『ねません』 means 'not sleep'. This book is so interesting that I didn’t sleep."
+  },
+  {
+    "id": "n5s4q40",
+    "question": "あさ ７じ に でんわ が _______。",
+    "options": ["なります", "います", "あります", "はしります"],
+    "correct": 0,
+    "explanation": "『なります』 means 'ring'. The phone rang at 7 in the morning."
   }
 ]
-
-
-

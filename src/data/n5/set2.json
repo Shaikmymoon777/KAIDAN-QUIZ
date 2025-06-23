@@ -1,181 +1,283 @@
 [
-    {
-        "id": "n5s1q01",
-        "question": "パーティー で　_______ を のみました。",
-        "options": ["ごちそうさま", "おかね", "おさけ", "おふろ"],
-        "correct": 2,
-        "explanation": "「おさけ」は　アルコール の のみもの で、パーティー で のまれる こと が あります。"
-    },
-    {
-        "id": "n5s1q02",
-        "question": "デパート で　_______ を つかいました。",
-        "options": ["ここ", "そう", "ごちそうさま", "おかね"],
-        "correct": 3,
-        "explanation": "「おかね」は もの を かう とき に つかう もの です。"
-    },
-    {
-        "id": "n5s1q03",
-        "question": "レストラン で　_______ と いいました。",
-        "options": ["おふろ", "おねがいします", "ございます", "おさけ"],
-        "correct": 1,
-        "explanation": "「おねがいします」は ていねい に おねがい するとき の ことば です。"
-    },
-    {
-        "id": "n5s1q04",
-        "question": "あつい ので　_______ に はいりました。",
-        "options": ["すみません", "ごちそうさま", "ここ", "おふろ"],
-        "correct": 3,
-        "explanation": "「おふろ」は からだ を きれい に する ところ です。"
-    },
-    {
-        "id": "n5s1q05",
-        "question": "わたし は　_______ で まっています。",
-        "options": ["この", "おかね", "ここ", "ございます"],
-        "correct": 2,
-        "explanation": "「ここ」は いま いる ばしょ を いいます。"
-    },
-    {
-        "id": "n5s1q06",
-        "question": "_______ りんご は あかい です。",
-        "options": ["おさけ", "ご座います", "そう", "この"],
-        "correct": 3,
-        "explanation": "「この」は ちかく の もの を さす ことば です。"
-    },
-    {
-        "id": "n5s1q07",
-        "question": "きょう は さむい です ね。 はい、さむい で _______。",
-        "options": ["ご座います", "おねがいします", "おふろ", "おさけ"],
-        "correct": 0,
-        "explanation": "「ご座います」は ていねい な いいかた です。"
-    },
-    {
-        "id": "n5s1q08",
-        "question": "しょくじ の あとで　_______ と いいました。",
-        "options": ["おかね", "おねがいします", "ごちそうさま", "すみません"],
-        "correct": 2,
-        "explanation": "「ごちそうさま」は しょくじ の あと に いう おれい の ことば です。"
-    },
-    {
-        "id": "n5s1q09",
-        "question": "しつれい しました。_______。",
-        "options": ["おふろ", "おかね", "すみません", "そう"],
-        "correct": 2,
-        "explanation": "「すみません」は あやまる とき の ことば です。"
-    },
-    {
-        "id": "n5s1q10",
-        "question": "やさい は からだ に いい です よ。 はい、_______。",
-        "options": ["ここ", "ごちそうさま", "そう", "おねがいします"],
-        "correct": 2,
-        "explanation": "「そう」は ひとの はなし を みとめる とき の ことば です。"
-    },
-    {
-        "id": "n5s1q11",
-        "question": "かばん の _______ に さいふ が あります。",
-        "options": ["みせ", "そこ", "くるま", "いえ"],
-        "correct": 1,
-        "explanation": "「そこ」 は ある とくてい の ばしょ を さす ことば です。"
-    },
-    {
-        "id": "n5s1q12",
-        "question": "_______ ほん を かいました。",
-        "options": ["まど", "その", "しょくじ", "ふく"],
-        "correct": 1,
-        "explanation": "「その」 は はなしている もの を さす ことば です。"
-    },
-    {
-        "id": "n5s1q13",
-        "question": "これは わたし の えんぴつ です。 あれは _______ ですか？",
-        "options": ["それ", "がっこう", "つくえ", "でんしゃ"],
-        "correct": 0,
-        "explanation": "「それ」 は あいてが さしている もの を さす ことば です。"
-    },
-    {
-        "id": "n5s1q14",
-        "question": "この もんだい は _______ こたえますか？",
-        "options": ["どう", "ほん", "よる", "えき"],
-        "correct": 0,
-        "explanation": "「どう」 は ほうほう や やりかた を きく とき に つかう ことば です。"
-    },
-    {
-        "id": "n5s1q15",
-        "question": "はじめまして！ _______。",
-        "options": ["どうぞよろしく", "かみ", "がっこう", "ひる"],
-        "correct": 0,
-        "explanation": "「どうぞよろしく」 は はじめて あう ひと に つかう ていねい な ひょうげん です。"
-    },
-    {
-        "id": "n5s1q16",
-        "question": "すし の なか に _______ が はいっています。",
-        "options": ["とりにく", "そら", "まち", "はし"],
-        "correct": 0,
-        "explanation": "「とりにく」 は とり の にく を さす ことば です。"
-    },
-    {
-        "id": "n5s1q17",
-        "question": "この ３つ の りんご の なか で _______ が いちばん おおきい ですか？",
-        "options": ["どれ", "みち", "かわ", "みせ"],
-        "correct": 0,
-        "explanation": "「どれ」 は ３つ いじょう の もの から ひとつ を えらぶ とき に つかう ことば です。"
-    },
-    {
-        "id": "n5s1q18",
-        "question": "この かばん の _______ は いくら ですか？",
-        "options": ["ね", "くさ", "くるま", "おと"],
-        "correct": 0,
-        "explanation": "「ね」 は ねだん を たずねる とき に つかう ことば です。"
-    },
-    {
-        "id": "n5s1q19",
-        "question": "せんせい の しつもん に _______ こたえました。",
-        "options": ["はい", "て", "てんき", "ほん"],
-        "correct": 0,
-        "explanation": "「はい」 は へんじ や こうてい を あらわす ことば です。"
-    },
-    {
-        "id": "n5s1q20",
-        "question": "こんごも どうぞ _______ おねがいします。",
-        "options": ["よろしく", "でんしゃ", "き", "はな"],
-        "correct": 0,
-        "explanation": "「よろしく」 は ていねい な おねがい を するとき に つかう ことば です。"
-    },
   {
-    "id": "n5s1q21",
-    "question": "まいにち　_______ を して、にほんご が じょうず に なりました。",
-    "options": ["のむ", "べんきょうする", "ねる", "あるく"],
+    "id": "n5s2q1",
+    "question": "でんわ を かける とき は _______ を おします。",
+    "options": ["じしょ", "ボタン", "かがみ", "ほん"],
     "correct": 1,
-    "explanation": "「べんきょうする」 は 「まなぶ／しゅくだい を する」 という いみ です。"
+    "explanation": "『ボタン』 means 'button'. You press it when making a phone call."
   },
   {
-    "id": "n5s1q22",
-    "question": "この てんきゅう の テーマ は _______ に ついて です。",
-    "options": ["あじ", "べんきょう", "こきゅう", "みそ"],
+    "id": "n5s2q2",
+    "question": "まいにち　にっきを _______。",
+    "options": ["かきます", "ききます", "いいます", "よみます"],
+    "correct": 0,
+    "explanation": "『かきます』 means 'write'. You write a diary every day."
+  },
+  {
+    "id": "n5s2q3",
+    "question": "あたらしい シャツ を _______。",
+    "options": ["はきます", "ぬぎます", "きます", "かけます"],
     "correct": 2,
-    "explanation": "「こきゅう」 は いきを する こと、つまり 「はく／すう」 こと です。"
+    "explanation": "『きます』 means 'wear'. You wear a shirt on your upper body."
   },
   {
-    "id": "n5s1q23",
-    "question": "この スープ の _______ は とても いい です。",
-    "options": ["のる", "かく", "あじ", "ねこ"],
-    "correct": 2,
-    "explanation": "「あじ」 は たべもの の あじわい、フレーバー の こと です。"
+    "id": "n5s2q4",
+    "question": "あした の よてい を _______ ください。",
+    "options": ["しらべて", "あそんで", "かって", "あるいて"],
+    "correct": 0,
+    "explanation": "『しらべて』 means 'check'. Please check tomorrow’s schedule."
   },
   {
-    "id": "n5s1q24",
-    "question": "ラーメン に _______ を いれました。",
-    "options": ["ねむい", "べんきょう", "さかな", "みそ"],
+    "id": "n5s2q5",
+    "question": "この たべもの は からだ に _______。",
+    "options": ["いい", "はやい", "おいしい", "おそい"],
+    "correct": 0,
+    "explanation": "『いい』 means 'good'. This food is good for your body."
+  },
+  {
+    "id": "n5s2q6",
+    "question": "かばん の なか に ノート が _______。",
+    "options": ["いれます", "あります", "つくります", "ききます"],
+    "correct": 1,
+    "explanation": "『あります』 means 'there is'. There is a notebook in the bag."
+  },
+  {
+    "id": "n5s2q7",
+    "question": "つぎ の えき で バス を _______。",
+    "options": ["おります", "みがきます", "たちます", "きります"],
+    "correct": 0,
+    "explanation": "『おります』 means 'get off'. You get off the bus at the next station."
+  },
+  {
+    "id": "n5s2q8",
+    "question": "へや を きれい に _______。",
+    "options": ["のぼります", "します", "はきます", "そうじします"],
     "correct": 3,
-    "explanation": "「みそ」 は にほん の てんねん ちょうみりょう、まめ の ぺーすと です。"
+    "explanation": "『そうじします』 means 'clean'. You clean the room."
   },
   {
-    "id": "n5s1q25",
-    "question": "としょかん で　しずか に _______ を します。",
-    "options": ["みそ", "べんきょう", "おりがみ", "くうこう"],
+    "id": "n5s2q9",
+    "question": "えいが を みて、たくさん _______。",
+    "options": ["はなしました", "わらいました", "つくりました", "ききました"],
     "correct": 1,
-    "explanation": "「べんきょう」 は ちしき を まなぶ こと、または がくしゅう の こうどう です。"
+    "explanation": "『わらいました』 means 'laughed'. You laughed a lot after the movie."
+  },
+  {
+    "id": "n5s2q10",
+    "question": "でぐち は あの _______ です。",
+    "options": ["テーブル", "いりぐち", "ドア", "でんしゃ"],
+    "correct": 2,
+    "explanation": "『ドア』 means 'door'. That door is the exit."
+  },
+  {
+    "id": "n5s2q11",
+    "question": "この もんだい は とても _______ です。",
+    "options": ["いそがしい", "かんたん", "たのしい", "やさしい"],
+    "correct": 3,
+    "explanation": "『やさしい』 means 'easy'. This problem is very easy."
+  },
+  {
+    "id": "n5s2q12",
+    "question": "レストラン で カレー を _______。",
+    "options": ["つかいます", "ならいます", "たべます", "すみます"],
+    "correct": 2,
+    "explanation": "『たべます』 means 'eat'. You eat curry at a restaurant."
+  },
+  {
+    "id": "n5s2q13",
+    "question": "おかし を たくさん _______。",
+    "options": ["のみました", "かいました", "あらいました", "つくりました"],
+    "correct": 1,
+    "explanation": "『かいました』 means 'bought'. You bought a lot of snacks."
+  },
+  {
+    "id": "n5s2q14",
+    "question": "おちゃ を _______ か？",
+    "options": ["のみます", "あそびます", "のります", "かきます"],
+    "correct": 0,
+    "explanation": "『のみます』 means 'drink'. Do you drink tea?"
+  },
+  {
+    "id": "n5s2q15",
+    "question": "きのう　ともだち に　でんわ を _______。",
+    "options": ["うたいました", "つくりました", "かけました", "かいました"],
+    "correct": 2,
+    "explanation": "『かけました』 means 'called'. You called your friend yesterday."
+  },
+  {
+    "id": "n5s2q16",
+    "question": "ひるごはん の あと、ちょっと _______。",
+    "options": ["やすみます", "つくります", "いきます", "わらいます"],
+    "correct": 0,
+    "explanation": "『やすみます』 means 'rest'. You rest after lunch."
+  },
+  {
+    "id": "n5s2q17",
+    "question": "あの おとこのこ は とても _______。",
+    "options": ["きれい", "げんき", "にぎやか", "すき"],
+    "correct": 1,
+    "explanation": "『げんき』 means 'energetic'. That boy is very energetic."
+  },
+  {
+    "id": "n5s2q18",
+    "question": "じてんしゃ で がっこう へ _______。",
+    "options": ["いきます", "のみます", "はなします", "かきます"],
+    "correct": 0,
+    "explanation": "『いきます』 means 'go'. You go to school by bicycle."
+  },
+  {
+    "id": "n5s2q19",
+    "question": "いま、にほんご を _______ います。",
+    "options": ["うたって", "ならって", "つかって", "あそんで"],
+    "correct": 1,
+    "explanation": "『ならって』 means 'learning'. You are learning Japanese now."
+  },
+  {
+    "id": "n5s2q20",
+    "question": "えき の まえ に おおきい _______ が あります。",
+    "options": ["いぬ", "こうえん", "ビル", "でんしゃ"],
+    "correct": 2,
+  "explanation": "『ビル』 means 'building'. There is a big building in front of the station."
+},
+{
+  "id": "n5s2q21",
+    "question": "たなかさん は いしゃ に _______。",
+    "options": ["はたらきます", "なります", "つかいます", "すいます"],
+    "correct": 1,
+    "explanation": "『なります』 means 'become'. Tanaka-san will become a doctor."
+  },
+  {
+    "id": "n5s2q22",
+    "question": "あの こうえん は とても _______。",
+    "options": ["あぶない", "たのしい", "くらい", "せまい"],
+    "correct": 1,
+    "explanation": "『たのしい』 means 'fun'. That park is very fun."
+  },
+  {
+    "id": "n5s2q23",
+    "question": "あした の てんき は _______ です。",
+    "options": ["あかるい", "しずか", "あめ", "わるい"],
+    "correct": 2,
+    "explanation": "『あめ』 means 'rain'. Tomorrow’s weather will be rainy."
+  },
+  {
+    "id": "n5s2q24",
+    "question": "わたし の うちは がっこう の _______ に あります。",
+    "options": ["うしろ", "そと", "うえ", "なか"],
+    "correct": 0,
+    "explanation": "『うしろ』 means 'behind'. My house is behind the school."
+  },
+  {
+    "id": "n5s2q25",
+    "question": "にほん の ふゆ は とても _______。",
+    "options": ["あつい", "さむい", "ひろい", "はやい"],
+    "correct": 1,
+    "explanation": "『さむい』 means 'cold'. Japanese winters are very cold."
+  },
+  {
+    "id": "n5s2q26",
+    "question": "パーティー で ケーキ を _______。",
+    "options": ["あげました", "ききました", "のみました", "はいりました"],
+    "correct": 0,
+    "explanation": "『あげました』 means 'gave'. I gave cake at the party."
+  },
+  {
+    "id": "n5s2q27",
+    "question": "ともだち の うち に _______ いきました。",
+    "options": ["たべに", "ねに", "あそびに", "すみに"],
+    "correct": 2,
+    "explanation": "『あそびに』 means 'to visit'. I visited my friend’s house for fun."
+  },
+  {
+    "id": "n5s2q28",
+    "question": "あさ おきて、かお を _______。",
+    "options": ["ききます", "あらいます", "かきます", "なきます"],
+    "correct": 1,
+    "explanation": "『あらいます』 means 'wash'. I wash my face after waking up."
+  },
+  {
+    "id": "n5s2q29",
+    "question": "この もんだい は とても _______ です。",
+    "options": ["むずかしい", "ひろい", "はやい", "つよい"],
+    "correct": 0,
+    "explanation": "『むずかしい』 means 'difficult'. This problem is difficult."
+  },
+  {
+    "id": "n5s2q30",
+    "question": "せんせい は こたえ を _______。",
+    "options": ["つくります", "いいます", "まちます", "のぼります"],
+    "correct": 1,
+    "explanation": "『いいます』 means 'say'. The teacher says the answer."
+  },
+  {
+    "id": "n5s2q31",
+    "question": "この　へや は　とても _______ です。",
+    "options": ["ひろい", "せまい", "おそい", "はやい"],
+    "correct": 0,
+    "explanation": "『ひろい』 means 'spacious'. This room is very spacious."
+  },
+  {
+    "id": "n5s2q32",
+    "question": "まいあさ　６じ に _______。",
+    "options": ["ねます", "おきます", "みます", "かきます"],
+    "correct": 1,
+    "explanation": "『おきます』 means 'wake up'. I wake up at 6 a.m. every day."
+  },
+  {
+    "id": "n5s2q33",
+    "question": "おおきい こえ で _______ ください。",
+    "options": ["わらって", "いって", "きって", "つくって"],
+    "correct": 1,
+    "explanation": "『いって』 means 'say'. Please say it in a loud voice."
+  },
+  {
+    "id": "n5s2q34",
+    "question": "きのう は にちようび で、がっこう は _______。",
+    "options": ["ありました", "いきました", "やすみでした", "つくりました"],
+    "correct": 2,
+    "explanation": "『やすみでした』 means 'was a holiday'. School was closed yesterday."
+  },
+  {
+    "id": "n5s2q35",
+    "question": "ともだち と えき で _______。",
+    "options": ["あそびました", "あいました", "はなしました", "ききました"],
+    "correct": 1,
+    "explanation": "『あいました』 means 'met'. I met my friend at the station."
+  },
+  {
+    "id": "n5s2q36",
+    "question": "まいにち にほんご を _______。",
+    "options": ["およぎます", "べんきょうします", "おぼえます", "かいます"],
+    "correct": 1,
+    "explanation": "『べんきょうします』 means 'study'. I study Japanese every day."
+  },
+  {
+    "id": "n5s2q37",
+    "question": "ほん を よむ の が _______ です。",
+    "options": ["きらい", "じょうず", "すき", "へた"],
+    "correct": 2,
+    "explanation": "『すき』 means 'like'. I like reading books."
+  },
+  {
+    "id": "n5s2q38",
+    "question": "バス を まっています。まだ _______。",
+    "options": ["きました", "きません", "みません", "ねません"],
+    "correct": 1,
+    "explanation": "『きません』 means 'has not come'. The bus has not come yet."
+  },
+  {
+    "id": "n5s2q39",
+    "question": "でんしゃ で しずか に _______。",
+    "options": ["はなします", "うたいます", "よみます", "あそびます"],
+    "correct": 2,
+    "explanation": "『よみます』 means 'read'. You quietly read on the train."
+  },
+  {
+    "id": "n5s2q40",
+    "question": "あした　しけん が ある ので、いま _______。",
+    "options": ["つくっています", "べんきょうしています", "いっています", "すんでいます"],
+    "correct": 1,
+    "explanation": "『べんきょうしています』 means 'studying'. I’m studying for tomorrow’s test."
   }
 ]
-
-
-
 
