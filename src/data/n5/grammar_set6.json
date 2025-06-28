@@ -1,0 +1,282 @@
+[
+    {
+      "id": "n5q01",
+      "question": "まいあさ しんぶん を （_______） から、がっこう に いきます。",
+      "options": ["よむ", "よんで", "よみます", "よんだ"],
+      "correct": 1,
+      "explanation": "'よんで' is used with 〜てから: 'I go to school after reading the newspaper every morning.'"
+    },
+    {
+      "id": "n5q02",
+      "question": "この へや は とても （_______） です。",
+      "options": ["せまい", "せまく", "せまかった", "せま"],
+      "correct": 0,
+      "explanation": "'せまい' is used for い-adjectives: 'This room is very small.'"
+    },
+    {
+      "id": "n5q03",
+      "question": "えいご を （_______） ひと は せんせい です。",
+      "options": ["おしえた", "おしえる", "おしえて", "おしえます"],
+      "correct": 1,
+      "explanation": "'おしえる' is used in relative clauses: 'The person who teaches English is a teacher.'"
+    },
+    {
+      "id": "n5q04",
+      "question": "きのう ともだち と （_______） えいが を みました。",
+      "options": ["はなして", "はなす", "はなします", "はなし"],
+      "correct": 0,
+      "explanation": "'はなして' is used with 〜て to connect actions: 'I talked with a friend and watched a movie yesterday.'"
+    },
+    {
+      "id": "n5q05",
+      "question": "ここ で さかな を （_______） いけません。",
+      "options": ["つる", "つって", "つります", "つった"],
+      "correct": 1,
+      "explanation": "'つって' is used with 〜ては いけません: 'You must not fish here.'"
+    },
+    {
+      "id": "n5q06",
+      "question": "やま に （_______） とき、とり を みました。",
+      "options": ["のぼる", "のぼって", "のぼった", "のぼります"],
+      "correct": 0,
+      "explanation": "'のぼる' is used before 〜とき with same subject: 'When I climb the mountain, I see a bird.'"
+    },
+    {
+      "id": "n5q07",
+      "question": "まいしゅう テニス を （_______） います。",
+      "options": ["する", "して", "した", "します"],
+      "correct": 1,
+      "explanation": "'して' is used with 〜ています for habitual action: 'I play tennis every week.'"
+    },
+    {
+      "id": "n5q08",
+      "question": "この てがみ は わたし の （_______）。",
+      "options": ["です", "が", "に", "を"],
+      "correct": 0,
+      "explanation": "'です' is used for possession: 'This letter is mine.'"
+    },
+    {
+      "id": "n5q09",
+      "question": "あした は くもり （_______） おもいます。",
+      "options": ["なります", "なる", "なって", "なった"],
+      "correct": 1,
+      "explanation": "'なる' is used with 〜と おもいます: 'I think it will be cloudy tomorrow.'"
+    },
+    {
+      "id": "n5q10",
+      "question": "しゅうまつ に ともだち と （_______） たい です。",
+      "options": ["あるきます", "あるく", "あるいて", "あるいた"],
+      "correct": 1,
+      "explanation": "'あるく' is used with 〜たい: 'I want to walk with friends on the weekend.'"
+    },
+    {
+      "id": "n5q11",
+      "question": "ごはん を （_______） ところ です。",
+      "options": ["たべている", "たべて", "たべる", "たべます"],
+      "correct": 0,
+      "explanation": "'たべている' is used with 〜ている ところ: 'I am in the middle of eating rice.'"
+    },
+    {
+      "id": "n5q12",
+      "question": "いぬ が （_______） から、さんぽ します。",
+      "options": ["げんき", "げんきく", "げんきな", "げんきで"],
+      "correct": 3,
+      "explanation": "'げんきで' is used with な-adjectives and 〜て for reasons: 'Because the dog is energetic, I take it for a walk.'"
+    },
+    {
+      "id": "n5q13",
+      "question": "ともだち に でんわ を （_______） から、がっこう に いきます。",
+      "options": ["かけます", "かける", "かけて", "かけた"],
+      "correct": 2,
+      "explanation": "'かけて' is used with 〜てから: 'I go to school after calling a friend.'"
+    },
+    {
+      "id": "n5q14",
+      "question": "この みかん は とても （_______）。",
+      "options": ["すっぱい", "すっぱく", "すっぱかった", "すっぱ"],
+      "correct": 0,
+      "explanation": "'すっぱい' is used for い-adjectives: 'This orange is very sour.'"
+    },
+    {
+      "id": "n5q15",
+      "question": "らいしゅう せんせい に （_______） つもり です。",
+      "options": ["きく", "ききます", "きいて", "きき"],
+      "correct": 0,
+      "explanation": "'きく' is used with 〜つもり です: 'I plan to ask the teacher next week.'"
+    },
+    {
+      "id": "n5q16",
+      "question": "みず を （_______） ください。",
+      "options": ["のんで", "のむ", "のみます", "のみ"],
+      "correct": 0,
+      "explanation": "'のんで' is used with 〜てください: 'Please drink water.'"
+    },
+    {
+      "id": "n5q17",
+      "question": "きょうと に （_______） こと が あります。",
+      "options": ["いった", "いって", "いく", "いきます"],
+      "correct": 0,
+      "explanation": "'いった' is used with 〜た こと が あります: 'I have been to Kyoto.'"
+    },
+    {
+      "id": "n5q18",
+      "question": "あたらしい くつ を （_______） たい です。",
+      "options": ["はいて", "はく", "はきます", "はきたい"],
+      "correct": 1,
+      "explanation": "'はく' is used with 〜たい: 'I want to wear new shoes.'"
+    },
+    {
+      "id": "n5q19",
+      "question": "いま うた を （_______） ところ です。",
+      "options": ["うたっている", "うたって", "うたう", "うたいます"],
+      "correct": 0,
+      "explanation": "'うたっている' is used with 〜ている ところ: 'I am in the middle of singing a song.'"
+    },
+    {
+      "id": "n5q20",
+      "question": "うみ に （_______） とき、さかな を つりました。",
+      "options": ["いく", "いって", "いった", "いきます"],
+      "correct": 0,
+      "explanation": "'いく' is used before 〜とき with same subject: 'When I go to the sea, I catch fish.'"
+    },
+    {
+      "id": "n5q21",
+      "question": "この かさ は だれ の （_______）。",
+      "options": ["です", "が", "に", "を"],
+      "correct": 0,
+      "explanation": "'です' is used for possession: 'Whose umbrella is this?'"
+    },
+    {
+      "id": "n5q22",
+      "question": "おちゃ を （_______） すぎました。",
+      "options": ["のみます", "のむ", "のんで", "のみすぎた"],
+      "correct": 3,
+      "explanation": "'のみすぎた' is used with 〜すぎる: 'I drank too much tea.'"
+    },
+    {
+      "id": "n5q23",
+      "question": "まいしゅう えいご を （_______） います。",
+      "options": ["ならいます", "ならって", "ならう", "ならった"],
+      "correct": 1,
+      "explanation": "'ならって' is used with 〜ています for habitual action: 'I learn English every week.'"
+    },
+    {
+      "id": "n5q24",
+      "question": "あした は あつい （_______）。",
+      "options": ["です", "が", "に", "を"],
+      "correct": 0,
+      "explanation": "'です' is used to state a fact: 'Tomorrow is hot.'"
+    },
+    {
+      "id": "n5q25",
+      "question": "かく こと が （_______）。",
+      "options": ["すき です", "いきます", "じょうず です", "たかい です"],
+      "correct": 0,
+      "explanation": "'すき です' is used with 〜の が すき です: 'I like writing.'"
+    },
+    {
+      "id": "n5q26",
+      "question": "ここ で およいで は （_______）。",
+      "options": ["いけません", "いい です", "けっこう です", "しましょう"],
+      "correct": 0,
+      "explanation": "'いけません' is used with 〜ては いけません: 'You must not swim here.'"
+    },
+    {
+      "id": "n5q27",
+      "question": "きょう せんせい に （_______） つもり です。",
+      "options": ["きく", "ききます", "きいて", "きき"],
+      "correct": 0,
+      "explanation": "'きく' is used with 〜つもり です: 'I plan to ask the teacher today.'"
+    },
+    {
+      "id": "n5q28",
+      "question": "この ジュース は あまい （_______）。",
+      "options": ["です", "が", "に", "そうです"],
+      "correct": 3,
+      "explanation": "'そうです' is used to indicate appearance: 'This juice seems sweet.'"
+    },
+    {
+      "id": "n5q29",
+      "question": "ともだち に ほん を （_______） ください。",
+      "options": ["かして", "かす", "かします", "かし"],
+      "correct": 0,
+      "explanation": "'かして' is used with 〜てください: 'Please lend a book to your friend.'"
+    },
+    {
+      "id": "n5q30",
+      "question": "うさぎ を （_______） こと が あります。",
+      "options": ["かった", "かって", "かう", "かいます"],
+      "correct": 0,
+      "explanation": "'かった' is used with 〜た こと が あります: 'I have bought a rabbit.'"
+    },
+    {
+      "id": "n5q31",
+      "question": "まいあさ やさい を （_______） から、しごと に いきます。",
+      "options": ["たべます", "たべる", "たべて", "たべた"],
+      "correct": 2,
+      "explanation": "'たべて' is used with 〜てから: 'I go to work after eating vegetables every morning.'"
+    },
+    {
+      "id": "n5q32",
+      "question": "この みせ は とても （_______）。",
+      "options": ["にぎやか", "にぎやかく", "にぎやかな", "にぎやかに"],
+      "correct": 0,
+      "explanation": "'にぎやか' is used for な-adjectives: 'This shop is very lively.'"
+    },
+    {
+      "id": "n5q33",
+      "question": "らいしゅう ともだち と （_______） たい です。",
+      "options": ["おどります", "おどる", "おどって", "おどった"],
+      "correct": 1,
+      "explanation": "'おどる' is used with 〜たい: 'I want to dance with a friend next week.'"
+    },
+    {
+      "id": "n5q34",
+      "question": "ラジオ を （_______） ところ です。",
+      "options": ["きいている", "きいて", "きく", "ききます"],
+      "correct": 0,
+      "explanation": "'きいている' is used with 〜ている ところ: 'I am in the middle of listening to the radio.'"
+    },
+    {
+      "id": "n5q35",
+      "question": "ほっかいどう に （_______） こと が あります。",
+      "options": ["いった", "いって", "いく", "いきます"],
+      "correct": 0,
+      "explanation": "'いった' is used with 〜た こと が あります: 'I have been to Hokkaido.'"
+    },
+    {
+      "id": "n5q36",
+      "question": "こうえん に （_______） とき、いぬ に あいました。",
+      "options": ["いく", "いって", "いった", "いきます"],
+      "correct": 0,
+      "explanation": "'いく' is used before 〜とき with same subject: 'When I go to the park, I meet a dog.'"
+    },
+    {
+      "id": "n5q37",
+      "question": "この パン は おいしい （_______）。",
+      "options": ["です", "が", "に", "そうです"],
+      "correct": 3,
+      "explanation": "'そうです' is used to indicate appearance: 'This bread seems delicious.'"
+    },
+    {
+      "id": "n5q38",
+      "question": "まいあさ ジョギング を （_______） います。",
+      "options": ["します", "して", "する", "した"],
+      "correct": 1,
+      "explanation": "'して' is used with 〜ています for habitual action: 'I jog every morning.'"
+    },
+    {
+      "id": "n5q39",
+      "question": "あした は はれ （_______） おもいます。",
+      "options": ["なります", "なる", "なって", "なった"],
+      "correct": 1,
+      "explanation": "'なる' is used with 〜と おもいます: 'I think it will be sunny tomorrow.'"
+    },
+    {
+      "id": "n5q40",
+      "question": "ペン を （_______） ください。",
+      "options": ["かして", "かす", "かします", "かし"],
+      "correct": 0,
+      "explanation": "'かして' is used with 〜てください: 'Please lend me a pen.'"
+    }
+]

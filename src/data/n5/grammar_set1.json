@@ -1,0 +1,282 @@
+ [
+    {
+      "id": "n5s2q01",
+      "question": "みかん（_______）みっつ たべました。",
+      "options": ["の", "に", "が", "を"],
+      "correct": 3,
+      "explanation": "'を' marks the object being eaten: 'I ate 3 oranges.'"
+    },
+    {
+      "id": "n5s2q02",
+      "question": "くるま と じてんしゃ と、（_______）が たかいですか。",
+      "options": ["どれ", "どの", "どこ", "どちら"],
+      "correct": 3,
+      "explanation": "'どちら' is used for comparing two things."
+    },
+    {
+      "id": "n5s2q03",
+      "question": "にほんご が むずかしい です から、すこし（_______）べんきょうしました。",
+      "options": ["だけ", "しか", "も", "と"],
+      "correct": 0,
+      "explanation": "'だけ' means 'only': 'I only studied a little Japanese.'"
+    },
+    {
+      "id": "n5s2q04",
+      "question": "きのう の てんぷら は（_______）おいしかったです。",
+      "options": ["たかい", "すてき", "おいしく", "むずかしい"],
+      "correct": 2,
+      "explanation": "'おいしく おいしかったです' is the adverbial form: 'Yesterday’s tempura was delicious.'"
+    },
+    {
+      "id": "n5s2q05",
+      "question": "この いえ は とても（_______）。",
+      "options": ["ひろくない", "ひろいじゃありません", "ひろいありません", "ひろくありません"],
+      "correct": 1,
+      "explanation": "'ひろいじゃありません' is the correct negative form for な-adjectives."
+    },
+    {
+      "id": "n5s2q06",
+      "question": "さかな を（_______）から、ねます。",
+      "options": ["たべます", "たべ", "たべて", "たべません"],
+      "correct": 2,
+      "explanation": "'〜てから' means 'after doing ~': 'I sleep after eating fish.'"
+    },
+    {
+      "id": "n5s2q07",
+      "question": "ともだち から とった かさ を いもうと に（_______）しまいました。",
+      "options": ["わすれて", "わすれられて", "わすれてしまった", "わすれられてしまった"],
+      "correct": 3,
+      "explanation": "'わすれられてしまった' = 'was forgotten by (passive form)': 'My sister forgot the umbrella I borrowed.'"
+    },
+    {
+      "id": "n5s2q08",
+      "question": "その ひと は いしゃ（_______）です。",
+      "options": ["では", "の", "が", "に"],
+      "correct": 0,
+      "explanation": "'ではありません' is the polite negative form of 'です': 'That person is not a doctor.'"
+    },
+    {
+      "id": "n5s2q09",
+      "question": "さしみを（_______）から、てれび を みます。",
+      "options": ["たべました", "たべる", "たべて", "たべます"],
+      "correct": 2,
+      "explanation": "'〜てから' = after doing ~: 'I watch TV after eating sashimi.'"
+    },
+    {
+      "id": "n5s2q10",
+      "question": "いえ に（_______）とき、かぎ を さがしました。",
+      "options": ["かえる", "かえって", "かえった", "かえると"],
+      "correct": 0,
+      "explanation": "'〜とき' uses plain form before it when the subject is the same: 'I looked for the key when I returned home.'"
+    },
+    {
+      "id": "n5s2q11",
+      "question": "わたし は まいあさ こうちゃ を _______。",
+      "options": ["のんだ", "のむ", "のみます", "のんで"],
+      "correct": 2,
+      "explanation": "Polite present form is used: 'のみます' = drink."
+    },
+    {
+      "id": "n5s2q12",
+      "question": "この かばん は わたし の _______。",
+      "options": ["です", "が", "に", "を"],
+      "correct": 0,
+      "explanation": "'です' ends the sentence politely: 'This bag is mine.'"
+    },
+    {
+      "id": "n5s2q13",
+      "question": "うどん を _______、いえ に かえります。",
+      "options": ["たべます", "たべて", "たべ", "たべた"],
+      "correct": 1,
+      "explanation": "'〜て' form is used before connecting actions: 'I return home after eating udon.'"
+    },
+    {
+      "id": "n5s2q14",
+      "question": "そこ に いる ひと は さとうさん _______。",
+      "options": ["を", "に", "で", "です"],
+      "correct": 3,
+      "explanation": "'です' is used to state someone's identity: 'That person over there is Sato-san.'"
+    },
+    {
+      "id": "n5s2q15",
+      "question": "いっしょ に さんぽ を し _______か？",
+      "options": ["ません", "ました", "ます", "しましょう"],
+      "correct": 3,
+      "explanation": "'しましょう' is used to suggest doing something together: 'Shall we walk together?'"
+    },
+    {
+      "id": "n5s2q16",
+      "question": "がっこう の あと で ともだち に _______。",
+      "options": ["あった", "あって", "あう", "あいます"],
+      "correct": 3,
+      "explanation": "Polite present form 'あいます' matches the time expression: 'I meet a friend after school.'"
+    },
+    {
+      "id": "n5s2q17",
+      "question": "まいとし えいご を _______ います。",
+      "options": ["べんきょうし", "べんきょうする", "べんきょうします", "べんきょうして"],
+      "correct": 3,
+      "explanation": "'〜ています' needs te-form verb: 'べんきょうして'."
+    },
+    {
+      "id": "n5s2q18",
+      "question": "さむい です から、こたつ を _______ください。",
+      "options": ["いれます", "いれて", "いれ", "いれる"],
+      "correct": 1,
+      "explanation": "'〜てください' is used to request an action: 'Please turn on the kotatsu.'"
+    },
+    {
+      "id": "n5s2q19",
+      "question": "まいしゅう うんどう を して _______。",
+      "options": ["しましょう", "ください", "います", "いきます"],
+      "correct": 2,
+      "explanation": "'〜て います' shows a habitual action: 'I exercise every week.'"
+    },
+    {
+      "id": "n5s2q20",
+      "question": "てんぷら を つくって から、たべる を _______。",
+      "options": ["はじめる", "はじめて", "はじめました", "はじめます"],
+      "correct": 2,
+      "explanation": "Past tense form 'はじめました' is used after '〜てから': 'I started eating after making tempura.'"
+    },
+    {
+      "id": "n5s2q21",
+      "question": "ねこ が いえ に _______。",
+      "options": ["いきます", "あります", "おきます", "います"],
+      "correct": 3,
+      "explanation": "'います' is used for living things: 'There is a cat in the house.'"
+    },
+    {
+      "id": "n5s2q22",
+      "question": "え を _______ ところ です。",
+      "options": ["かいている", "かいて", "かく", "かきます"],
+      "correct": 0,
+      "explanation": "'〜ている ところ' = in the middle of doing: 'I am in the middle of drawing a picture.'"
+    },
+    {
+      "id": "n5s2q23",
+      "question": "らいしゅう は いそがしい _______。",
+      "options": ["が", "を", "に", "です"],
+      "correct": 3,
+      "explanation": "'です' states a fact politely: 'Next week is busy.'"
+    },
+    {
+      "id": "n5s2q24",
+      "question": "この みそしる は あまい _______。",
+      "options": ["なります", "たかいです", "そうです", "でした"],
+      "correct": 2,
+      "explanation": "'〜そうです' = looks/sounds ~: 'This miso soup seems sweet.'"
+    },
+    {
+      "id": "n5s2q25",
+      "question": "おどる の が _______。",
+      "options": ["できます", "じょうず", "いきます", "すきです"],
+      "correct": 3,
+      "explanation": "'〜の が すきです' = like doing ~: 'I like dancing.'"
+    },
+    {
+      "id": "n5s2q26",
+      "question": "にほんご を ならって _______。",
+      "options": ["なりました", "いきます", "います", "ください"],
+      "correct": 2,
+      "explanation": "'〜ています' indicates ongoing action: 'I am learning Japanese.'"
+    },
+    {
+      "id": "n5s2q27",
+      "question": "ここ で さけ を のんで は _______。",
+      "options": ["けっこうです", "いけません", "しましょう", "いいです"],
+      "correct": 1,
+      "explanation": "'〜ては いけません' means 'must not': 'You must not drink sake here.'"
+    },
+    {
+      "id": "n5s2q28",
+      "question": "ちゅうごく の りょうり を たべた こと が _______。",
+      "options": ["みます", "あります", "いました", "わかります"],
+      "correct": 1,
+      "explanation": "'〜たことがある' = have experience of doing: 'I have eaten Chinese food.'"
+    },
+    {
+      "id": "n5s2q29",
+      "question": "そこ に じしょ を _______ください。",
+      "options": ["おいて", "おいている", "おく", "おきます"],
+      "correct": 0,
+      "explanation": "'〜てください' = please place: 'Please place the dictionary there.'"
+    },
+    {
+      "id": "n5s2q30",
+      "question": "さかな を つくっている ところ _______。",
+      "options": ["です", "が", "を", "に"],
+      "correct": 0,
+      "explanation": "'ところです' ends with 'です': 'I am in the middle of cooking fish.'"
+    },
+    {
+      "id": "n5s2q31",
+      "question": "がっこう に ちこくしない ように、はやく _______。",
+      "options": ["いきます", "いく", "いって", "いった"],
+      "correct": 0,
+      "explanation": "Polite present form 'いきます': 'I go to school early to avoid being late.'"
+    },
+    {
+      "id": "n5s2q32",
+      "question": "おんがく が _______。",
+      "options": ["すきです", "いきます", "じょうずです", "たかいです"],
+      "correct": 2,
+      "explanation": "'〜が じょうずです' = good at ~: 'I am good at music.'"
+    },
+    {
+      "id": "n5s2q33",
+      "question": "みず を のみ _______すぎました。",
+      "options": ["すぎて", "すぎた", "すぎ", "すぎます"],
+      "correct": 2,
+      "explanation": "'〜すぎ' attaches to verb stem: 'I drank too much water.'"
+    },
+    {
+      "id": "n5s2q34",
+      "question": "そば を _______たい です。",
+      "options": ["たべて", "たべ", "たべます", "たべたい"],
+      "correct": 1,
+      "explanation": "Verb stem used with 'たい': 'I want to eat soba.'"
+    },
+    {
+      "id": "n5s2q35",
+      "question": "ここ に かばん を _______ません。",
+      "options": ["おかなくては", "おいて", "おきます", "おきたく"],
+      "correct": 0,
+      "explanation": "'〜なくては なりません' = must do: 'I must place the bag here.'"
+    },
+    {
+      "id": "n5s2q36",
+      "question": "あめ が ふる と _______。",
+      "options": ["なります", "おもいます", "いいます", "わかります"],
+      "correct": 1,
+      "explanation": "'〜と おもいます' = I think that ~: 'I think it will rain.'"
+    },
+    {
+      "id": "n5s2q37",
+      "question": "え を かく こと が _______。",
+      "options": ["できます", "います", "すきです", "いきます"],
+      "correct": 0,
+      "explanation": "'〜ことができます' = can do something: 'I can draw pictures.'"
+    },
+    {
+      "id": "n5s2q38",
+      "question": "みそしる を _______から、でかけます。",
+      "options": ["のんだ", "のんで", "のむ", "のんだら"],
+      "correct": 1,
+      "explanation": "'〜てから' = after doing something: 'I go out after drinking miso soup.'"
+    },
+    {
+      "id": "n5s2q39",
+      "question": "らいしゅう てんいん に _______つもり です。",
+      "options": ["なった", "なる", "なります", "なって"],
+      "correct": 1,
+      "explanation": "'〜つもりです' uses dictionary form: 'I plan to become a store clerk next week.'"
+    },
+    {
+      "id": "n5s2q40",
+      "question": "あたらしい ほん を _______たい です。",
+      "options": ["よんで", "よむ", "よみます", "よみたい"],
+      "correct": 1,
+      "explanation": "'〜たい' attaches to dictionary form: 'I want to read a new book.'"
+    }
+  ]

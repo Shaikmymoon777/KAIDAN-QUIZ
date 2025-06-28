@@ -1,0 +1,305 @@
+
+  [
+  {
+    "id": "jlptq1",
+    "question": "わたしはまいあさろくじにおきます。あさごはんをたべてから、がっこうへいきます。がっこうまであるいてじゅっぷんです。\nわたしはどうやってがっこうへいきますか。",
+    "options": ["じてんしゃでいきます", "あるいていきます", "バスでいきます", "くるまでいきます"],
+    "correct": 1,
+    "explanation": "It says it takes 10 minutes on foot, so the correct answer is 'walk.'"
+  },
+  {
+    "id": "jlptq2",
+    "question": "きのうはともだちとこうえんでピクニックをしました。おにぎりとくだものをもっていきました。とてもたのしかったです。\nきのう、どこでピクニックをしましたか。",
+    "options": ["がっこう", "いえ", "こうえん", "みせ"],
+    "correct": 2,
+    "explanation": "The sentence says the picnic was at the park, so the correct answer is 'こうえん'."
+  },
+  {
+    "id": "jlptq3",
+    "question": "わたしはにほんのアニメがだいすきです。まいばん、テレビでアニメをみています。とくにアクションのアニメがすきです。\nこのひとはなにがすきですか。",
+    "options": ["にほんのえいが", "にほんのアニメ", "にほんのうた", "にほんのたべもの"],
+    "correct": 1,
+    "explanation": "The text clearly states the person loves anime, so 'にほんのアニメ' is correct."
+  },
+  {
+    "id": "jlptq4",
+    "question": "わたしはまいしゅうどようびにそうじをします。へやをきれいにすると、きもちもすっきりします。おわったあとはおちゃをのみます。\nどようび、わたしはなにをしますか。",
+    "options": ["べんきょうします", "でんわします", "そうじします", "えいがをみます"],
+    "correct": 2,
+    "explanation": "The sentence says cleaning is done every Saturday, so 'そうじします' is correct."
+  },
+  {
+    "id": "jlptq5",
+    "question": "かようびにがっこうでテストがあります。わたしはきのう、としょかんでべんきょうしました。テストがよくできるようにがんばります。\nこのひとはきのうどこでべんきょうしましたか。",
+    "options": ["うち", "こうえん", "カフェ", "としょかん"],
+    "correct": 3,
+    "explanation": "The text says the person studied at the library, so 'としょかん' is correct."
+  },
+  {
+    "id": "jlptq6",
+    "question": "わたしのいえはスーパーのちかくにあります。あるいてごふんでいけます。とてもべんりです。\nスーパーはわたしのいえからどのくらいですか。",
+    "options": ["じゅっぷん", "さんじゅっぷん", "ごふん", "いちじかん"],
+    "correct": 2,
+    "explanation": "It says it takes five minutes on foot, so 'ごふん' is correct."
+  },
+  {
+    "id": "jlptq7",
+    "question": "たなかさんはやさしくて、しんせつなひとです。こまっているひとをたすけます。みんなたなかさんがすきです。\nたなかさんはどんなひとですか。",
+    "options": ["おこりやすいひと", "しずかなひと", "やさしいひと", "にぎやかなひと"],
+    "correct": 2,
+    "explanation": "It says Tanaka-san is kind and helpful, so 'やさしいひと' is correct."
+  },
+  {
+    "id": "jlptq8",
+    "question": "わたしはごごにえいがかんへいきました。チケットをかって、ポップコーンもかいました。えいがはとてもたのしかったです。\nこのひとはなにをかいましたか。",
+    "options": ["やさい", "ポップコーン", "おちゃ", "けーき"],
+    "correct": 1,
+    "explanation": "It says the person bought popcorn, so 'ポップコーン' is correct."
+  },
+  {
+    "id": "jlptq9",
+    "question": "きのうのよるはさむかったです。わたしはもうふをふたつつかってねました。あさはすこしあたたかかったです。\nきのうのよる、てんきはどうでしたか。",
+    "options": ["あつかった", "さむかった", "あめだった", "くもりだった"],
+    "correct": 1,
+    "explanation": "It says the night was cold, so 'さむかった' is correct."
+  },
+  {
+    "id": "jlptq10",
+    "question": "ともだちとやまにいきました。やまのうえからのけしきはとてもきれいでした。しゃしんをたくさんとりました。\nやまのうえからなにがみえましたか。",
+    "options": ["きれいなけしき", "くるま", "えいがかん", "みせ"],
+    "correct": 0,
+    "explanation": "The view from the top of the mountain was beautiful, so the correct answer is 'きれいなけしき' (beautiful scenery)."
+  },
+  {
+    "id": "jlptq11",
+    "question": "いもうとはまいにちピアノをれんしゅうしています。おんがくがだいすきです。つぎのがっこうのコンサートでひきます。\nいもうとはなにがすきですか。",
+    "options": ["サッカー", "えいが", "おんがく", "おかし"],
+    "correct": 2,
+    "explanation": "It says she loves music and practices piano every day, so 'おんがく' (music) is correct."
+  },
+  {
+    "id": "jlptq12",
+    "question": "あしたはしけんがあります。わたしはきょう、いちにちじゅうべんきょうするつもりです。とてもたいせつなしけんです。\nわたしはきょうなにをしますか。",
+    "options": ["あそぶ", "しごとをする", "べんきょうする", "でんわをする"],
+    "correct": 2,
+    "explanation": "The sentence mentions studying all day, so 'べんきょうする' (study) is the correct answer."
+  },
+  {
+    "id": "jlptq13",
+    "question": "にちようび、でんしゃにのってとなりまちへいきました。そこのほんやでおもしろいほんをかいました。いまよんでいます。\nこのひとはなにをしましたか。",
+    "options": ["くるまでいった", "ほんをよまなかった", "となりまちへいった", "でんしゃをみた"],
+    "correct": 2,
+    "explanation": "The person took a train and went to the neighboring town, so 'となりまちへいった' is correct."
+  },
+  {
+    "id": "jlptq14",
+    "question": "まいにち、ひるやすみにがっこうのにわをさんぽします。はなやきがあって、とてもきもちがいいです。\nがっこうのにわにはなにがありますか。",
+    "options": ["くだもの", "いぬ", "はなやき", "ほん"],
+    "correct": 2,
+    "explanation": "The school garden has flowers and trees, so the correct answer is 'はなやき'."
+  },
+  {
+    "id": "jlptq15",
+    "question": "わたしのかぞくはよにんです。りょうしんとあねとわたしです。まいにちばんごはんをいっしょにたべます。にちようびにはみんなでさんぽにいきます。\nこのかぞくはなんにんですか。",
+    "options": ["さんにん", "よにん", "ごにん", "ろくにん"],
+    "correct": 1,
+    "explanation": "The sentence clearly says there are four people in the family, so 'よにん' is correct."
+  },
+  {
+    "id": "jlptq16",
+    "question": "きのうなおこさんとぎんざのデパートにいくよていでした。なおこさんとは１０じにえきのにしぐちであうやくそくでしたが、１０じはんになってもきませんでした。ひがしぐちにいるかもしれないとおもっていってみましたが、そこにもいませんでした。でんわをしたら、なおこさんはまだいえにいて、１２じのやくそくだとおもっていたそうです。そのあとすぐでてきてくれて、けっきょく１１じにはあうことができました。\nこのはなしで、なにがわかりますか。",
+    "options": [
+      "ふたりは１０じにあえました",
+      "なおこさんはでんしゃをまちがえました",
+      "やくそくのじかんをまちがえたのはなおこさんです",
+      "ふたりはけっきょくあえませんでした"
+    ],
+    "correct": 2,
+    "explanation": "Naoko thought the meeting time was 12 o'clock, so she got the time wrong."
+  },
+  {
+    "id": "jlptq17",
+    "question": "ひるやすみにパンをたべようとおもって、がっこうのきっさてんにいきました。でも、いちばんたべたかったサンドイッチがうりきれていました。しかたなくカレーぱんをかいましたが、おもっていたよりおいしかったです。\nこのひとはどうおもいましたか。",
+    "options": ["カレーぱんはまずかった", "サンドイッチをかった", "パンをたべなかった", "ちがうパンでもまんぞくした"],
+    "correct": 3,
+    "explanation": "The person couldn’t buy the sandwich they wanted but found the curry bread tasty, so they were satisfied with a different bread."
+  },
+  {
+    "id": "jlptq18",
+    "question": "あしたはともだちのたんじょうびです。きのうからプレゼントをさがしていますが、まだいいものがみつかりません。きょうのしごとのあと、えきまえのみせにいくつもりです。\nこのひとはなにをしますか。",
+    "options": ["ともだちにあう", "プレゼントをかいにいく", "しごとをやすむ", "じぶんのたんじょうびをいわう"],
+    "correct": 1,
+    "explanation": "The person plans to go to a shop after work to buy a birthday present."
+  },
+  {
+    "id": "jlptq19",
+    "question": "あさ、バスがすごくこんでいて、しゅくだいをかばんからだせませんでした。がっこうについてすぐにしゅくだいをだそうとおもったのに、わすれていえにおいてきてしまいました。\nなにがわかりますか。",
+    "options": ["バスでしゅくだいをした", "しゅくだいはもってこなかった", "しゅくだいはせんせいがもっていた", "バスがすいていた"],
+    "correct": 1,
+    "explanation": "The person left their homework at home and didn’t bring it to school."
+  },
+  {
+    "id": "jlptq20",
+    "question": "きょうはあたらしいふくをきてがっこうへいきました。ともだちに「そのふく、にあってるね」といわれて、すごくうれしかったです。\nこのひとはどうかんじましたか。",
+    "options": ["ふくがきらいだった", "きょうはふるいふくだった", "ともだちにほめられてうれしかった", "がっこうをやすんだ"],
+    "correct": 2,
+    "explanation": "The person wore new clothes, received a compliment from a friend, and felt very happy."
+  },
+  {
+    "id": "jlptq21",
+    "question": "こうえんでほんをよんでいたら、つよいかぜがふいてきました。ページがめくれてよみにくくなったので、いちどとしょかんにもどることにしました。\nこのひとはなにをしましたか。",
+    "options": ["よむのをやめてとしょかんにいった", "かぜのなかでそのままよんだ", "こうえんでさんぽした", "ページをながしてしまった"],
+    "correct": 0,
+    "explanation": "The person stopped reading at the park and returned to the library because it became difficult to read in the wind."
+  },
+  {
+    "id": "jlptq22",
+    "question": "わたしのいえのちかくにはおおきなこうえんがあります。まいにちのようにいぬのさんぽにいきますが、ときどき、こどもたちがサッカーをしていたり、ピクニックをしているひとたちもいます。このまえ、こうえんのなかにあたらしいはなばたけができて、とてもきれいになりました。いまではしゃしんをとるひともおおくなりました。\nこのぶんしょうからわかることはなんですか。",
+    "options": [
+      "こうえんにはいぬはこられない",
+      "こうえんはあたらしくできたばかり",
+      "こうえんにはいろいろなひとがくる",
+      "こうえんはひとがすくない"
+    ],
+    "correct": 2,
+    "explanation": "People come to the park for different reasons like walking dogs, playing soccer, having picnics, or taking photos, so many types of people visit."
+  },
+  {
+    "id": "jlptq23",
+    "question": "きのう、えきのなかでさいふをおとしてしまいました。すぐにきがついて、えきいんさんにたずねました。すると、やさしいひとがとどけてくれていました。おかねもなにもぬすまれていませんでした。ほんとうにほっとしました。こんどから、もっときをつけようとおもいました。\nこのひとのきもちはどうですか。",
+    "options": [
+      "がっこうにいきたくなかった",
+      "さいふがでてきてうれしかった",
+      "おかねがなくなってかなしかった",
+      "えきいんさんにおこられた"
+    ],
+    "correct": 1,
+    "explanation": "The wallet was returned without anything missing, so the person felt relieved and happy."
+  },
+  {
+    "id": "jlptq24",
+    "question": "にちようびのごご、ゆうびんきょくへいきました。でも、しまっていました。あとでかんばんをよくみたら、にちようびはやすみでした。しかたがないので、そのままちかくのカフェにはいってコーヒーをのみました。つぎはあさのじかんにいこうとおもいました。\nどうしてこのひとはカフェにいきましたか。",
+    "options": [
+      "ゆうびんきょくがしまっていたから",
+      "ひるごはんをたべるため",
+      "カフェでともだちとあうため",
+      "まちあわせのため"
+    ],
+    "correct": 0,
+    "explanation": "The post office was closed, so the person went to a nearby café instead."
+  },
+  {
+    "id": "jlptq25",
+    "question": "きょうはがっこうでうんどうかいがありました。わたしははしるのがにがてですが、リレーにでました。チームのみんなが「がんばろうね」といってくれて、わたしもいっしょうけんめいはしりました。けっかは２いでしたが、とてもたのしかったです。うれしくて、かえってからおかあさんにはなしをしました。\nうんどうかいでこのひとはどうしましたか。",
+    "options": ["いえにいた", "ひとりでがんばった", "チームといっしょにはしった", "でなかった"],
+    "correct": 2,
+    "explanation": "They ran the relay with their team. The passage says 'with everyone on the team,' so we understand they worked together."
+  },
+  {
+    "id": "jlptq26",
+    "question": "あさおきたとき、あめがふっていました。でも、がっこうにつくころにはくもがきえて、たいようがでてきました。おべんとうのじかんには、そとでひるごはんをたべました。そらはあおくて、かぜもきもちよかったです。あめのひとおもって、かさをもってきてよかったです。\nこのひとはなにをかんじましたか。",
+    "options": ["きょうはあめのままだった", "てんきがよくなってうれしかった", "おべんとうをたべなかった", "かさをわすれてこまった"],
+    "correct": 1,
+    "explanation": "They were happy the weather improved. They ate lunch outside and felt good in the fresh air."
+  },
+  {
+    "id": "jlptq27",
+    "question": "わたしのあねはしゃしんをとるのがとてもすきです。...つぎのやすみには、あねといっしょについていこうとおもっています。\nこのひとのきもちはどうですか。",
+    "options": ["しゃしんにはきょうみがない", "あねのことがきらいだ", "こんどいっしょにいってみたい", "けしきにはきょうみがない"],
+    "correct": 2,
+    "explanation": "They want to go together next time. At the end, it says they’re thinking of joining their sister next time."
+  },
+  {
+    "id": "jlptq28",
+    "question": "わたしはまいあさかならずしんぶんをよみます。...わたしにとってはあさのたいせつなじかんです。\nこのひとはなにをしているときがすきですか。",
+    "options": ["せんたくをしているとき", "えいがをみているとき", "にゅーすをみているとき", "しんぶんをよんでいるとき"],
+    "correct": 3,
+    "explanation": "They like reading the newspaper. It’s described as their important morning time."
+  },
+  {
+    "id": "jlptq29",
+    "question": "わたしのまちはふるいまちです。...しずかでくらしやすいです。\nこのまちについてただしいのはどれですか。",
+    "options": ["えきのちかくにあります", "しぜんがすくないです", "びょういんがまったくありません", "しずかでくらしやすいです"],
+    "correct": 3,
+    "explanation": "The town is quiet and comfortable to live in. The passage clearly says this."
+  },
+  {
+    "id": "jlptq30",
+    "question": "せんせいにすすめられて、わたしはえいごのほんをよむことにしました。...たのしくなってきました。\nこのひとはえいごのほんについてどうおもっていますか。",
+    "options": ["さいしょからかんたんだった", "いまはたのしんでよんでいる", "すぐよむのをやめた", "せんせいにはなにもいわれていない"],
+    "correct": 1,
+    "explanation": "Now they enjoy reading. The passage says it became more fun gradually."
+  },
+  {
+    "id": "jlptq31",
+    "question": "ことしのなつはとてもあつくて、...できるだけせつやくをしています。\nこのひとはいまどうしていますか。",
+    "options": ["せつやくをしていない", "クーラーをつかっていない", "まどをしめている", "できるだけでんきをつかわないようにしている"],
+    "correct": 3,
+    "explanation": "They are trying not to use electricity. They use a fan and open windows instead."
+  },
+  {
+    "id": "jlptq32",
+    "question": "わたしはしょうらい、りょこうガイドになりたいとおもっています。...しょうかいできたらいいなとおもっています。\nこのひとはなにになりたいですか。",
+    "options": ["しゃしんか", "りょこうガイド", "せんせい", "おしろのしゅうりにん"],
+    "correct": 1,
+    "explanation": "They want to be a tour guide. It’s clearly stated in the beginning."
+  },
+  {
+    "id": "jlptq33",
+    "question": "きのうのよる、くもがたくさんでていて...つぎのまんげつをたのしみたいです。\nこのひとはどうおもっていますか。",
+    "options": ["つきにきょうみがない", "つきをみたことがない", "つぎのまんげつがたのしみ", "くもがすき"],
+    "correct": 2,
+    "explanation": "They are looking forward to the next full moon. They want to enjoy it again with dango."
+  },
+  {
+    "id": "jlptq34",
+    "question": "ことしのふゆはれいねんよりさむくて...ひざをすこしけがしてしまいました。\nこのひとはどうしましたか。",
+    "options": ["ころんでけがをした", "あついからふゆがすき", "すべりどめをつけなかった", "れいねんよりすずしかった"],
+    "correct": 0,
+    "explanation": "They slipped and got hurt. The passage says they fell and hurt their knee."
+  },
+  {
+    "id": "jlptq35",
+    "question": "わたしはパンやさんではたらいています。...またがんばろうとおもいます。\nこのひとはどんなしごとをしていますか。",
+    "options": ["きょうし", "パンをつくるしごと", "デパートのうりて", "えきのてんいん"],
+    "correct": 1,
+    "explanation": "They bake bread. They work at a bakery preparing bread early in the morning."
+  },
+  {
+    "id": "jlptq36",
+    "question": "このまえのにちようび、いえのちかくでボランティアのそうじかつどうがありました。...こころがあたたかくなりました。\nこのひとはどうかわりましたか。",
+    "options": ["つぎはさんかしない", "いかなければよかったとおもった", "たのしくなかった", "やってよかったとおもうようになった"],
+    "correct": 3,
+    "explanation": "They felt good after participating. At first, they didn’t want to join, but later were happy they did."
+  },
+  {
+    "id": "jlptq37",
+    "question": "わたしのがっこうでは、まいとしかがくのじっけんをみんなでするひがあります。...うまくいってよかったです。\nこのひとがべんきょうしたのはどんなことですか。",
+    "options": ["はなのいろについて", "みずをつかわないはな", "はなにあったみずのあげかた", "がっこうでつくったはな"],
+    "correct": 2,
+    "explanation": "They studied how to water flowers. They tested different conditions for better growth."
+  },
+  {
+    "id": "jlptq38",
+    "question": "まいとし、はるになるとこうえんにさくらがさきます。...いいおもいでになりました。\nこのぶんしょうからわかることはなんですか。",
+    "options": ["ことしはおはなみにいけなかった", "よるのさくらもみた", "さくらはまださいていない", "ともだちはこなかった"],
+    "correct": 1,
+    "explanation": "They also saw the night-time sakura. The cherry blossoms were lit up in the evening."
+  },
+  {
+    "id": "jlptq39",
+    "question": "このまえのかようび、でんしゃがおくれてしまい...べんきょうすることにしました。\nこのひとはなにをしましたか。",
+    "options": ["べんきょうをしなかった", "あめのなかでがっこうへあるいた", "でんしゃがとまっておこった", "カフェでじかんをつかってべんきょうした"],
+    "correct": 3,
+    "explanation": "They studied in a café while waiting. They made good use of their time."
+  },
+  {
+    "id": "jlptq40",
+    "question": "わたしはえいががすきで、まいつきみっかはえいがかんにいきます。...ちちのすきなえいがをいっしょにみようとおもっています。\nこのひとはつぎにどうするつもりですか。",
+    "options": ["ひとりでドラマをみる", "ちちとすきなアクションえいがをみる", "ちちのすきなジャンルのえいがをみる", "えいがかんにいかない"],
+    "correct": 2,
+    "explanation": "They plan to watch a movie their father likes. It says they’ll choose his favorite genre next time."
+  }
+]
+
+  

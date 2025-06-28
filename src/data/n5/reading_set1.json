@@ -1,0 +1,284 @@
+[
+  {
+    "id": "n5r1q1",
+    "question": "きのう わたしは 7じに おきました。8じに がっこうへ いきましたが、てんきが わるかったので かえりました。\nあなたは どこへ かえりましたか",
+    "options": ["いえ", "がっこう", "こうえん", "みせ"],
+    "correct": 0,
+    "explanation": "The correct answer is 'いえ' (home). The passage says the speaker returned home because the weather was bad."
+  },
+  {
+    "id": "n5r1q2",
+    "question": "まいにち 6じに たべますが、きのうは たべませんでした。7じに べんきょうしました。\nあなたは なぜ たべませんでしたか",
+    "options": ["ねむかった", "いそがしかった", "びっくりした", "さむかった"],
+    "correct": 1,
+    "explanation": "The correct answer is 'いそがしかった' (was busy). Since the speaker didn’t eat, being busy is a reasonable explanation."
+  },
+  {
+    "id": "n5r1q3",
+    "question": "ともだちと 9じに 会いました。10じに あそびましたが、ともだちが つかれたようでした。\nあなたは だれが つかれたか",
+    "options": ["わたし", "ともだち", "せんせい", "かぞく"],
+    "correct": 1,
+    "explanation": "The correct answer is 'ともだち' (friend). The passage says the friend seemed tired."
+  },
+  {
+    "id": "n5r1q4",
+    "question": "わたしは あさ おきましたが、ひるに やすみませんでした。よるに ねました。\nあなたは いつ やすみませんでしたか",
+    "options": ["あさ", "ひる", "よる", "ゆうがた"],
+    "correct": 1,
+    "explanation": "The correct answer is 'ひる' (noon). The passage clearly states the speaker did not rest at noon."
+  },
+  {
+    "id": "n5r1q5",
+    "question": "いえで ほんを よみましたが、がっこうで べんきょうしませんでした。ともだちと はなしました。\nあなたは どこで べんきょうしませんでしたか",
+    "options": ["こうえん", "いえ", "がっこう", "みせ"],
+    "correct": 2,
+    "explanation": "The correct answer is 'がっこう' (school). The sentence says the speaker did not study at school."
+  },
+  {
+    "id": "n5r1q6",
+    "question": "8じに おきましたが、9じに いきませんでした。テレビを みました。\nあなたは なぜ いきませんでしたか",
+    "options": ["ねむかった", "びっくりした", "いそがしかった", "さむかった"],
+    "correct": 0,
+    "explanation": "The correct answer is 'ねむかった' (was sleepy). Since the speaker didn’t go out and stayed to watch TV, sleepiness is a likely reason."
+  },
+  {
+    "id": "n5r1q7",
+    "question": "ともだちと こうえんへ いきましたが、いえで やすみませんでした。11じに ねました。\nあなたは どこで やすみませんでしたか",
+    "options": ["がっこう", "いえ", "みせ", "こうえん"],
+    "correct": 1,
+    "explanation": "The correct answer is 'いえ' (home). The speaker says they did not rest at home."
+  },
+  {
+    "id": "n5r1q8",
+    "question": "あさに たべましたが、よるに ねませんでした。ともだちと あそびました。\nあなたは いつ ねませんでしたか",
+    "options": ["あさ", "ひる", "よる", "ゆうがた"],
+    "correct": 2,
+    "explanation": "The correct answer is 'よる' (night). The sentence clearly says the speaker didn’t sleep at night."
+  },
+  {
+    "id": "n5r1q9",
+    "question": "がっこうで べんきょうしましたが、いえで よみませんでした。テレビを みました。\nあなたは なぜ よみませんでしたか",
+    "options": ["ねむかった", "いそがしかった", "びっくりした", "さむかった"],
+    "correct": 0,
+    "explanation": "The correct answer is 'ねむかった' (was sleepy). Not reading at home suggests the speaker may have been tired."
+  },
+  {
+    "id": "n5r1q10",
+    "question": "7じに おきましたが、8じに たべませんでした。みずを のみました。\nあなたは なんを しませんでしたか",
+    "options": ["ねる", "たべる", "いく", "よむ"],
+    "correct": 1,
+    "explanation": "The correct answer is 'たべる' (eat). The passage says the speaker did not eat at 8 o'clock."
+  },
+  {
+    "id": "n5r1q11",
+    "question": "いえ で このほん を よんでください。すこしむずかしいですが、とても たのしい ですから、がんばってください。しらない かんじ が はいっていますが、はじめは じしょ を ひかないで ぜんぶ よむ ください。つぎに じしょ を ひきながら もう わかる よんでください。いいですか。2かい よむんですよ。\nあなたは どこで ほん を よみますか",
+    "options": ["がっこう", "いえ", "こうえん", "としょかん"],
+    "correct": 1,
+    "explanation": "The correct answer is 'ie' (home). The passage instructs the reader to read the book at home."
+  },
+  {
+    "id": "n5r1q12",
+    "question": "がっこう で このしゅくだい を してください。すこしむずかしいですが、とても たいせつ ですから、がんばってください。しらない ぶんぽう が はいっていますが、はじめは じしょ を ひかないで ぜんぶ かく ください。つぎに じしょ を ひきながら もう たしかめる してください。いいですか。2かい するんですよ。\nあなたは なんを かくか",
+    "options": ["てがみ", "しゅくだい", "え", "ほん"],
+    "correct": 1,
+    "explanation": "The correct answer is 'shukudai' (homework). The passage says to do this homework at school."
+  },
+  {
+    "id": "n5r1q13",
+    "question": "としょかん で このてがみ を よんでください。すこしむずかしいですが、とても しずか ですから、がんばってください。しらない ことば が はいっていますが、はじめは じしょ を ひかないで ぜんぶ みる ください。つぎに じしょ を ひきながら もう おぼえる よんでください。いいですか。2かい よむんですよ。\nあなたは どこで てがみ を みますか",
+    "options": ["いえ", "がっこう", "としょかん", "こうえん"],
+    "correct": 2,
+    "explanation": "The correct answer is 'toshokan' (library). The passage mentions reading the letter at the library."
+  },
+  {
+    "id": "n5r1q14",
+    "question": "こうえん で このえ を みてください。すこしむずかしいですが、とても きれい ですから、がんばってください。しらない いろ が はいっていますが、はじめは じしょ を ひかないで ぜんぶ かく ください。つぎに じしょ を ひきながら もう たのしむ みてください。いいですか。2かい みるんですよ。\nあなたは なんを かくか",
+    "options": ["ほん", "え", "てがみ", "しゅくだい"],
+    "correct": 1,
+    "explanation": "The correct answer is 'e' (picture). The passage talks about looking at and drawing the picture in the park."
+  },
+  {
+    "id": "n5r1q15",
+    "question": "いえ で このおんがく を きいてください。すこしむずかしいですが、とても すき ですから、がんばってください。しらない うた が はいっていますが、はじめは じしょ を ひかないで ぜんぶ うたう ください。つぎに じしょ を ひきながら もう かんじる きいてください。いいですか。2かい きくんですよ。\nあなたは なんを うたいますか",
+    "options": ["ほん", "うた", "え", "てがみ"],
+    "correct": 1,
+    "explanation": "The correct answer is 'uta' (song). The passage instructs to sing the song at home."
+  },
+  {
+    "id": "n5r1q16",
+    "question": "がっこう で このてすと を してください。すこしむずかしいですが、とても たいせつ ですから、がんばってください。しらない もんだい が はいっていますが、はじめは じしょ を ひかないで ぜんぶ とく ください。つぎに じしょ を ひきながら もう かんがえる してください。いいですか。2かい するんですよ。\nあなたは なんを ときますか",
+    "options": ["しゅくだい", "てすと", "え", "ほん"],
+    "correct": 1,
+    "explanation": "The correct answer is 'tesuto' (test). The passage states to take the test at school."
+  },
+  {
+    "id": "n5r1q17",
+    "question": "こうえん で このはな を みてください。すこしむずかしいですが、とても きれい ですから、がんばってください。しらない なまえ が はいっていますが、はじめは じしょ を ひかないで ぜんぶ さわる ください。つぎに じしょ を ひきながら もう たのしむ みてください。いいですか。2かい みるんですよ。\nあなたは なんを さわりますか",
+    "options": ["ほん", "はな", "てがみ", "え"],
+    "correct": 1,
+    "explanation": "The correct answer is 'hana' (flower). The passage says to look at and touch the flower in the park."
+  },
+  {
+    "id": "n5r1q18",
+    "question": "いえ で このりょうり を つくってください。すこしむずかしいですが、とても おいしい ですから、がんばってください。しらない もの が はいっていますが、はじめは じしょ を ひかないで ぜんぶ きる ください。つぎに じしょ を ひきながら もう たべる つくってください。いいですか。2かい つくるんですよ。\nあなたは なんを きりますか",
+    "options": ["ほん", "にく", "え", "はな"],
+    "correct": 1,
+    "explanation": "The correct answer is 'niku' (meat). The passage suggests cutting ingredients, and meat fits best."
+  },
+  {
+    "id": "n5r1q19",
+    "question": "がっこう で このノート を みてください。すこしむずかしいですが、とても べんり ですから、がんばってください。しらない じ が はいっていますが、はじめは じしょ を ひかないで ぜんぶ かく ください。つぎに じしょ を ひきながら もう おぼえる みてください。いいですか。2かい みるんですよ。\nあなたは なんを かくか",
+    "options": ["てがみ", "ノート", "え", "うた"],
+    "correct": 1,
+    "explanation": "The correct answer is 'nooto' (notebook). The passage talks about looking at and writing in the notebook."
+  },
+  {
+    "id": "n5r1q20",
+    "question": "としょかん で このしんぶん を よんでください。すこしむずかしいですが、とても たのしい ですから、がんばってください。しらない はなし が はいっていますが、はじめは じしょ を ひかないで ぜんぶ みる ください。つぎに じしょ を ひきながら もう わかる よんでください。いいですか。2かい よむんですよ。\nあなたは なんを みますか",
+    "options": ["ほん", "しんぶん", "てがみ", "え"],
+    "correct": 1,
+    "explanation": "The correct answer is 'shinbun' (newspaper). The passage states to read the newspaper at the library."
+  },
+  {
+    "id": "n5r1q21",
+    "question": "いえ で このうた を うたってください。すこしむずかしいですが、とても すき ですから、がんばってください。しらない おと が はいっていますが、はじめは じしょ を ひかないで ぜんぶ きく ください。つぎに じしょ を ひきながら もう たのしむ うたってください。いいですか。2かい うたうんですよ。\nあなたは なんを ききますか",
+    "options": ["ほn", "うた", "え", "てがみ"],
+    "correct": 1,
+    "explanation": "Uta (song) is correct. The passage asks the listener to sing and listen to the song multiple times."
+  },
+  {
+    "id": "n5r1q22",
+    "question": "こうえん で このき を みてください。すこしむずかしいですが、とても しずか ですから、がんばってください。しらない かたち が はいっていますが、はじめは じしょ を ひかないで ぜんぶ さわる ください。つぎに じしょ を ひきながら もう かんじる みてください。いいですか。2かい みるんですよ。\nあなたは なんを さわりますか",
+    "options": ["ほn", "き", "てがみ", "え"],
+    "correct": 1,
+    "explanation": "Ki (tree) is correct. The passage says to look at and touch the tree in the park."
+  },
+  {
+    "id": "n5r1q23",
+    "question": "がっこう で このノート を みてください。すこしむずかしいですが、とても べんり ですから、がんばってください。しらない じ が はいっていますが、はじめは じしょ を ひかないで ぜんぶ かく ください。つぎに じしょ を ひきながら もう おぼえる みてください。いいですか。2かい みるんですよ。\nあなたは なんを かくか",
+    "options": ["てがみ", "ノート", "え", "うた"],
+    "correct": 1,
+    "explanation": "Nooto (notebook) is correct. It says to look at the notebook and write what you see."
+  },
+  {
+    "id": "n5r1q24",
+    "question": "いえ で このりょうり を つくってください。すこしむずかしいですが、とても おいしい ですから、がんばってください。しらない もの が はいっていますが、はじめは じしょ を ひかないで ぜんぶ きる ください。つぎに じしょ を ひきながら もう たべる つくってください。いいですか。2かい つくるんですよ。\nあなたは なんを きりますか",
+    "options": ["ほn", "にく", "え", "はな"],
+    "correct": 1,
+    "explanation": "Niku (meat) is correct. The sentence talks about cutting unknown ingredients before cooking, implying meat."
+  },
+  {
+    "id": "n5r1q25",
+    "question": "こうえん で このはな を みてください。すこしむずかしいですが、とても きれい ですから、がんばってください。しらない なまえ が はいっていますが、はじめは じしょ を ひかないで ぜんぶ さわる ください。つぎに じしょ を ひきながら もう たのしむ みてください。いいですか。2かい みるんですよ。\nあなたは なんを さわりますか",
+    "options": ["ほn", "はな", "てがみ", "え"],
+    "correct": 1,
+    "explanation": "Hana (flower) is correct. The passage tells you to touch and enjoy looking at the flower."
+  },
+  {
+    "id": "n5r1q26",
+    "question": "いえ で このほん を よんでください。すこしむずかしいですが、とても しずか ですから、がんばってください。しらない じ が はいっていますが、はじめは じしょ を ひかないで ぜんぶ みる ください。つぎに じしょ を ひきながら もう わかる よんでください。いいですか。2かい よむんですよ。\nあなたは なんを みますか",
+    "options": ["ほn", "てがみ", "え", "しゅくだい"],
+    "correct": 0,
+    "explanation": "Hon (book) is correct. The instructions describe reading the book and understanding unfamiliar words."
+  },
+  {
+    "id": "n5r1q27",
+    "question": "がっこう で このてがみ を かいてください。すこしむずかしいですが、とても たいせつ ですから、がんばってください。しらない ことば が はいっていますが、はじめは じしょ を ひかないで ぜんぶ つくる ください。つぎに じしょ を ひきながら もう おくる かいてください。いいですか。2かい かくんですよ。\nあなたは なんを つくりますか",
+    "options": ["ほn", "てがみ", "え", "しゅくだい"],
+    "correct": 1,
+    "explanation": "Tegami (letter) is correct. The passage instructs the reader to write and send a letter."
+  },
+  {
+    "id": "n5r1q28",
+    "question": "こうえん で このき を さわってください。すこしむずかしいですが、とても たのしい ですから、がんばってください。しらない は が はいっていますが、はじめは じしょ を ひかないで ぜんぶ みる ください。つぎに じしょ を ひきながら もう かんじる さわってください。いいですか。2かい さわるんですよ。\nあなたは なんを みますか",
+    "options": ["ほn", "き", "てがみ", "え"],
+    "correct": 1,
+    "explanation": "Ki (tree) is correct. The instruction asks the user to look at and touch the tree and its leaves."
+  },
+  {
+    "id": "n5r1q29",
+    "question": "いえ で このえ を かいてください。すこしむずかしいですが、とても きれい ですから、がんばってください。しらない いろ が はいっていますが、はじめは じしょ を ひかないで ぜんぶ つくる ください。つぎに じしょ を ひきながら もう みる かいてください。いいですか。2かい かくんですよ。\nあなたは なんを つくりますか",
+    "options": ["ほn", "え", "てがみ", "しゅくだい"],
+    "correct": 1,
+    "explanation": "E (picture) is correct. The sentence talks about drawing something beautiful with new colors."
+  },
+  {
+    "id": "n5r1q30",
+    "question": "がっこう で このうた を うたってください。すこしむずかしいですが、とても すき ですから、がんばってください。しらない おと が はいっていますが、はじめは じしょ を ひかないで ぜんぶ きく ください。つぎに じしょ を ひきながら もう たのしむ うたってください。いいですか。2かい うたうんですよ。\nあなたは なんを ききますか",
+    "options": ["ほn", "うた", "え", "てがみ"],
+    "correct": 1,
+    "explanation": "Uta (song) is correct. The reader is asked to listen to and enjoy singing the song twice."
+  },
+  {
+    "id": "n5r1q31",
+    "question": "スーパー で このかいものリスト を よく みてください。くだもの と やさい を かってください。にく は いりません。のみもの は うち に あります。\nあなたは なに を かいますか。",
+    "options": ["にく", "ジュース", "トマト", "おちゃ"],
+    "correct": 2,
+    "explanation": "‘トマト’ (tomato) is correct. The passage asks for fruits and vegetables only, not meat or drinks."
+  },
+  {
+    "id": "n5r1q32",
+    "question": "ともだち に でんわ を したいです。でも、いま は よる 10じ です。ともだち は いつも 9じに ねます。\nあなたは どう しますか。",
+    "options": ["いま でんわ を します", "あした の あさ に でんわ を します", "てがみ を いま かきます", "でんわ を しません"],
+    "correct": 1,
+    "explanation": "‘あした の あさ に でんわ を します’ (I will call tomorrow morning) is correct. Since the friend sleeps at 9, it’s too late now."
+  },
+  {
+    "id": "n5r1q33",
+    "question": "きょう は あつい です。あなた は こうえん に いきます。こうえん に は みず を のめる ところ が ありません。\nなに を もって いきますか。",
+    "options": ["ぼうし", "ほん", "みず", "くつ"],
+    "correct": 2,
+    "explanation": "‘みず’ (water) is correct. The passage says there is no place to drink water at the park, so bringing water is best."
+  },
+  {
+    "id": "n5r1q34",
+    "question": "がっこう で あたらしい クラブ に はいります。せんせい が『日本の うた を まなびます』と いいました。\nこのクラブ は なんの クラブ ですか。",
+    "options": ["さっかー", "りょうり", "うた", "え"],
+    "correct": 2,
+    "explanation": "‘うた’ (song/singing) is correct. The teacher says you will learn Japanese songs."
+  },
+  {
+    "id": "n5r1q35",
+    "question": "にちようび に びじゅつかん へ いきました。でも、びじゅつかん は やすみ でした。つぎ に どこ へ いきますか。",
+    "options": ["びじゅつかん", "えき", "いえ", "ほんや"],
+    "correct": 3,
+    "explanation": "‘ほんや’ (bookstore) is correct. Since the art museum was closed, going somewhere else like a bookstore makes sense."
+  },
+  {
+    "id": "n5r1q36",
+    "question": "あした は まつり が あります。たくさん の ひと が きます。でんしゃ は とても こんで いますから、じてんしゃ で いってください。\nあなたは なに で いきますか。",
+    "options": ["くるま", "でんしゃ", "あるいて", "じてんしゃ"],
+    "correct": 3,
+    "explanation": "‘じてんしゃ’ (bicycle) is correct. The passage says the train will be crowded and recommends going by bicycle."
+  },
+  {
+    "id": "n5r1q37",
+    "question": "きのう の よる は さむかった です。あさ おきた とき、そと に ゆき が すこし ふって いました。\nけさ の てんき は どう でしたか。",
+    "options": ["あつかった", "ゆき が ふっていた", "はれ だった", "あめ が ふっていた"],
+    "correct": 1,
+    "explanation": "‘ゆき が ふっていた’ (snow was falling) is correct. The passage describes snow in the morning."
+  },
+  {
+    "id": "n5r1q38",
+    "question": "がっこう の ともだち は サッカー が すき です。まいにち サッカー を します。でも、わたし は サッカー より テニス が すき です。\nわたし は なに が すき ですか。",
+    "options": ["サッカー", "てにす", "やきゅう", "バスケットボール"],
+    "correct": 1,
+    "explanation": "‘てにす’ (tennis) is correct. The speaker prefers tennis over soccer."
+  },
+  {
+    "id": "n5r1q39",
+    "question": "えき の まえ に ぎんこう が あります。その ぎんこう の となり に ゆうびんきょく が あります。\nゆうびんきょく は どこ に ありますか。",
+    "options": ["ぎんこう の なか", "こうえん の まえ", "ぎんこう の となり", "えき の うしろ"],
+    "correct": 2,
+    "explanation": "‘ぎんこう の となり’ (next to the bank) is correct. The post office is next to the bank, which is in front of the station."
+  },
+  {
+    "id": "n5r1q40",
+    "question": "きょう は がっこう で たいそう の じゅぎょう が あります。たいそうふく と くつ を もって きてください。\nがっこう に なに を もって いきますか。",
+    "options": ["おべんとう", "たいそうふく", "ほん", "かばん"],
+    "correct": 1,
+    "explanation": "‘たいそうふく’ (gym clothes) is correct. The sentence says to bring gym clothes and shoes for PE class."
+  }
+]
+
+

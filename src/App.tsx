@@ -9,6 +9,8 @@ import Quiz from './pages/Quiz';
 import Practice from './pages/Practice';
 import Ranking from './pages/Ranking';
 import Contact from './pages/Contact';
+import Grammer from './pages/Grammer';
+
 
 function App() {
   return (
@@ -23,9 +25,11 @@ function App() {
                   <Route path="/" element={<Navigate to="/quiz" replace />} />
                   <Route path="/quiz" element={<Quiz />} />
                   <Route path="/practice" element={<Practice />} />
+                  <Route path="/grammer" element={<Grammer/>} />
                   <Route path="/ranking" element={<Ranking />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/dashboard" element={<Dashboard />} />
+                  
                 </Routes>
               </main>
               <Footer />

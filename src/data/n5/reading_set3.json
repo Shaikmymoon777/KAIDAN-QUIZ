@@ -1,0 +1,282 @@
+[
+    {
+    "id": "jlptq1",
+    "question": "にちようびのあさ、わたしはおそくおきました。あめがふっていたので、でかけませんでした。かわりに、うちでほんをよんだり、おんがくをきいたりしました。ごご、そらがはれてきましたが、わたしはもうそとにいきたくありませんでした。\nこのひ、わたしはなにをしましたか。",
+    "options": ["そとでともだちにあいました", "あさからうちをでました", "いちにちじゅうそとにいました", "いちにちうちでゆっくりすごしました"],
+    "correct": 3,
+    "explanation": "They stayed home all day. The rain kept them inside, and even when the weather cleared, they didn’t go out."
+  },
+  {
+    "id": "jlptq2",
+    "question": "たなかさんはまいあさ6じにおきます。あさごはんをたべてから、いぬとさんぽをします。がっこうは8じ30ぷんからですが、7じにはいえをでます。とおいので、あるいて20ふん、バスで20ふんです。\nたなかさんはまいあさなにをしますか。",
+    "options": ["がっこうはちかいです", "たなかさんは7じはんにいえをでます", "たなかさんはいぬとさんぽします", "たなかさんはバスにのりません"],
+    "correct": 2,
+    "explanation": "Tanaka walks the dog every morning after breakfast, as stated clearly in the passage."
+  },
+  {
+    "id": "jlptq3",
+    "question": "きのう、わたしはスーパーでやさいをかいました。でも、ねだんがたかかったので、くだものはかいませんでした。あとで、ちかくのみせでやすいりんごをみつけて、そこでもういちどかいものをしました。\nわたしはきのうなにをしましたか。",
+    "options": ["くだものはかいませんでした", "ふたつのみせでかいものをしました", "やさいはかいませんでした", "りんごはたかかったです"],
+    "correct": 1,
+    "explanation": "They bought vegetables at one store and cheap apples at another, so they shopped at two places."
+  },
+  {
+    "id": "jlptq4",
+    "question": "あにはせんしゅうびょうきになりました。いちにちだけがっこうをやすみました。でもいまはげんきです。きょうはサッカーのしあいがあるので、はやくおきてでかけました。\nきょうのあにはどうですか。",
+    "options": ["あにはまだびょうきです", "あにはがっこうをやすみました", "きょうあにはいえにいました", "あにはサッカーのしあいにいきました"],
+    "correct": 3,
+    "explanation": "The brother is feeling better and went out early to play in a soccer match today."
+  },
+  {
+    "id": "jlptq5",
+    "question": "わたしのたんじょうびはあしたです。でも、きのうともだちがプレゼントをくれました。ちいさくてかわいいはこでした。なかにはてづくりのクッキーがはいっていました。\nそのプレゼントはなんでしたか。",
+    "options": ["たんじょうびはきのうでした", "プレゼントはおおきなはこでした", "プレゼントはてづくりのクッキーでした", "ともだちはなにもくれませんでした"],
+    "correct": 2,
+    "explanation": "The friend gave handmade cookies as a gift, which were inside a small, cute box."
+  },
+  {
+    "id": "jlptq6",
+    "question": "えいがをみにいくつもりでしたが、ちかくのえいがかんではみたいえいががやっていませんでした。だから、でんしゃでとなりまちのえいがかんにいきました。じかんもおかねもよけいにかかりましたが、えいがはとてもおもしろかったです。\nこのひ、なにがたいへんでしたか。",
+    "options": ["えいがはつまらなかった", "えいがかんがしまっていた", "えいがのよやくができなかった", "じかんとおかねがかかった"],
+    "correct": 3,
+    "explanation": "They had to go to a different theater, which cost extra time and money."
+  },
+  {
+    "id": "jlptq7",
+    "question": "やましたさんは、あさしちじにいえをでて、はちじにはたらきはじめます。でんしゃはこんでいて、たっていくのがたいへんです。だから、よくいちばんはやいでんしゃにのるようにしています。\nやましたさんがたいへんだとおもっていることはなんですか。",
+    "options": ["おきるのがはやい", "でんしゃでたっていること", "はたらくじかんがながい", "おそくいえをでること"],
+    "correct": 1,
+    "explanation": "Standing in the crowded train is hard, so Yamashita tries to take an earlier one."
+  },
+  {
+    "id": "jlptq8",
+    "question": "わたしのいもうとはおんがくがすきで、まいにちピアノをれんしゅうしています。でも、きのうはがっこうでつかれたから、れんしゅうをやすみました。そのかわりに、ねるまえにおんがくをきいていました。\nいもうとはなにをしませんでしたか。",
+    "options": ["おんがくをきいた", "ピアノをれんしゅうした", "がっこうへいった", "つかれた"],
+    "correct": 1,
+    "explanation": "She didn’t practice the piano yesterday because she was tired after school."
+  },
+  {
+    "id": "jlptq9",
+    "question": "いけださんは、まいあさじてんしゃでしごとにいきます。あめがふるとでんしゃをつかいます。でも、こんしゅうはずっとくもりなので、じてんしゃでいきました。\nこんしゅう、いけださんはなにでしごとにいきましたか。",
+    "options": ["あるいていった", "くるまでいった", "でんしゃでいった", "じてんしゃでいった"],
+    "correct": 3,
+    "explanation": "Since it was only cloudy, not rainy, Ikeda used a bicycle for commuting."
+  },
+  {
+    "id": "jlptq10",
+    "question": "せんしゅう、がっこうのやすみをつかって、ともだちといなかへいきました。いなかではしぜんがいっぱいで、まちとはちがうけしきにおどろきました。ゆうがた、きれいなゆうひをみながらごはんをたべました。\nこのぶんしょうで、いちばんいんしょうにのこったことはなんですか。",
+    "options": ["ごはんがまずかった", "いなかはにぎやかだった", "ゆうひがきれいだった", "まちはしずかだった"],
+    "correct": 2,
+    "explanation": "They were impressed by the beautiful sunset, which they watched while eating dinner."
+  },
+  {
+    "id": "jlptq11",
+    "question": "いもうとはケーキがだいすきです。きのう、わたしはがっこうのかえりにケーキをかってかえりました。でも、いもうとはすでにじぶんでちがうケーキをかっていました。\nいえにはどんなケーキがありますか。",
+    "options": ["ケーキがひとつある", "ケーキはない", "ケーキがふたつある", "ケーキはたべてしまった"],
+    "correct": 2,
+    "explanation": "Because both the speaker and their sister bought cakes, there are two cakes at home."
+  },
+  {
+    "id": "jlptq12",
+    "question": "ともだちからしゃしんをもらいました。そのしゃしんには、なつやすみにいったやまのけしきがうつっていました。とてもきれいだったので、わたしもいきたくなりました。\nこのぶんしょうをよんで、なにがわかりますか。",
+    "options": ["ともだちはしゃしんがきらい", "なつやすみにうみへいった", "しゃしんのけしきはきれいだった", "わたしはそのしゃしんをわすれた"],
+    "correct": 2,
+    "explanation": "The sentence says it was 'very beautiful,' so we understand that the scenery in the photo was beautiful."
+  },
+  {
+    "id": "jlptq13",
+    "question": "でんしゃのなかでおとこのこがなきはじめました。そのとき、ちかくにいたおばあさんがあめをわたしました。おとこのこはわらって「ありがとう」といいました。\nこのはなしで、おばあさんはなにをしましたか。",
+    "options": ["おこりました", "なにもいいませんでした", "こどもにあめをあげました", "でんしゃをおります"],
+    "correct": 2,
+    "explanation": "The text says the grandmother handed candy, so 'gave candy to the child' is correct."
+  },
+  {
+    "id": "jlptq14",
+    "question": "しごとのあと、つかれていたので、すぐうちにかえってねるつもりでした。でも、ようふくをあらわなければならなかったので、まずせんたくをしました。\nなにをさきにしましたか。",
+    "options": ["ねました", "ばんごはんをたべました", "せんたくをしました", "テレビをみました"],
+    "correct": 2,
+    "explanation": "The speaker initially planned to sleep, but first did laundry instead, so 'did laundry' is correct."
+  },
+  {
+    "id": "jlptq15",
+    "question": "あるひ、がっこうのかえりにみちをまちがえてしまいました。しばらくあるいてもよくわからなかったので、ちかくのひとにたずねました。そのひとはとてもしんせつで、いっしょにあるいてくれました。\nこのぶんしょうで、わかることはどれですか。",
+    "options": ["ぶじにかえることができた", "ひとはおこっていた", "せんせいがみちをおしえた", "あるくのをやめた"],
+    "correct": 0,
+    "explanation": "Because someone kindly walked together with the speaker, we can infer they got home safely."
+  },
+  {
+    "id": "jlptq16",
+    "question": "ともだちにほんをかしてもらいました。とてもたのしみにしていたのですが、よみはじめたらページがぬれていて、ことばがよみにくくなっていました。それでも、さいごまでよみました。\nこのひとのきもちにいちばんちかいのはどれですか。",
+    "options": ["ほんをかりたのがいやだった", "ほんがぬれていてよめなかった", "よみにくくてもさいごまでよんだ", "ほんのよやくをわすれた"],
+    "correct": 2,
+    "explanation": "Even though it was hard to read, the speaker read to the end, so they enjoyed reading."
+  },
+  {
+    "id": "jlptq17",
+    "question": "まいしゅうどようびに、わたしはちかくのこうえんでボランティアをしています。はじめはすこしはずかしかったですが、いまはたのしくなってきました。こどもたちといっしょにそうじをしたり、あそんだりしています。\nボランティアのさいしょのきもちにちかいのはどれですか。",
+    "options": ["たのしみだった", "しんぱいだった", "はずかしかった", "やりたくなかった"],
+    "correct": 2,
+    "explanation": "It says 'was a little embarrassed at first,' so 'was embarrassed' is correct."
+  },
+  {
+    "id": "jlptq18",
+    "question": "あにがたんじょうびのプレゼントにじてんしゃをもらいました。はじめはあまりつかわなかったけれど、いまはまいにちのようにのっています。ともだちともじてんしゃでいっしょにでかけています。\nあにはいま、じてんしゃについてどうおもっていますか。",
+    "options": ["いらないとおもっている", "つかいたくない", "まいにちつかっている", "まだのっていない"],
+    "correct": 2,
+    "explanation": "It says he rides almost every day now, so he is using and enjoying it."
+  },
+  {
+    "id": "jlptq19",
+    "question": "きのうともだちとカフェにいきました。コーヒーをちゅうもんしたつもりが、ケーキだけきました。てんいんにきいたら「まちがえてしまいました」とあやまってくれました。\nカフェでなにがあったといえますか。",
+    "options": ["コーヒーとケーキがきた", "ちゅうもんをわすれた", "てんいんがまちがえた", "ともだちがちゅうもんした"],
+    "correct": 2,
+    "explanation": "The staff clearly said they made a mistake, so 'the staff made a mistake' is correct."
+  },
+  {
+    "id": "jlptq20",
+    "question": "ふゆやすみ、いもうとといっしょにおかしをつくることにしました。はじめはうまくできませんでしたが、なんどもチャレンジして、さいごにはおいしくできました。\nこのひとたちはどうしましたか。",
+    "options": ["いっかいだけつくった", "すぐにうまくつくれた", "つくるのをやめた", "なんどもためしてつくった"],
+    "correct": 3,
+    "explanation": "Because they 'tried many times,' 'they made it after several tries' is correct."
+  },
+  {
+    "id": "jlptq21",
+    "question": "こんどのテストは、いままでよりむずかしいとせんせいがいいました。だから、わたしはまいにちひとりでべんきょうしています。しけんにごうかくするために、がんばっています。\nこのひとはどうしてひとりでべんきょうしていますか。",
+    "options": ["テストがやさしいから", "ともだちがいないから", "テストにうかりたいから", "せんせいにいわれたから"],
+    "correct": 2,
+    "explanation": "Because the speaker wants to pass the exam, they are studying alone every day."
+  },
+  {
+    "id": "jlptq22",
+    "question": "きのうはつよいあめがふっていました。かさをもっていなかったので、ずぶぬれになってしまいました。つぎはてんきよほうをよくみようとおもいました。\nこのひとのはんせいしていることはなんですか。",
+    "options": ["あめがすきなこと", "てんきよほうをみなかったこと", "かさがすきなこと", "ふくをわすれたこと"],
+    "correct": 1,
+    "explanation": "The speaker regrets not checking the weather forecast."
+  },
+  {
+    "id": "jlptq23",
+    "question": "しょうらいは、たくさんのくにをりょこうしてみたいです。そのために、いまはにほんごとえいごをべんきょうしています。ことばをおぼえるのはたいへんですが、まいにちつづけています。\nこのひとのもくてきはなんですか。",
+    "options": ["ことばをおぼえること", "にほんごをたのしむこと", "たくさんたべること", "いろいろなくにへいくこと"],
+    "correct": 3,
+    "explanation": "The speaker is studying languages because they want to travel to many countries."
+  },
+  {
+    "id": "jlptq24",
+    "question": "ともだちとでんしゃででかけましたが、とちゅうでわすれものにきがつきました。もっていたきっぷはかえりにしかつかえないタイプだったので、いったんでかけるのをやめてうちにかえりました。\nこのひとはどうしましたか。",
+    "options": ["わすれものをとりにかえった", "きっぷをすてた", "でんしゃにのりつづけた", "ともだちとあそびにつづけた"],
+    "correct": 0,
+    "explanation": "The speaker went back home to get the item they had forgotten."
+  },
+  {
+    "id": "jlptq25",
+    "question": "まえに、あるレストランでたべたカレーがとてもおいしかったので、またいきたいとおもっていました。きのう、ひさしぶりにいってみたら、おみせがかわっていて、もうそのカレーはありませんでした。\nこのひとはどうかんじましたか。",
+    "options": ["カレーがあってよろこんだ", "おみせがへってかなしかった", "カレーがなくてざんねんだった", "カレーをたべすぎた"],
+    "correct": 2,
+    "explanation": "The speaker felt disappointed that the curry was no longer available."
+  },
+  {
+    "id": "jlptq26",
+    "question": "しゅうまつ、いもうととえいがをみにいくやくそくをしていました。でも、いもうとはともだちとのやくそくをわすれていて、いっしょにいけませんでした。わたしはすこしおこってしまいましたが、あとであやまってくれたので、ゆるしました。\nこのぶんからわかることはどれですか。",
+    "options": ["ふたりでえいがをみた", "けんかをつづけている", "いもうとはあやまった", "いもうとはこなかった"],
+    "correct": 2,
+    "explanation": "The younger sister apologized after forgetting the promise."
+  },
+  {
+    "id": "jlptq27",
+    "question": "いぬのさんぽはまいあさちちがしています。でも、きのうはあめがつよかったので、わたしがかわりにしました。いぬはあめがきらいらしく、いつもよりはやくいえにもどりました。\nこのぶんからいえることはどれですか。",
+    "options": ["ちちはいぬをあるかせなかった", "わたしはいぬとあそびにいった", "いぬはたのしそうだった", "いぬはあめのなかでおどった"],
+    "correct": 0,
+    "explanation": "The speaker walked the dog instead of their father because of the rain."
+  },
+  {
+    "id": "jlptq28",
+    "question": "ともだちがあたらしいかばんをかってくれました。ずっとほしかったデザインで、みるたびにうれしいきもちになります。こんどのりょこうにもっていくつもりです。\nこのひとのきもちはどれですか。",
+    "options": ["ともだちにかえしたい", "かばんをもらってうれしい", "かばんをもうつかっていない", "りょこうにいきたくない"],
+    "correct": 1,
+    "explanation": "The speaker is happy to have received the bag."
+  },
+  {
+    "id": "jlptq29",
+    "question": "きのう、まいとしでているまつりにいきました。でもこんかいはあめがふっていて、にんきのおみせもしまっていました。すこしがっかりしましたが、あめのなかでおどるこどもたちをみて、げんきをもらいました。\nこのひとはまつりでどうかんじましたか。",
+    "options": ["たのしくなかった", "こどもをみてわらった", "あめでなにもできなかった", "さいごはすこしたのしかった"],
+    "correct": 3,
+    "explanation": "Although it was disappointing at first, the speaker ended up enjoying the festival a little."
+  },
+  {
+    "id": "jlptq30",
+    "question": "しゅくだいをわすれたことにきづいたのはがっこうにいってからでした。せんせいに「きのうはいそがしくて…」といいかけたとき、「つぎはきをつけてね」とやさしくいわれました。\nこのぶんからわかるせんせいのようすはなんですか。",
+    "options": ["せんせいはとてもおこった", "せんせいはわらっていた", "せんせいはしずかにでていった", "せんせいはやさしかった"],
+    "correct": 3,
+    "explanation": "The teacher kindly reminded the student to be careful next time, showing a gentle attitude."
+  },
+  {
+    "id": "jlptq31",
+    "question": "ともだちがひっこすことになり、きのうおわかれのパーティーをしました。なかよしだったのでかなしかったですが、あたらしいまちでもげんきでいてほしいとおもいました。\nこのひとはどうおもっていますか。",
+    "options": ["ともだちにあいたくない", "あたらしいまちをきらいだ", "さびしいがおうえんしたい", "いっしょにひっこす"],
+    "correct": 2,
+    "explanation": "The speaker feels sad but wants to support their friend in the new town."
+  },
+  {
+    "id": "jlptq32",
+    "question": "きのうはじめてクッキーをつくってみました。レシピどおりにつくったつもりでしたが、すこしあまくなりすぎました。つぎはさとうをへらして、もっとおいしくしたいです。\nこのひとはなにをしようとしていますか。",
+    "options": ["もうつくらない", "もっとあまくする", "あじをなおしたい", "レシピをすてる"],
+    "correct": 2,
+    "explanation": "The speaker wants to adjust the taste by using less sugar next time."
+  },
+  {
+    "id": "jlptq33",
+    "question": "べんきょうがにがてだったので、まいにちすこしずつつづけることにしました。さいしょはあまりかわりませんでしたが、いまはすこしずつテストのてんすうがよくなってきました。\nこのひとはべんきょうについてどうですか。",
+    "options": ["あきらめた", "つづけてすこしうまくなった", "さいしょからできた", "いまはやめてしまった"],
+    "correct": 1,
+    "explanation": "They improved slowly by continuing to study every day."
+  },
+  {
+    "id": "jlptq34",
+    "question": "バスにのったとき、さいしょのドアのちかくにたっているおばあさんがいました。わたしはいすにすわっていましたが、おばあさんをみて、たちあがっていすをゆずりました。おばあさんはえがおで「ありがとう」といいました。\nこのひとはなにをしましたか。",
+    "options": ["いすをかわらなかった", "しらないふりをした", "いすをゆずった", "いえにかえった"],
+    "correct": 2,
+    "explanation": "The speaker gave up their seat to the elderly woman."
+  },
+  {
+    "id": "jlptq35",
+    "question": "しごとのあとでかけるつもりでしたが、おきゃくさまかられんらくがきて、もういちどかいしゃにもどらなければなりませんでした。ともだちとのよていはキャンセルしました。\nこのひとはなにをしましたか。",
+    "options": ["ともだちとあそんだ", "しごとをやめた", "でかけた", "よていをやめた"],
+    "correct": 3,
+    "explanation": "They had to cancel their plan with a friend due to work."
+  },
+  {
+    "id": "jlptq36",
+    "question": "せんしゅう、おくれてしゅくだいをだしたら、せんせいに「つぎからきをつけてね」といわれました。ことしはまいにちきちんとやっていこうとおもいました。\nこのぶんからわかることはどれですか。",
+    "options": ["しゅくだいをわすれた", "せんせいにほめられた", "しゅくだいがはやかった", "いえでテレビをみた"],
+    "correct": 0,
+    "explanation": "The speaker had submitted their homework late last week."
+  },
+  {
+    "id": "jlptq37",
+    "question": "がっこうのともだちがびょうきになったので、クラスのみんなでカードをかきました。ひとりひとりちがうメッセージをかいて、たくさんのシールもはりました。つぎのひ、そのともだちはえがおで「ありがとう」といってくれました。\nこのことから、なにがいえますか。",
+    "options": ["ともだちはかなしんでいた", "カードをもらってうれしかった", "カードはすてられた", "ともだちはがっこうをやめた"],
+    "correct": 1,
+    "explanation": "The friend was happy to receive the card from the class."
+  },
+  {
+    "id": "jlptq38",
+    "question": "まいしゅう、わたしはおばあさんのうちへいっています。そうじをしたり、かいものにいったりして、いっしょにばんごはんもたべます。いそがしいときもありますが、いくとおばあさんがとてもよろこぶので、これからもつづけようとおもいます。\nこのひとがだいじにしていることはなんですか。",
+    "options": ["じかんをたいせつにすること", "ひとりでいること", "だれにもあわないこと", "おばあさんとのじかんをたいせつにすること"],
+    "correct": 3,
+    "explanation": "The speaker values time with their grandmother and wants to continue visiting."
+  },
+  {
+    "id": "jlptq39",
+    "question": "きょうはせんせいにたのまれて、がっこうのほんをかぞえました。たくさんあってたいへんでしたが、さいごに「たすかったよ、ありがとう」といわれて、つかれがふっとびました。\nこのひとはどうかんじましたか。",
+    "options": ["つかれていやになった", "ありがとうといわれてうれしかった", "ほんをかぞえるのがきらいになった", "せんせいにしかられた"],
+    "correct": 1,
+    "explanation": "The speaker felt happy to be thanked after hard work."
+  },
+  {
+    "id": "jlptq40",
+    "question": "クラスでスピーチたいかいがありました。まえはひとのまえではなすのがにがてでしたが、なんかいもれんしゅうしたので、きんちょうしながらもじょうずにできました。さいごにともだちから「すごかったね」といわれて、じしんがつきました。\nこのぶんから、なにがいえますか。",
+    "options": ["れんしゅうしなかった", "じしんがなくなった", "うまくスピーチできた", "ともだちはみていなかった"],
+    "correct": 2,
+    "explanation": "The speaker successfully gave their speech and gained confidence from it."
+  }
+  ]

@@ -1,0 +1,283 @@
+[
+  {
+    "id": "jlptq01",
+    "question": "かいものの　まえに　＿＿　＿＿　★　＿＿　＿＿　を　つくりました。",
+    "options": ["もの", "かう", "リスト", "を"],
+    "answer": 2,
+    "explanation": "Correct answer: リスト。Full sentence: かいものの　まえに　かう　もの　の　リスト　を　つくりました。Translation: I made a shopping list before going shopping."
+  },
+  {
+    "id": "jlptq02",
+    "question": "でんしゃの　なかで　＿＿　＿＿　★　＿＿　＿＿　いけません。",
+    "options": ["たばこ", "を", "すって", "は"],
+    "answer": 2,
+    "explanation": "Correct answer: すって。Full sentence: でんしゃの　なかで　たばこ　を　すって　は　いけません。Translation: You must not smoke inside the train."
+  },
+  {
+    "id": "jlptq03",
+    "question": "にちようび　＿＿　＿＿　★　＿＿　＿＿　そうじ　します。",
+    "options": ["の", "いえ", "を", "ぜんぶ"],
+    "answer": 1,
+    "explanation": "Correct answer: いえ。Full sentence: にちようび　の　ぜんぶ　の　いえ　を　そうじ　します。Translation: On Sunday, I will clean the whole house."
+  },
+  {
+    "id": "jlptq04",
+    "question": "ともだちに　＿＿　＿＿　★　＿＿　＿＿　もらいました。",
+    "options": ["たんじょうび", "の", "プレゼント", "を"],
+    "answer": 2,
+    "explanation": "Correct answer: プレゼント。Full sentence: ともだちに　たんじょうび　の　プレゼント　を　もらいました。Translation: I received a birthday present from my friend."
+  },
+  {
+    "id": "jlptq05",
+    "question": "きのう　＿＿　＿＿　★　＿＿　＿＿　おそく　ねました。",
+    "options": ["まで", "えいが", "おわる", "を"],
+    "answer": 1,
+    "explanation": "Correct answer: えいが。Full sentence: きのう　えいが　が　おわる　まで　おそく　ねました。Translation: Yesterday, I went to bed late after the movie ended."
+  },
+  {
+    "id": "jlptq06",
+    "question": "ともだちと　＿＿　＿＿　★　＿＿　＿＿　あそびました。",
+    "options": ["こうえん", "で", "たのしく", "いっしょに"],
+    "answer": 2,
+    "explanation": "Correct answer: たのしく。Full sentence: ともだちと　いっしょに　こうえん　で　たのしく　あそびました。Translation: I had fun playing in the park with my friend."
+  },
+  {
+    "id": "jlptq07",
+    "question": "こんばん　＿＿　★　＿＿　＿＿　＿＿　つくります。",
+    "options": ["ばんごはん", "を", "つまと", "いっしょに"],
+    "answer": 0,
+    "explanation": "Correct answer: ばんごはん。Full sentence: こんばん　つまと　いっしょに　ばんごはん　を　つくります。Translation: Tonight I will cook dinner together with my wife."
+  },
+  {
+    "id": "jlptq08",
+    "question": "にちようびに　★　＿＿　＿＿　＿＿　＿＿　かけました。",
+    "options": ["ともだちに", "でんわ", "の", "あさ"],
+    "answer": 1,
+    "explanation": "Correct answer: でんわ。Full sentence: にちようびの　あさ　ともだちに　でんわ　を　かけました。Translation: I called my friend on Sunday morning."
+  },
+  {
+    "id": "jlptq09",
+    "question": "わたしの　うちは　★　＿＿　＿＿　＿＿　＿＿。",
+    "options": ["えき", "から", "とおく", "ありません"],
+    "answer": 2,
+    "explanation": "Correct answer: とおく。Full sentence: わたしの　うちは　えき　から　とおく　ありません。Translation: My house is not far from the station."
+  },
+  {
+    "id": "jlptq10",
+    "question": "せんせいは　＿＿　＿＿　★　＿＿　＿＿　いました。",
+    "options": ["でんしゃ", "で", "きのう", "きました"],
+    "answer": 0,
+    "explanation": "Correct answer: でんしゃ。Full sentence: せんせいは　きのう　でんしゃ　で　きました。Translation: The teacher came by train yesterday."
+  },
+  {
+    "id": "jlptq11",
+    "question": "かのじょは　＿＿　＿＿　★　＿＿　＿＿　ひきます。",
+    "options": ["じょうずに", "がっき", "を", "よく"],
+    "answer": 1,
+    "explanation": "Correct answer: がっき。Full sentence: かのじょは　よく　じょうずに　がっき　を　ひきます。Translation: She often plays musical instruments well."
+  },
+  {
+    "id": "jlptq12",
+    "question": "この　みせは　＿＿　＿＿　＿＿　★　＿＿。",
+    "options": ["とても", "にんきが", "たくさん", "あります"],
+    "answer": 3,
+    "explanation": "Correct answer: あります。Full sentence: この　みせは　とても　にんきが　たくさん　あります。Translation: This shop is very popular."
+  },
+  {
+    "id": "jlptq13",
+    "question": "けさ　＿＿　＿＿　＿＿　★　＿＿　のりました。",
+    "options": ["おそく", "おきて", "でんしゃ", "に"],
+    "answer": 2,
+    "explanation": "Correct answer: でんしゃ。Full sentence: けさ　おそく　おきて　でんしゃ　に　のりました。Translation: I got up late this morning and took the train."
+  },
+  {
+    "id": "jlptq14",
+    "question": "きのう　＿＿　＿＿　★　＿＿　＿＿　かいました。",
+    "options": ["スーパー", "で", "りんご", "を"],
+    "answer": 2,
+    "explanation": "Correct answer: りんご。Full sentence: きのう　スーパー　で　りんご　を　かいました。Translation: I bought apples at the supermarket yesterday."
+  },
+  {
+    "id": "jlptq15",
+    "question": "この　ほんは　＿＿　＿＿　＿＿　＿＿　★　よみました。",
+    "options": ["よる", "ねる", "まえに", "すこし"],
+    "answer": 4,
+    "explanation": "Correct answer: よみました。Full sentence: この　ほんは　よる　ねる　まえに　すこし　よみました。Translation: I read this book a little before going to bed at night."
+  },
+  {
+    "id": "jlptq16",
+    "question": "あには　＿＿　＿＿　★　＿＿　＿＿　べんきょうしています。",
+    "options": ["だいがく", "で", "けいざい", "を"],
+    "answer": 2,
+    "explanation": "Correct answer: けいざい。Full sentence: あには　だいがく　で　けいざい　を　べんきょうしています。Translation: My older brother is studying economics at university."
+  },
+  {
+    "id": "jlptq17",
+    "question": "かのじょは　＿＿　＿＿　＿＿　＿＿　★　いません。",
+    "options": ["いま", "がっこう", "に", "いって"],
+    "answer": 5,
+    "explanation": "Correct answer: いません。Full sentence: かのじょは　いま　がっこう　に　いって　いません。Translation: She is not at school now."
+  },
+  {
+    "id": "jlptq18",
+    "question": "あさごはんを　＿＿　＿＿　★　＿＿　＿＿　たべました。",
+    "options": ["しごと", "まえに", "いえ", "で"],
+    "answer": 2,
+    "explanation": "Correct answer: いえ。Full sentence: あさごはんを　しごと　まえに　いえ　で　たべました。Translation: I ate breakfast at home before work."
+  },
+  {
+    "id": "jlptq19",
+    "question": "この　シャツは　＿＿　＿＿　★　＿＿　＿＿　です。",
+    "options": ["やすくて", "デザイン", "かわいい", "が"],
+    "answer": 0,
+    "explanation": "Correct answer: やすくて。Full sentence: この　シャツは　やすくて　デザイン　が　かわいい　です。Translation: This shirt is cheap and has a cute design."
+  },
+  {
+    "id": "jlptq20",
+    "question": "にちようび　＿＿　＿＿　＿＿　★　＿＿　ともだちと　でかけます。",
+    "options": ["の", "あさ", "えき", "から"],
+    "answer": 2,
+    "explanation": "Correct answer: えき。Full sentence: にちようび　の　あさ　えき　から　ともだちと　でかけます。Translation: On Sunday morning, I will go out with my friend from the station."
+  },
+  {
+    "id": "jlptq21",
+    "question": "きょうは　＿＿　＿＿　★　＿＿　＿＿　ありません。",
+    "options": ["ともだち", "から", "でんわ", "が"],
+    "answer": 2,
+    "explanation": "Correct answer: でんわ。Full sentence: きょうは　ともだち　から　でんわ　が　ありません。Translation: I didn't get a call from my friend today."
+  },
+  {
+    "id": "jlptq22",
+    "question": "きょうしつに　＿＿　＿＿　★　＿＿　＿＿　います。",
+    "options": ["こども", "が", "たくさん", "います"],
+    "answer": 0,
+    "explanation": "Correct answer: こども。Full sentence: きょうしつに　たくさん　こども　が　います。Translation: There are many children in the classroom."
+  },
+  {
+    "id": "jlptq23",
+    "question": "あには　＿＿　＿＿　★　＿＿　＿＿　かえりました。",
+    "options": ["へ", "でんしゃ", "いえ", "で"],
+    "answer": 1,
+    "explanation": "Correct answer: でんしゃ。Full sentence: あには　でんしゃ　で　いえ　へ　かえりました。Translation: My older brother returned home by train."
+  },
+  {
+    "id": "jlptq24",
+    "question": "わたしは　＿＿　＿＿　★　＿＿　＿＿　すんでいます。",
+    "options": ["おおさか", "で", "に", "かぞく"],
+    "answer": 0,
+    "explanation": "Correct answer: おおさか。Full sentence: わたしは　かぞく　と　おおさか　に　すんでいます。Translation: I live in Osaka with my family."
+  },
+  {
+    "id": "jlptq25",
+    "question": "かいしゃは　＿＿　＿＿　★　＿＿　＿＿　にあります。",
+    "options": ["ぎんこう", "と", "えき", "のあいだ"],
+    "answer": 2,
+    "explanation": "Correct answer: えき。Full sentence: かいしゃは　ぎんこう　と　えき　のあいだ　にあります。Translation: The company is between the bank and the station."
+  },
+  {
+    "id": "jlptq26",
+    "question": "こどもが　＿＿　＿＿　＿＿　★　＿＿　います。",
+    "options": ["を", "ピアノ", "ひいて", "いま"],
+    "answer": 1,
+    "explanation": "Correct answer: ピアノ。Full sentence: こどもが　いま　ピアノ　を　ひいて　います。Translation: The child is playing the piano now."
+  },
+  {
+    "id": "jlptq27",
+    "question": "あの　ひとは　＿＿　＿＿　★　＿＿　＿＿　せんせいです。",
+    "options": ["にほんご", "を", "おしえて", "いる"],
+    "answer": 2,
+    "explanation": "Correct answer: おしえて。Full sentence: あの　ひとは　にほんご　を　おしえて　いる　せんせいです。Translation: That person is a teacher who teaches Japanese."
+  },
+  {
+    "id": "jlptq28",
+    "question": "きょうは　＿＿　＿＿　★　＿＿　＿＿　あついです。",
+    "options": ["とても", "ひる", "の", "てんき"],
+    "answer": 1,
+    "explanation": "Correct answer: ひる。Full sentence: きょうは　ひる　の　てんき　が　とても　あついです。Translation: The weather this afternoon is very hot."
+  },
+  {
+    "id": "jlptq29",
+    "question": "まいにち　＿＿　＿＿　＿＿　★　＿＿　およぎます。",
+    "options": ["プール", "で", "あさ", "に"],
+    "answer": 0,
+    "explanation": "Correct answer: プール。Full sentence: まいにち　あさ　に　プール　で　およぎます。Translation: I swim in the pool every morning."
+  },
+  {
+    "id": "jlptq30",
+    "question": "この　まちは　＿＿　＿＿　★　＿＿　＿＿　ゆうめいです。",
+    "options": ["たてもの", "が", "ふるい", "と"],
+    "answer": 2,
+    "explanation": "Correct answer: ふるい。Full sentence: この　まちは　ふるい　たてもの　が　と　ゆうめいです。Translation: This town is famous for its old buildings."
+  },
+  {
+    "id": "jlptq31",
+    "question": "にちようびは　＿＿　＿＿　★　＿＿　＿＿　すごしました。",
+    "options": ["で", "こうえん", "ともだち", "と"],
+    "answer": 2,
+    "explanation": "Correct answer: ともだち。Full sentence: にちようびは　ともだち　と　こうえん　で　すごしました。Translation: I spent Sunday in the park with my friend."
+  },
+  {
+    "id": "jlptq32",
+    "question": "かれは　＿＿　＿＿　★　＿＿　＿＿　よく　しっています。",
+    "options": ["がくせい", "の", "せいかつ", "について"],
+    "answer": 2,
+    "explanation": "Correct answer: せいかつ。Full sentence: かれは　がくせい　の　せいかつ　について　よく　しっています。Translation: He knows a lot about student life."
+  },
+  {
+    "id": "jlptq33",
+    "question": "この　バスは　＿＿　＿＿　★　＿＿　＿＿　とおります。",
+    "options": ["えき", "まえ", "を", "の"],
+    "answer": 0,
+    "explanation": "Correct answer: えき。Full sentence: この　バスは　えき　の　まえ　を　とおります。Translation: This bus goes past the station."
+  },
+  {
+    "id": "jlptq34",
+    "question": "しょうらい　＿＿　＿＿　★　＿＿　＿＿　なりたいです。",
+    "options": ["に", "いしゃ", "けんこう", "の"],
+    "answer": 1,
+    "explanation": "Correct answer: いしゃ。Full sentence: しょうらい　けんこう　の　いしゃ　に　なりたいです。Translation: In the future, I want to become a health doctor."
+  },
+  {
+    "id": "jlptq35",
+    "question": "りょこう　＿＿　＿＿　★　＿＿　＿＿　ことが　あります。",
+    "options": ["に", "ともだち", "いっしょ", "と"],
+    "answer": 2,
+    "explanation": "Correct answer: いっしょ。Full sentence: りょこう　に　ともだち　と　いっしょ　に　いった　ことが　あります。Translation: I have traveled together with a friend."
+  },
+  {
+    "id": "jlptq36",
+    "question": "にほんごの　べんきょうは　＿＿　＿＿　★　＿＿　＿＿　はじめました。",
+    "options": ["から", "がっこう", "で", "に"],
+    "answer": 1,
+    "explanation": "Correct answer: がっこう。Full sentence: にほんごの　べんきょうは　がっこう　で　に　はじめました。Translation: I started studying Japanese at school."
+  },
+  {
+    "id": "jlptq37",
+    "question": "いぬが　＿＿　＿＿　★　＿＿　＿＿　ほえて　います。",
+    "options": ["にわ", "で", "おおきな", "こえ"],
+    "answer": 2,
+    "explanation": "Correct answer: おおきな。Full sentence: いぬが　にわ　で　おおきな　こえ　で　ほえて　います。Translation: A dog is barking loudly in the yard."
+  },
+  {
+    "id": "jlptq38",
+    "question": "この　もんだいは　＿＿　＿＿　★　＿＿　＿＿　こたえて　ください。",
+    "options": ["に", "えんぴつ", "で", "かんたん"],
+    "answer": 3,
+    "explanation": "Correct answer: かんたん。Full sentence: この　もんだいは　かんたん　なので　えんぴつ　で　こたえて　ください。Translation: This question is easy, so please answer with a pencil."
+  },
+  {
+    "id": "jlptq39",
+    "question": "らいしゅう　＿＿　＿＿　★　＿＿　＿＿　ひこうきで　いきます。",
+    "options": ["まで", "ともだち", "と", "おおさか"],
+    "answer": 3,
+    "explanation": "Correct answer: おおさか。Full sentence: らいしゅう　ともだち　と　おおさか　まで　ひこうきで　いきます。Translation: Next week, I will go to Osaka by plane with my friend."
+  },
+  {
+    "id": "jlptq40",
+    "question": "あさ　＿＿　＿＿　★　＿＿　＿＿　ふくを　きがえます。",
+    "options": ["に", "おきて", "すぐ", "まいにち"],
+    "answer": 1,
+    "explanation": "Correct answer: おきて。Full sentence: あさ　おきて　すぐ　まいにち　ふくを　きがえます。Translation: Every morning after waking up, I immediately change my clothes."
+  }
+]
+  

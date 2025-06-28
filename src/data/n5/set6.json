@@ -1,182 +1,702 @@
 [
   {
-    "id": "n5s5q01",
-    "question": "あめが　ふるから　_______ を　もちましょう。",
-    "options": ["くつ", "ぼうし", "かさ", "ふく"],
+    "id": "n5d1q1",
+    "question": "きのう の よる、 _______ を みながら べんきょう しました。",
+    "options": ["つき", "ほし", "たいよう", "そら"],
+    "correct": 1,
+    "explanation": "『ほし』 means 'stars'. Last night I studied while looking at the stars."
+  },
+  {
+    "id": "n5d1q2",
+    "question": "この くすり を _______ あと で、 みず を のんで ください。",
+    "options": ["のんだ", "たべた", "かった", "みた"],
+    "correct": 0,
+    "explanation": "『のんだ』 means 'took/drank'. Please drink water after taking this medicine."
+  },
+  {
+    "id": "n5d1q3",
+    "question": "でんしゃ が _______ まえ に、 きっぷ を かいました。",
+    "options": ["きた", "いった", "でた", "とまった"],
+    "correct": 0,
+    "explanation": "『きた』 means 'came'. I bought a ticket before the train came."
+  },
+  {
+    "id": "n5d1q4",
+    "question": "あたらしい アパート は _______ から、 とても きに いって います。",
+    "options": ["せまい", "ひろい", "たかい", "ひくい"],
+    "correct": 1,
+    "explanation": "『ひろい』 means 'spacious'. I really like the new apartment because it's spacious."
+  },
+  {
+    "id": "n5d1q5",
+    "question": "かいしゃ の _______ が おわって から、 ともだち と のみに いきました。",
+    "options": ["しごと", "かいぎ", "やすみ", "りょこう"],
+    "correct": 1,
+    "explanation": "『かいぎ』 means 'meeting'. After the company meeting ended, I went drinking with friends."
+  },
+  {
+    "id": "n5d1q6",
+    "question": "この みち は _______ から、 くるま で とおれません。",
+    "options": ["ひろい", "せまい", "ながい", "みじかい"],
+    "correct": 1,
+    "explanation": "『せまい』 means 'narrow'. Cars can't pass through this road because it's narrow."
+  },
+  {
+    "id": "n5d1q7",
+    "question": "びょうき の とき は、 _______ を はかって びょういん に いきます。",
+    "options": ["ねつ", "くすり", "ちゅうしゃ", "けんさ"],
+    "correct": 0,
+    "explanation": "『ねつ』 means 'fever/temperature'. When sick, I take my temperature and go to the hospital."
+  },
+  {
+    "id": "n5d1q8",
+    "question": "あたらしい しごと は _______ から、 まいにち がんばって います。",
+    "options": ["らく", "たいへん", "ひま", "じゆう"],
+    "correct": 1,
+    "explanation": "『たいへん』 means 'difficult/tough'. My new job is tough, so I work hard every day."
+  },
+  {
+    "id": "n5d1q9",
+    "question": "りょうしん に _______ を かいて、 げんき だ と つたえました。",
+    "options": ["てがみ", "しゃしん", "え", "ちず"],
+    "correct": 0,
+    "explanation": "『てがみ』 means 'letter'. I wrote a letter to my parents to tell them I'm doing well."
+  },
+  {
+    "id": "n5d1q10",
+    "question": "この レストラン の _______ は とても ゆうめい です。",
+    "options": ["りょうり", "てんいん", "ねだん", "ばしょ"],
+    "correct": 0,
+    "explanation": "『りょうり』 means 'cuisine/food'. This restaurant's cuisine is very famous."
+  },
+  {
+    "id": "n5d1q11",
+    "question": "あめ が ふって いる から、 _______ を もって でかけます。",
+    "options": ["かさ", "ぼうし", "めがね", "とけい"],
+    "correct": 0,
+    "explanation": "『かさ』 means 'umbrella'. It's raining, so I'll take an umbrella when I go out."
+  },
+  {
+    "id": "n5d1q12",
+    "question": "でんしゃ の _______ で ほん を よんで いました。",
+    "options": ["そと", "なか", "うえ", "した"],
+    "correct": 1,
+    "explanation": "『なか』 means 'inside'. I was reading a book inside the train."
+  },
+  {
+    "id": "n5d1q13",
+    "question": "この しゅくだい は _______ まで に だして ください。",
+    "options": ["らいしゅう", "せんしゅう", "こんしゅう", "まいしゅう"],
+    "correct": 0,
+    "explanation": "『らいしゅう』 means 'next week'. Please submit this homework by next week."
+  },
+  {
+    "id": "n5d1q14",
+    "question": "あたらしい くつ を _______ とき、 あし の サイズ を はかりました。",
+    "options": ["かう", "はく", "ぬぐ", "あらう"],
+    "correct": 0,
+    "explanation": "『かう』 means 'buy'. When buying new shoes, I measured my foot size."
+  },
+  {
+    "id": "n5d1q15",
+    "question": "この _______ は にほん の でんとうてき な りょうり です。",
+    "options": ["パン", "ケーキ", "すし", "ピザ"],
     "correct": 2,
-    "explanation": "「かさ」 は　あめの　ときに　つかいます。"
+    "explanation": "『すし』 means 'sushi'. This sushi is traditional Japanese cuisine."
   },
   {
-    "id": "n5s5q02",
-    "question": "びょうき　では　ありません。とても　_______ です。",
-    "options": ["しずか", "げんき", "まじめ", "すき"],
+    "id": "n5d1q16",
+    "question": "がっこう の _______ で ともだち と はなして いました。",
+    "options": ["きょうしつ", "ろうか", "こうてい", "しょくどう"],
     "correct": 1,
-    "explanation": "「げんき」 は　からだが　よい　じょうたい　の　いみです。"
+    "explanation": "『ろうか』 means 'hallway/corridor'. I was talking with friends in the school hallway."
   },
   {
-    "id": "n5s5q03",
-    "question": "そらに　くもが　でています。あめの　_______ かも　しれません。",
-    "options": ["きざし", "かさ", "いろ", "へや"],
+    "id": "n5d1q17",
+    "question": "この えいが の _______ は とても かなしい です。",
+    "options": ["はじまり", "おわり", "なか", "ぜんぶ"],
+    "correct": 1,
+    "explanation": "『おわり』 means 'ending'. The ending of this movie is very sad."
+  },
+  {
+    "id": "n5d1q18",
+    "question": "あたらしい _______ を おぼえる ため に、 まいにち れんしゅう して います。",
+    "options": ["うた", "ダンス", "スポーツ", "げーむ"],
     "correct": 0,
-    "explanation": "「きざし」 は　なにかが　おこる　まえぶれ　という　いみです。"
+    "explanation": "『うた』 means 'song'. I practice every day to learn a new song."
   },
   {
-    "id": "n5s5q04",
-    "question": "_______ に　インドから　にほんへ　きました。",
-    "options": ["こんげつ", "せんげつ", "らいねん", "きょねん"],
+    "id": "n5d1q19",
+    "question": "この みせ の _______ は とても やすい です。",
+    "options": ["しな", "ねだん", "ひと", "ばしょ"],
     "correct": 1,
-    "explanation": "「せんげつ」 は　「このまえの　つき」　の　いみです。"
+    "explanation": "『ねだん』 means 'price'. The prices at this store are very cheap."
   },
   {
-    "id": "n5s5q05",
-    "question": "わたしの　_______ は　にほんごの　せんせい　です。",
-    "options": ["ともだち", "せんせい", "おかあさん", "うた"],
-    "correct": 1,
-    "explanation": "「せんせい」 は　おしえる　ひと　という　いみです。"
-  },
-  {
-    "id": "n5s5q06",
-    "question": "_______　ともだちと　おんがくを　ききました。",
-    "options": ["せんしゅう", "あした", "いま", "ごご"],
-    "correct": 0,
-    "explanation": "「せんしゅう」 は　「このまえの　しゅう」　の　いみです。"
-  },
-  {
-    "id": "n5s5q07",
-    "question": "カーテンを　あけて　_______ を　いれましょう。",
-    "options": ["ゆき", "かぜ", "ひかり", "へや"],
+    "id": "n5d1q20",
+    "question": "きょう は _______ が わるい から、 いえ で やすみます。",
+    "options": ["きもち", "あたま", "からだ", "こころ"],
     "correct": 2,
-    "explanation": "「ひかり」 は　たいよう　や　でんき　の　あかり　の　いみです。"
+    "explanation": "『からだ』 means 'body/health'. I don't feel well today, so I'll rest at home."
   },
   {
-    "id": "n5s5q08",
-    "question": "ほしが　よるに　_______。",
-    "options": ["わらう", "ひかる", "なく", "かける"],
-    "correct": 1,
-    "explanation": "「ひかる」 は　「ひかりを　だす」　の　いみです。"
+    "id": "n5d1q21",
+    "question": "この _______ は とても きれい な おと が します。",
+    "options": ["がっき", "ラジオ", "でんわ", "テレビ"],
+    "correct": 0,
+    "explanation": "『がっき』 means 'musical instrument'. This instrument makes very beautiful sounds."
   },
   {
-    "id": "n5s5q09",
-    "question": "くるまを　うんてんする　には　_______ が　いります。",
-    "options": ["かさ", "めんきょ", "くつ", "ほん"],
-    "correct": 1,
-    "explanation": "「めんきょ」 は　「きょか／ライセンス」　の　いみです。"
+    "id": "n5d1q22",
+    "question": "あたらしい _______ を きて、 パーティー に いきました。",
+    "options": ["ふく", "くつ", "かばん", "とけい"],
+    "correct": 0,
+    "explanation": "『ふく』 means 'clothes'. I wore new clothes and went to the party."
   },
   {
-    "id": "n5s5q10",
-    "question": "その　_______ は　しろくて　かわいい　です。",
-    "options": ["ねこ", "いぬ", "うさぎ", "さかな"],
+    "id": "n5d1q23",
+    "question": "この _______ は とても あまい あじ が します。",
+    "options": ["やさい", "にく", "くだもの", "さかな"],
     "correct": 2,
-    "explanation": "「うさぎ」 は　どうぶつ　の　なまえ　で　みみが　ながい　です。"
+    "explanation": "『くだもの』 means 'fruit'. This fruit has a very sweet taste."
   },
   {
-    "id": "n5s5q11",
-    "question": "かのじょは　つかれたと　いったが、_______　いった　ほうが　いいです。",
-    "options": ["それとも", "とにかく", "しかし", "なぜなら"],
+    "id": "n5d1q24",
+    "question": "でんしゃ の _______ を まちがえて、 ちがう ところ に いって しまいました。",
+    "options": ["じかん", "ばんせん", "きっぷ", "えき"],
     "correct": 1,
-    "explanation": "「とにかく」 は　「どうしても／なんにせよ」　の　いみです。"
+    "explanation": "『ばんせん』 means 'platform'. I got on the wrong platform and ended up in a different place."
   },
   {
-    "id": "n5s5q12",
-    "question": "けがを　して、きのう　_______ しました。",
-    "options": ["にゅういん", "いんいん", "かいしゃ", "たんじょうび"],
-    "correct": 0,
-    "explanation": "「にゅういん」 は　「びょういんに　はいる」　ことです。"
-  },
-  {
-    "id": "n5s5q13",
-    "question": "おかしを　_______　たべました。",
-    "options": ["いっしょ", "ぜんぶ", "たくさん", "べんり"],
-    "correct": 1,
-    "explanation": "「ぜんぶ」 は　「すべて／のこりが　ない」　の　いみです。"
-  },
-  {
-    "id": "n5s5q14",
-    "question": "りんごが　_______ あります。",
-    "options": ["はち", "なな", "さん", "きゅう"],
-    "correct": 0,
-    "explanation": "「はち」 は　かずの　「８（はち）」　です。"
-  },
-  {
-    "id": "n5s5q15",
-    "question": "りんごを　_______　かいました。",
-    "options": ["やっつ", "ようか", "はち", "はちにん"],
-    "correct": 0,
-    "explanation": "「やっつ」 は　「８つ（つの　かず）」　の　かぞえかた　です。"
-  },
-  {
-    "id": "n5s5q16",
-    "question": "たなかさんは　_______ に　うまれました。",
-    "options": ["はちがつ", "ようか", "やっつ", "はちじ"],
-    "correct": 1,
-    "explanation": "「ようか」 は　「８日」や「８にちかん」　の　いみです。"
-  },
-  {
-    "id": "n5s5q17",
-    "question": "やさいは　_______ で　かいました。",
-    "options": ["ほんや", "くすりや", "やおや", "デパート"],
+    "id": "n5d1q25",
+    "question": "この _______ は とても ふるい から、 あたらしい の を かいたい です。",
+    "options": ["でんわ", "けいたい", "パソコン", "カメラ"],
     "correct": 2,
-    "explanation": "「やおや」 は　やさいを　うる　みせ　の　いみです。"
+    "explanation": "『パソコン』 means 'computer'. This computer is very old, so I want to buy a new one."
   },
   {
-    "id": "n5s5q18",
-    "question": "こどもたちは　_______ で　あそんでいます。",
-    "options": ["こうえん", "ゆうびんきょく", "がっこう", "へや"],
-    "correct": 0,
-    "explanation": "「こうえん」 は　「パーク／あそぶ　ばしょ」　の　いみです。"
-  },
-  {
-    "id": "n5s5q19",
-    "question": "かぞくは　ぜんぶで　_______ にん　です。",
-    "options": ["む", "ろく", "むっつ", "なな"],
+    "id": "n5d1q26",
+    "question": "あたらしい _______ で はたらく こと に なりました。",
+    "options": ["がっこう", "かいしゃ", "びょういん", "みせ"],
     "correct": 1,
-    "explanation": "「ろく」 は　すうじの　６（ろく）　の　いみです。"
+    "explanation": "『かいしゃ』 means 'company'. I will be working at a new company."
   },
   {
-  "id": "n5s5q20",
-  "question": "きょうだいは　_______ にん　います。",
-  "options": ["さん", "ろく", "しち", "はち"],
-  "correct": 1,
-  "explanation": "「ろく」 は　かずの　「６（ろく）」　を　あらわします。"
-},
-  {
-    "id": "n5s1q21",
-    "question": "かぜ を ひいて、_______ が いたい です。",
-    "options": ["かお", "つき", "のど", "うしろ"],
-    "correct": 2,
-    "explanation": "「のど」 は 「くび の なか」 で、こえ を だしたり、たべもの を のみこむ ところ です。"
-  },
-  {
-    "id": "n5s1q22",
-    "question": "こどもたち が おもちゃ で あそんでいて、ちょっとした _______ に なりました。",
-    "options": ["けんか", "しゅくだい", "でんわ", "ともだち"],
+    "id": "n5d1q27",
+    "question": "この _______ は とても じょうぶ だから、 ながく つかえます。",
+    "options": ["かばん", "ふく", "くつ", "とけい"],
     "correct": 0,
-    "explanation": "「けんか」 は 「もめごと／あらそい」 の いみ です。"
+    "explanation": "『かばん』 means 'bag'. This bag is very durable, so it can be used for a long time."
   },
   {
-    "id": "n5s1q23",
-    "question": "にちようび の ごご に、おばあさん は _______ を たのしみました。",
-    "options": ["でんしゃ", "くもり", "きっさ", "がっこう"],
+    "id": "n5d1q28",
+    "question": "あたらしい _______ を ならって、 じょうず に なりたい です。",
+    "options": ["げんご", "スポーツ", "りょうり", "おんがく"],
+    "correct": 0,
+    "explanation": "『げんご』 means 'language'. I want to learn a new language and become good at it."
+  },
+  {
+    "id": "n5d1q29",
+    "question": "この _______ は とても たかい から、 かう こと が できません。",
+    "options": ["しな", "もの", "ひん", "せいひん"],
+    "correct": 0,
+    "explanation": "『しな』 means 'goods/item'. This item is very expensive, so I can't buy it."
+  },
+  {
+    "id": "n5d1q30",
+    "question": "あたらしい _______ に ひっこして、 せいかつ が かわりました。",
+    "options": ["いえ", "まち", "くに", "ちいき"],
+    "correct": 1,
+    "explanation": "『まち』 means 'town/city'. I moved to a new town and my life changed."
+  },
+  {
+    "id": "n5d1q31",
+    "question": "この _______ は とても むずかしい から、 じかん が かかります。",
+    "options": ["しごと", "べんきょう", "もんだい", "しつもん"],
     "correct": 2,
-    "explanation": "「きっさ」 は 「おちゃ や コーヒー を のむ」 こと を いいます。"
+    "explanation": "『もんだい』 means 'problem'. This problem is very difficult, so it takes time."
   },
   {
-    "id": "n5s1q24",
-    "question": "しごと の あと、わたし は ともだち と _______ へ いきました。",
-    "options": ["けいたい", "うた", "いぬ", "きっさてん"],
+    "id": "n5d1q32",
+    "question": "あたらしい _______ を おぼえる ため に、 まいにち れんしゅう します。",
+    "options": ["かんじ", "たんご", "ぶんぽう", "はつおん"],
+    "correct": 1,
+    "explanation": "『たんご』 means 'vocabulary'. I practice every day to learn new vocabulary."
+  },
+  {
+    "id": "n5d1q33",
+    "question": "この _______ は とても おもしろい から、 さいご まで よみたい です。",
+    "options": ["ほん", "ざっし", "しんぶん", "てがみ"],
+    "correct": 0,
+    "explanation": "『ほん』 means 'book'. This book is very interesting, so I want to read it to the end."
+  },
+  {
+    "id": "n5d1q34",
+    "question": "あたらしい _______ を かって、 りょうり を つくりました。",
+    "options": ["ほうちょう", "おさら", "コップ", "はし"],
+    "correct": 0,
+    "explanation": "『ほうちょう』 means 'kitchen knife'. I bought a new knife and cooked."
+  },
+  {
+    "id": "n5d1q35",
+    "question": "この _______ は とても きれい だから、 しゃしん を とりました。",
+    "options": ["けしき", "たてもの", "はな", "そら"],
+    "correct": 0,
+    "explanation": "『けしき』 means 'scenery/landscape'. This scenery is very beautiful, so I took a photo."
+  },
+  {
+    "id": "n5d1q36",
+    "question": "あたらしい _______ を きいて、 とても かんどう しました。",
+    "options": ["おんがく", "うた", "はなし", "ニュース"],
+    "correct": 2,
+    "explanation": "『はなし』 means 'story'. I heard a new story and was very moved."
+  },
+  {
+    "id": "n5d1q37",
+    "question": "この _______ は とても べんり だから、 まいにち つかって います。",
+    "options": ["どうぐ", "きかい", "アプリ", "システム"],
+    "correct": 0,
+    "explanation": "『どうぐ』 means 'tool'. This tool is very convenient, so I use it every day."
+  },
+  {
+    "id": "n5d1q38",
+    "question": "あたらしい _______ を みつけて、 とても うれしく なりました。",
+    "options": ["ともだち", "しごと", "しゅみ", "ばしょ"],
+    "correct": 2,
+    "explanation": "『しゅみ』 means 'hobby'. I found a new hobby and became very happy."
+  },
+  {
+    "id": "n5d1q39",
+    "question": "この _______ は とても だいじ だから、 なくさない よう に きを つけます。",
+    "options": ["もの", "しりょう", "じょうほう", "データ"],
+    "correct": 0,
+    "explanation": "『もの』 means 'thing/item'. This thing is very important, so I'm careful not to lose it."
+  },
+  {
+    "id": "n5d1q40",
+    "question": "あたらしい _______ を はじめて、 たのしく すごして います。",
+    "options": ["クラス", "サークル", "クラブ", "グループ"],
+    "correct": 1,
+    "explanation": "『サークル』 means 'club/circle'. I started a new club and am having fun."
+  },
+  {
+    "id": "n5d1q41",
+    "question": "この _______ は とても やくに たつ から、 いつも もって います。",
+    "options": ["ほん", "じしょ", "ノート", "メモ"],
+    "correct": 1,
+    "explanation": "『じしょ』 means 'dictionary'. This dictionary is very useful, so I always carry it."
+  },
+  {
+    "id": "n5d1q42",
+    "question": "あたらしい _______ を ならって、 せんせい に おしえて もらいました。",
+    "options": ["ぎじゅつ", "ほうほう", "やりかた", "しかた"],
+    "correct": 0,
+    "explanation": "『ぎじゅつ』 means 'technique/skill'. I learned a new technique and was taught by a teacher."
+  },
+  {
+    "id": "n5d1q43",
+    "question": "この _______ は とても たいせつ だから、 わすれない よう に します。",
+    "options": ["やくそく", "よてい", "けいかく", "もくひょう"],
+    "correct": 0,
+    "explanation": "『やくそく』 means 'promise'. This promise is very important, so I won't forget it."
+  },
+  {
+    "id": "n5d1q44",
+    "question": "あたらしい _______ を かんがえて、 みんな で はなしあいました。",
+    "options": ["アイデア", "けいかく", "ほうほう", "かいけつ"],
+    "correct": 0,
+    "explanation": "『アイデア』 means 'idea'. We thought of a new idea and discussed it together."
+  },
+  {
+    "id": "n5d1q45",
+    "question": "この _______ は とても むずかしい から、 せんせい に きいて みます。",
+    "options": ["しつもん", "もんだい", "かだい", "しゅくだい"],
+    "correct": 2,
+    "explanation": "『かだい』 means 'assignment/task'. This assignment is very difficult, so I'll ask the teacher."
+  },
+  {
+    "id": "n5d1q46",
+    "question": "あたらしい _______ を つくって、 ともだち に みせました。",
+    "options": ["さくひん", "え", "しゃしん", "ビデオ"],
+    "correct": 0,
+    "explanation": "『さくひん』 means 'work/creation'. I made a new work and showed it to my friend."
+  },
+  {
+    "id": "n5d1q47",
+    "question": "この _______ は とても おもしろい から、 さいご まで みたい です。",
+    "options": ["えいが", "ドラマ", "アニメ", "ばんぐみ"],
     "correct": 3,
-    "explanation": "「きっさてん」 は 「コーヒー や おちゃ を のむ こと が できる みせ」 です。"
+    "explanation": "『ばんぐみ』 means 'program/show'. This program is very interesting, so I want to watch it to the end."
   },
   {
-    "id": "n5s1q25",
-    "question": "そぼ の しゅみ は _______ で、まいにち はな に みず を やっています。",
-    "options": ["はなび", "えんげい", "でぐち", "ひるごはん"],
+    "id": "n5d1q48",
+    "question": "あたらしい _______ を おぼえて、 じょうず に つかえる よう に なりました。",
+    "options": ["ソフト", "アプリ", "プログラム", "システム"],
     "correct": 1,
-    "explanation": "「えんげい」 は 「にわ しごと」 や 「はな を そだてる こと」 です。"
+    "explanation": "『アプリ』 means 'app/application'. I learned a new app and became able to use it well."
+  },
+  {
+    "id": "n5d1q49",
+    "question": "この _______ は とても やくに たつ から、 ほか の ひと に も おしえました。",
+    "options": ["じょうほう", "ちしき", "けいけん", "スキル"],
+    "correct": 0,
+    "explanation": "『じょうほう』 means 'information'. This information is very useful, so I taught it to others too."
+  },
+  {
+    "id": "n5d1q50",
+    "question": "あたらしい _______ を はじめて、 まいにち たのしく すごして います。",
+    "options": ["せいかつ", "しごと", "べんきょう", "れんしゅう"],
+    "correct": 0,
+    "explanation": "『せいかつ』 means 'life/lifestyle'. I started a new life and am enjoying every day."
+  },
+  {
+    "id": "n5d1q51",
+    "question": "この _______ は とても ふくざつ だから、 ゆっくり かんがえます。",
+    "options": ["もんだい", "じょうきょう", "ばあい", "じたい"],
+    "correct": 1,
+    "explanation": "『じょうきょう』 means 'situation'. This situation is very complex, so I'll think about it slowly."
+  },
+  {
+    "id": "n5d1q52",
+    "question": "あたらしい _______ を みつけて、 そこ で はたらく こと に しました。",
+    "options": ["しょくば", "かいしゃ", "オフィス", "ばしょ"],
+    "correct": 0,
+    "explanation": "『しょくば』 means 'workplace'. I found a new workplace and decided to work there."
+  },
+  {
+    "id": "n5d1q53",
+    "question": "この _______ は とても たいへん だから、 みんな で きょうりょく します。",
+    "options": ["しごと", "プロジェクト", "かつどう", "さぎょう"],
+    "correct": 1,
+    "explanation": "『プロジェクト』 means 'project'. This project is very difficult, so we'll cooperate together."
+  },
+  {
+    "id": "n5d1q54",
+    "question": "あたらしい _______ を かって、 べんきょう が はかどる よう に なりました。",
+    "options": ["きょうざい", "ほん", "どうぐ", "きかい"],
+    "correct": 0,
+    "explanation": "『きょうざい』 means 'teaching materials'. I bought new teaching materials and my studies became more efficient."
+  },
+  {
+    "id": "n5d1q55",
+    "question": "この _______ は とても だいじ だから、 ちゃんと ほぞん して おきます。",
+    "options": ["ファイル", "データ", "じょうほう", "きろく"],
+    "correct": 3,
+    "explanation": "『きろく』 means 'record'. This record is very important, so I'll preserve it properly."
+  },
+  {
+    "id": "n5d1q56",
+    "question": "あたらしい _______ を つくって、 こうりつてき に しごと が できる よう に なりました。",
+    "options": ["システム", "ほうほう", "しくみ", "やりかた"],
+    "correct": 2,
+    "explanation": "『しくみ』 means 'system/mechanism'. I created a new system and became able to work efficiently."
+  },
+  {
+    "id": "n5d1q57",
+    "question": "この _______ は とても こうか が ある から、 つづけて つかいます。",
+    "options": ["ほうほう", "やりかた", "しゅだん", "てだて"],
+    "correct": 0,
+    "explanation": "『ほうほう』 means 'method'. This method is very effective, so I'll continue using it."
+  },
+  {
+    "id": "n5d1q58",
+    "question": "あたらしい _______ を たてて、 もくひょう を たっせい したい です。",
+    "options": ["けいかく", "よてい", "スケジュール", "プラン"],
+    "correct": 0,
+    "explanation": "『けいかく』 means 'plan'. I want to make a new plan and achieve my goals."
+  },
+  {
+    "id": "n5d1q59",
+    "question": "この _______ は とても じゅうよう だから、 わすれない よう に メモ します。",
+    "options": ["ないよう", "じょうほう", "ポイント", "こと"],
+    "correct": 2,
+    "explanation": "『ポイント』 means 'point'. This point is very important, so I'll take notes so I don't forget."
+  },
+  {
+    "id": "n5d1q60",
+    "question": "あたらしい _______ を はじめて、 たくさん の ひと と しりあいました。",
+    "options": ["かつどう", "しごと", "クラブ", "グループ"],
+    "correct": 0,
+    "explanation": "『かつどう』 means 'activity'. I started a new activity and met many people."
+  },
+  {
+    "id": "n5d1q61",
+    "question": "この _______ は とても きちょう だから、 たいせつ に あつかいます。",
+    "options": ["けいけん", "きかい", "チャンス", "じかん"],
+    "correct": 1,
+    "explanation": "『きかい』 means 'opportunity'. This opportunity is very precious, so I'll handle it carefully."
+  },
+  {
+    "id": "n5d1q62",
+    "question": "あたらしい _______ を みつけて、 もんだい を かいけつ できました。",
+    "options": ["ほうほう", "てだて", "しゅだん", "やりかた"],
+    "correct": 2,
+    "explanation": "『しゅだん』 means 'means/method'. I found a new means and was able to solve the problem."
+  },
+  {
+    "id": "n5d1q63",
+    "question": "この _______ は とても むずかしい から、 じゅんび に じかん を かけます。",
+    "options": ["しけん", "はっぴょう", "コンテスト", "きょうそう"],
+    "correct": 1,
+    "explanation": "『はっぴょう』 means 'presentation'. This presentation is very difficult, so I'll spend time preparing."
+  },
+  {
+    "id": "n5d1q64",
+    "question": "あたらしい _______ を おぼえて、 しごと の はば が ひろがりました。",
+    "options": ["スキル", "ぎじゅつ", "のうりょく", "ちから"],
+    "correct": 0,
+    "explanation": "『スキル』 means 'skill'. I learned a new skill and my work scope expanded."
+  },
+  {
+    "id": "n5d1q65",
+    "question": "この _______ は とても やくに たつ から、 ほか の ひと に も すすめます。",
+    "options": ["サービス", "しょうひん", "どうぐ", "アイテム"],
+    "correct": 0,
+    "explanation": "『サービス』 means 'service'. This service is very useful, so I'll recommend it to others too."
+  },
+  {
+    "id": "n5d1q66",
+    "question": "あたらしい _______ を つくって、 こうりつ が よく なりました。",
+    "options": ["ルール", "きまり", "ほうそく", "やくそく"],
+    "correct": 0,
+    "explanation": "『ルール』 means 'rule'. I made new rules and efficiency improved."
+  },
+  {
+    "id": "n5d1q67",
+    "question": "この _______ は とても おもしろい から、 さいご まで よみつづけます。",
+    "options": ["しょうせつ", "ものがたり", "おはなし", "さくひん"],
+    "correct": 0,
+    "explanation": "『しょうせつ』 means 'novel'. This novel is very interesting, so I'll continue reading to the end."
+  },
+  {
+    "id": "n5d1q68",
+    "question": "あたらしい _______ を かんがえて、 みんな で じっこう しました。",
+    "options": ["アイデア", "あんけん", "ていあん", "きかく"],
+    "correct": 3,
+    "explanation": "『きかく』 means 'plan/project'. We thought of a new project and implemented it together."
+  },
+  {
+    "id": "n5d1q69",
+    "question": "この _______ は とても たいせつ だから、 しっかり おぼえて おきます。",
+    "options": ["レッスン", "じゅぎょう", "こうぎ", "せつめい"],
+    "correct": 3,
+    "explanation": "『せつめい』 means 'explanation'. This explanation is very important, so I'll remember it well."
+  },
+  {
+    "id": "n5d1q70",
+    "question": "あたらしい _______ を はじめて、 まいにち じゅうじつ して います。",
+    "options": ["しゅみ", "かつどう", "れんしゅう", "べんきょう"],
+    "correct": 0,
+    "explanation": "『しゅみ』 means 'hobby'. I started a new hobby and am fulfilled every day."
+  },
+  {
+    "id": "n5d1q71",
+    "question": "この _______ は とても こまかい から、 ちゅうい ぶかく やります。",
+    "options": ["さぎょう", "しごと", "タスク", "やくわり"],
+    "correct": 0,
+    "explanation": "『さぎょう』 means 'work/task'. This work is very detailed, so I'll do it carefully."
+  },
+  {
+    "id": "n5d1q72",
+    "question": "あたらしい _______ を つかって、 べんり に なりました。",
+    "options": ["きのう", "システム", "ツール", "アプリ"],
+    "correct": 0,
+    "explanation": "『きのう』 means 'function'. Using a new function made things convenient."
+  },
+  {
+    "id": "n5d1q73",
+    "question": "この _______ は とても じょうず だから、 かんしん しました。",
+    "options": ["えんそう", "パフォーマンス", "はっぴょう", "じっせき"],
+    "correct": 0,
+    "explanation": "『えんそう』 means 'performance/playing'. This performance was very skillful, so I was impressed."
+  },
+  {
+    "id": "n5d1q74",
+    "question": "あたらしい _______ を みつけて、 もんだい が かいけつ しました。",
+    "options": ["かいとう", "こたえ", "かいけつさく", "ほうほう"],
+    "correct": 2,
+    "explanation": "『かいけつさく』 means 'solution'. I found a new solution and the problem was resolved."
+  },
+  {
+    "id": "n5d1q75",
+    "question": "この _______ は とても きれい だから、 しゃしん を とって おきました。",
+    "options": ["ふうけい", "けしき", "ながめ", "こうけい"],
+    "correct": 1,
+    "explanation": "『けしき』 means 'scenery'. This scenery was very beautiful, so I took a photo."
+  },
+  {
+    "id": "n5d1q76",
+    "question": "あたらしい _______ を ならって、 じょうたつ したい です。",
+    "options": ["わざ", "ぎじゅつ", "スキル", "のうりょく"],
+    "correct": 0,
+    "explanation": "『わざ』 means 'technique/skill'. I want to learn a new technique and improve."
+  },
+  {
+    "id": "n5d1q77",
+    "question": "この _______ は とても ふくざつ だから、 せんもん か に そうだん します。",
+    "options": ["もんだい", "じょうきょう", "ケース", "じれい"],
+    "correct": 2,
+    "explanation": "『ケース』 means 'case'. This case is very complex, so I'll consult a specialist."
+  },
+  {
+    "id": "n5d1q78",
+    "question": "あたらしい _______ を かって、 せいかつ が らく に なりました。",
+    "options": ["かでん", "きかい", "どうぐ", "アイテム"],
+    "correct": 0,
+    "explanation": "『かでん』 means 'home appliance'. I bought a new appliance and life became easier."
+  },
+  {
+    "id": "n5d1q79",
+    "question": "この _______ は とても たのしい から、 まいしゅう さんか して います。",
+    "options": ["イベント", "かつどう", "あつまり", "かい"],
+    "correct": 0,
+    "explanation": "『イベント』 means 'event'. This event is very fun, so I participate every week."
+  },
+  {
+    "id": "n5d1q80",
+    "question": "あたらしい _______ を おぼえて、 コミュニケーション が じょうず に なりました。",
+    "options": ["ひょうげん", "たんご", "ぶんしょう", "はなしかた"],
+    "correct": 0,
+    "explanation": "『ひょうげん』 means 'expression'. I learned new expressions and became better at communication."
+  },
+  {
+    "id": "n5d1q81",
+    "question": "この _______ は とても やくに たつ から、 いつも さんこう に して います。",
+    "options": ["しりょう", "データ", "じょうほう", "ないよう"],
+    "correct": 0,
+    "explanation": "『しりょう』 means 'materials/reference'. These materials are very useful, so I always refer to them."
+  },
+  {
+    "id": "n5d1q82",
+    "question": "あたらしい _______ を はじめて、 たくさん の こと を まなびました。",
+    "options": ["コース", "クラス", "じゅぎょう", "レッスン"],
+    "correct": 0,
+    "explanation": "『コース』 means 'course'. I started a new course and learned many things."
+  },
+  {
+    "id": "n5d1q83",
+    "question": "この _______ は とても だいじ だから、 バックアップ を とって おきます。",
+    "options": ["ファイル", "データ", "じょうほう", "ないよう"],
+    "correct": 1,
+    "explanation": "『データ』 means 'data'. This data is very important, so I'll make a backup."
+  },
+  {
+    "id": "n5d1q84",
+    "question": "あたらしい _______ を つかって、 しごと の スピード が はやく なりました。",
+    "options": ["ソフト", "アプリ", "ツール", "システム"],
+    "correct": 2,
+    "explanation": "『ツール』 means 'tool'. Using a new tool made my work speed faster."
+  },
+  {
+    "id": "n5d1q85",
+    "question": "この _______ は とても おもしろい から、 ともだち に も しょうかい しました。",
+    "options": ["ほん", "えいが", "ゲーム", "ばんぐみ"],
+    "correct": 2,
+    "explanation": "『ゲーム』 means 'game'. This game is very interesting, so I introduced it to my friends too."
+  },
+  {
+    "id": "n5d1q86",
+    "question": "あたらしい _______ を みつけて、 もっと べんきょう したく なりました。",
+    "options": ["ぶんや", "テーマ", "もくひょう", "きょうみ"],
+    "correct": 3,
+    "explanation": "『きょうみ』 means 'interest'. I found a new interest and wanted to study more."
+  },
+  {
+    "id": "n5d1q87",
+    "question": "この _______ は とても むずかしい から、 じっくり かんがえます。",
+    "options": ["しつもん", "もんだい", "かだい", "テスト"],
+    "correct": 2,
+    "explanation": "『かだい』 means 'assignment/challenge'. This assignment is very difficult, so I'll think about it carefully."
+  },
+  {
+    "id": "n5d1q88",
+    "question": "あたらしい _______ を はじめて、 けんこう に なりました。",
+    "options": ["うんどう", "スポーツ", "エクササイズ", "トレーニング"],
+    "correct": 0,
+    "explanation": "『うんどう』 means 'exercise'. I started new exercise and became healthy."
+  },
+  {
+    "id": "n5d1q89",
+    "question": "この _______ は とても べんり だから、 まいにち りよう して います。",
+    "options": ["サービス", "きのう", "システム", "アプリ"],
+    "correct": 0,
+    "explanation": "『サービス』 means 'service'. This service is very convenient, so I use it every day."
+  },
+  {
+    "id": "n5d1q90",
+    "question": "あたらしい _______ を かんがえて、 こうりつ が よく なりました。",
+    "options": ["ほうほう", "やりかた", "しゅだん", "アプローチ"],
+    "correct": 3,
+    "explanation": "『アプローチ』 means 'approach'. I thought of a new approach and efficiency improved."
+  },
+  {
+    "id": "n5d1q91",
+    "question": "この _______ は とても たいせつ だから、 しっかり じゅんび します。",
+    "options": ["かいぎ", "はっぴょう", "イベント", "きかい"],
+    "correct": 3,
+    "explanation": "『きかい』 means 'opportunity'. This opportunity is very important, so I'll prepare well."
+  },
+  {
+    "id": "n5d1q92",
+    "question": "あたらしい _______ を つくって、 チーム の きょうりょく が よく なりました。",
+    "options": ["ルール", "システム", "ほうほう", "しくみ"],
+    "correct": 3,
+    "explanation": "『しくみ』 means 'system/structure'. I created a new system and team cooperation improved."
+  },
+  {
+    "id": "n5d1q93",
+    "question": "この _______ は とても きちょう だから、 だいじ に ほぞん します。",
+    "options": ["しりょう", "データ", "きろく", "じょうほう"],
+    "correct": 2,
+    "explanation": "『きろく』 means 'record'. This record is very precious, so I'll preserve it carefully."
+  },
+  {
+    "id": "n5d1q94",
+    "question": "あたらしい _______ を ならって、 しごと の はば が ひろがりました。",
+    "options": ["ぎじゅつ", "スキル", "のうりょく", "せんもん"],
+    "correct": 3,
+    "explanation": "『せんもん』 means 'specialty'. I learned a new specialty and my work scope expanded."
+  },
+  {
+    "id": "n5d1q95",
+    "question": "この _______ は とても こうか が ある から、 つづけて つかいます。",
+    "options": ["くすり", "ほうほう", "ちりょう", "たいさく"],
+    "correct": 3,
+    "explanation": "『たいさく』 means 'countermeasure'. This countermeasure is very effective, so I'll continue using it."
+  },
+  {
+    "id": "n5d1q96",
+    "question": "あたらしい _______ を はじめて、 せいかつ が じゅうじつ しました。",
+    "options": ["しゅみ", "かつどう", "しごと", "べんきょう"],
+    "correct": 1,
+    "explanation": "『かつどう』 means 'activity'. I started a new activity and my life became fulfilling."
+  },
+  {
+    "id": "n5d1q97",
+    "question": "この _______ は とても むずかしい から、 せんもんか に たのみます。",
+    "options": ["しごと", "さぎょう", "プロジェクト", "タスク"],
+    "correct": 2,
+    "explanation": "『プロジェクト』 means 'project'. This project is very difficult, so I'll ask a specialist."
+  },
+  {
+    "id": "n5d1q98",
+    "question": "あたらしい _______ を みつけて、 もんだい を かいけつ できました。",
+    "options": ["ほうほう", "てだて", "かいけつさく", "アイデア"],
+    "correct": 3,
+    "explanation": "『アイデア』 means 'idea'. I found a new idea and was able to solve the problem."
+  },
+  {
+    "id": "n5d1q99",
+    "question": "この _______ は とても やくに たつ から、 みんな に きょうゆう します。",
+    "options": ["けいけん", "ちしき", "じょうほう", "スキル"],
+    "correct": 1,
+    "explanation": "『ちしき』 means 'knowledge'. This knowledge is very useful, so I'll share it with everyone."
+  },
+  {
+    "id": "n5d1q100",
+    "question": "あたらしい _______ を はじめて、 まいにち せいちょう を かんじて います。",
+    "options": ["ちょうせん", "もくひょう", "けいかく", "どりょく"],
+    "correct": 0,
+    "explanation": "『ちょうせん』 means 'challenge'. I started a new challenge and feel growth every day."
   }
 ]
-
-
-
-
-
