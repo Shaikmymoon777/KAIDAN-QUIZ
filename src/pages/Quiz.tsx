@@ -47,11 +47,14 @@ export default function Quiz() {
 
   const loadQuestions = async (level: string, set: number, setType: 'regular' | 'grammar' | 'reading') => {
     try {
-      const filePath = setType === 'grammar' 
-        ? `../data/${level}/grammar_set${set}.json`
-        : setType === 'reading'
-        ? `../data/${level}/reading_set${set}.json`
-        : `../data/${level}/set${set}.json`;
+      let filePath: string;
+      if (setType === 'grammar') {
+        filePath = `../data/${level}/grammar_set${set}.json`;
+      } else if (setType === 'reading') {
+        filePath = `../data/${level}/reading_set${set}.json`;
+      } else {
+        filePath = `../data/${level}/set${set}.json`;
+      }
       const response = await import(filePath);
       const allQuestions = response.default;
       const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
@@ -68,22 +71,8 @@ export default function Quiz() {
           .slice(0, 25)
       );
     } catch (error) {
-      // Fallback to default N5 set1 if loading fails
-      const response = await import('../data/n5/set1.json');
-      const allQuestions = response.default;
-      const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
-      setQuestions(
-        shuffled
-          .filter(
-            (q): q is Question =>
-              typeof q.id === 'string' &&
-              typeof q.question === 'string' &&
-              Array.isArray(q.options) &&
-              typeof q.correct === 'number' &&
-              typeof q.explanation === 'string'
-          )
-          .slice(0, 25)
-      );
+      console.error(`Failed to load ${setType} questions for ${level}, set ${set}:`, error);
+      setQuestions([]); // Set empty questions to indicate failure
     }
   };
 
@@ -126,7 +115,7 @@ export default function Quiz() {
   const handleAnswerSelect = (answerIndex: number) => {
     if (selectedAnswer !== null) return;
     setSelectedAnswer(answerIndex);
-    setShowExplanation(true);
+setShowExplanation(true);
     const isCorrect = answerIndex === questions[currentQuestion].correct;
     if (isCorrect) setScore(prev => prev + 1);
     setUserAnswers(prev => [...prev, {
@@ -171,7 +160,7 @@ export default function Quiz() {
     setShowExplanation(false);
     setScore(0);
     setQuizCompleted(false);
-    setTimeStarted(null);
+setTimeStarted(null);
     setUserAnswers([]);
   };
 
@@ -192,6 +181,63 @@ export default function Quiz() {
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-24 bg-gradient-to-t from-red-500/50 to-transparent rounded-t-full animate-pulse"></div>
     </div>
   );
+
+  // --- Error handling for failed question loading ---
+  if (selectedSet && questions.length === 0 && !quizCompleted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-400 via-yellow-300 to-cyan-400 dark:from-pink-900 dark:via-yellow-900 dark:to-cyan-900 relative overflow-hidden">
+        <style>
+          {`
+            @keyframes sakura-fall {
+              0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.9; }
+              100% { transform: translateY(100vh) rotate(720deg); opacity: 0.2; }
+            }
+            .sakura-petal {
+              position: absolute;
+              width: 12px;
+              height: 12px;
+              background: radial-gradient(circle, #ffb7c5 40%, #ff87b2 70%, transparent);
+              clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+              animation: sakura-fall 8s linear infinite;
+            }
+            .animation-delay-2s { animation-delay: 2s; }
+            .animation-delay-4s { animation-delay: 4s; }
+            .animation-delay-6s { animation-delay: 6s; }
+            .animation-delay-8s { animation-delay: 8s; }
+            @keyframes wave {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-8px); }
+            }
+            .animate-wave { animation: wave 2s ease-in-out infinite; }
+          `}
+        </style>
+        <JapaneseBackground />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+        >
+          <div className="bg-white/90 dark:bg-gray-900/90 rounded-3xl shadow-2xl p-8 border-4 border-yellow-400 dark:border-yellow-700 text-center">
+            <h2 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600 mb-4 animate-wave">
+              Error Loading Quiz
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-6 font-semibold">
+              Unable to load {selectedSetType} questions for {levels.find(l => l.id === selectedLevel)?.name} Set {selectedSet}. Please try again or select another set.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={resetQuiz}
+              className="px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white rounded-full font-bold shadow-2xl"
+            >
+              Back to Quiz Selection
+            </motion.button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   // --- Quiz in progress ---
   if (selectedSet && questions.length > 0 && !quizCompleted) {
@@ -227,6 +273,11 @@ export default function Quiz() {
               75% { transform: translateX(5px); }
             }
             .animate-shake { animation: shake 0.3s ease-in-out 3; }
+            @keyframes spin-slow {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+            .animate-spin-slow { animation: spin-slow 10s linear infinite; }
           `}
         </style>
         <JapaneseBackground />
@@ -256,7 +307,7 @@ export default function Quiz() {
                 <div>
                   <h1 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600 flex items-center gap-2">
                     {levels.find(l => l.id === selectedLevel)?.emoji}
-                    {levels.find(l => l.id === selectedLevel)?.name} - {selectedSetType === 'grammar' ? 'Grammar ' : selectedSetType === 'reading' ? 'Reading ' : ''}Set {selectedSet}
+                    {levels.find(l => l.id === selectedLevel)?.name} - {selectedSetType === 'grammar' ? 'Grammar ' : selectedSetType === 'reading' ? 'Reading ' : 'Vocabulary '}Set {selectedSet}
                   </h1>
                   <p className="text-gray-600 dark:text-gray-300 font-semibold">
                     Question {currentQuestion + 1} of {questions.length}
@@ -572,7 +623,7 @@ export default function Quiz() {
           </div>
         </motion.div>
 
-        {/* Regular Quiz Sets */}
+        {/* Vocabulary Quiz Sets */}
         <motion.div
           className="bg-gradient-to-br from-white/90 to-yellow-200/90 dark:from-gray-800/90 dark:to-yellow-800/90 rounded-3xl shadow-2xl p-8 mb-8 border-4 border-pink-400 dark:border-pink-700"
           initial={{ opacity: 0, y: 20 }}
@@ -582,7 +633,7 @@ export default function Quiz() {
           <div className="flex items-center space-x-3 mb-8">
             <BookOpen className="w-8 h-8 text-pink-600 animate-wave" />
             <h2 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600">
-              {levels.find(l => l.id === selectedLevel)?.name} Quiz Sets
+              {levels.find(l => l.id === selectedLevel)?.name} Vocabulary Quiz Sets
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

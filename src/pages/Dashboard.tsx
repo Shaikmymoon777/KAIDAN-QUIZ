@@ -5,43 +5,64 @@ import {
   BookOpen, Award, Zap
 } from 'lucide-react';
 import { useUser } from '../contexts/usercontext';
-import { useApp } from '../contexts/AppContext'; // Add this import
+import { useApp } from '../contexts/AppContext';
+import axios from 'axios';
 
 export default function Dashboard() {
   const { user, setUser } = useUser();
-  const { state } = useApp();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { state, dispatch } = useApp();
+  const fileInputRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
-
-  // Add local state for backend stats
   const [streak, setStreak] = useState(0);
   const [activeDays, setActiveDays] = useState(0);
 
   useEffect(() => {
-    // Fetch streak and active days from backend
-    fetch('/api/user-stats', {
-      headers: {
-        Authorization: `Bearer ${user?.token || ''}`,
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setStreak(data.streak || 0);
-        setActiveDays(data.activeDays || 0);
-      })
-      .catch(() => {
+    // Fetch user stats
+    const fetchUserStats = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/user-stats/${user?.id}`, {
+          headers: { Authorization: `Bearer ${user?.token || ''}` },
+        });
+        setStreak(response.data.streak);
+        setActiveDays(response.data.activeDays);
+      } catch (err) {
+        console.error('Error fetching user stats:', err);
         setStreak(0);
         setActiveDays(0);
-      });
-  }, [user]);
+      }
+    };
 
-  const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Fetch quiz progress
+    const fetchQuizProgress = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/quiz-progress/${user?.id}`);
+        dispatch({ type: 'SET_QUIZ_PROGRESS', payload: response.data });
+      } catch (err) {
+        console.error('Error fetching quiz progress:', err);
+      }
+    };
+
+    if (user?.id) {
+      fetchUserStats();
+      fetchQuizProgress();
+    }
+  }, [user, dispatch]);
+
+  const handleAvatarUpload = async (event) => {
     const file = event.target.files?.[0];
     if (file) {
       setIsUploading(true);
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setUser({ ...user, avatar: e.target?.result as string });
+      reader.onload = async (e) => {
+        const avatar = e.target?.result;
+        try {
+          await axios.post(`http://localhost:5000/api/user/${user.id}/avatar`, { avatar }, {
+            headers: { Authorization: `Bearer ${user?.token || ''}` },
+          });
+          setUser({ ...user, avatar });
+        } catch (err) {
+          console.error('Error updating avatar:', err);
+        }
         setIsUploading(false);
       };
       reader.readAsDataURL(file);
@@ -51,15 +72,15 @@ export default function Dashboard() {
   const quizProgress = state.quizProgress || { n5: {}, n4: {}, n3: {}, n2: {}, n1: {} };
 
   const totalQuizzes = Object.values(quizProgress).reduce(
-    (total, level: any) => total + Object.values(level).length, 0
+    (total, level) => total + Object.values(level).length, 0
   );
 
   const completedQuizzes = Object.values(quizProgress).reduce(
-    (total, level: any) => total + Object.values(level).filter((set: any) => set.completed).length, 0
+    (total, level) => total + Object.values(level).filter((set) => set.completed).length, 0
   );
 
   const allScores = Object.values(quizProgress).flatMap(
-    (level: any) => Object.values(level).map((set: any) => set.bestScore).filter((score: number) => score > 0)
+    (level) => Object.values(level).map((set) => set.bestScore).filter((score) => score > 0)
   );
   const averageScore = allScores.length > 0
     ? Math.round(allScores.reduce((a, b) => a + b, 0) / allScores.length)
@@ -78,7 +99,7 @@ export default function Dashboard() {
     {
       icon: Target,
       label: 'Average Score',
-      value: Math.round(averageScore || 0),
+      value: averageScore,
       total: 100,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
@@ -110,7 +131,7 @@ export default function Dashboard() {
   const levels = ['N5', 'N4', 'N3', 'N2', 'N1'];
   const levelProgress = levels.map(level => {
     const progress = quizProgress[level.toLowerCase()] || {};
-    const completed = Object.values(progress).filter((set: any) => set.completed).length;
+    const completed = Object.values(progress).filter((set) => set.completed).length;
     const total = 7;
     return { level, completed, total, percentage: Math.round((completed / total) * 100) };
   });
@@ -119,8 +140,6 @@ export default function Dashboard() {
     user?.joinDate && !isNaN(new Date(user.joinDate).getTime())
       ? new Date(user.joinDate).toLocaleDateString()
       : new Date().toLocaleDateString();
-
-  console.log('quizProgress:', quizProgress);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">

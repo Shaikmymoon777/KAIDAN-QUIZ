@@ -14,9 +14,13 @@
     "@headlessui/react": "^2.2.4",
     "@react-oauth/google": "^0.12.2",
     "@types/react-redux": "^7.1.34",
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "framer-motion": "^11.0.8",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.344.0",
+    "mongoose": "^8.16.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
@@ -40,5 +44,18 @@
     "typescript-eslint": "^8.3.0",
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^1.0.0"
-  }
+  },
+  "description": "",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shaikmymoon777/KAIDAN-QUIZ.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shaikmymoon777/KAIDAN-QUIZ/issues"
+  },
+  "homepage": "https://github.com/Shaikmymoon777/KAIDAN-QUIZ#readme"
 }
