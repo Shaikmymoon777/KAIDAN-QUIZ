@@ -11,7 +11,8 @@ import {
   Target,
   Trophy,
   Grid3X3,
-  Star
+  Star,
+  Pen
 } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
 import IncorrectAnswerDialog from '../components/IncorrectAnswerDialog';
@@ -38,7 +39,7 @@ interface CharacterData {
   learned?: boolean;
 }
 
-// Mock data (replace with actual data)
+// Complete Hiragana and Katakana charts (basic monographs in gojūon order)
 const hiraganaCharts: CharacterData[][] = [
   [
     { character: 'あ', romaji: 'a' },
@@ -47,8 +48,78 @@ const hiraganaCharts: CharacterData[][] = [
     { character: 'え', romaji: 'e' },
     { character: 'お', romaji: 'o' }
   ],
-  // Add more rows as needed
+  [
+    { character: 'か', romaji: 'ka' },
+    { character: 'き', romaji: 'ki' },
+    { character: 'く', romaji: 'ku' },
+    { character: 'け', romaji: 'ke' },
+    { character: 'こ', romaji: 'ko' }
+  ],
+  [
+    { character: 'さ', romaji: 'sa' },
+    { character: 'し', romaji: 'shi' },
+    { character: 'す', romaji: 'su' },
+    { character: 'せ', romaji: 'se' },
+    { character: 'そ', romaji: 'so' }
+  ],
+  [
+    { character: 'た', romaji: 'ta' },
+    { character: 'ち', romaji: 'chi' },
+    { character: 'つ', romaji: 'tsu' },
+    { character: 'て', romaji: 'te' },
+    { character: 'と', romaji: 'to' }
+  ],
+  [
+    { character: 'な', romaji: 'na' },
+    { character: 'に', romaji: 'ni' },
+    { character: 'ぬ', romaji: 'nu' },
+    { character: 'ね', romaji: 'ne' },
+    { character: 'の', romaji: 'no' }
+  ],
+  [
+    { character: 'は', romaji: 'ha' },
+    { character: 'ひ', romaji: 'hi' },
+    { character: 'ふ', romaji: 'fu' },
+    { character: 'へ', romaji: 'he' },
+    { character: 'ほ', romaji: 'ho' }
+  ],
+  [
+    { character: 'ま', romaji: 'ma' },
+    { character: 'み', romaji: 'mi' },
+    { character: 'む', romaji: 'mu' },
+    { character: 'め', romaji: 'me' },
+    { character: 'も', romaji: 'mo' }
+  ],
+  [
+    { character: 'や', romaji: 'ya' },
+    { character: '', romaji: '' },
+    { character: 'ゆ', romaji: 'yu' },
+    { character: '', romaji: '' },
+    { character: 'よ', romaji: 'yo' }
+  ],
+  [
+    { character: 'ら', romaji: 'ra' },
+    { character: 'り', romaji: 'ri' },
+    { character: 'る', romaji: 'ru' },
+    { character: 'れ', romaji: 're' },
+    { character: 'ろ', romaji: 'ro' }
+  ],
+  [
+    { character: 'わ', romaji: 'wa' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' },
+    { character: 'を', romaji: 'wo' }
+  ],
+  [
+    { character: 'ん', romaji: 'n' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' }
+  ]
 ];
+
 const katakanaCharts: CharacterData[][] = [
   [
     { character: 'ア', romaji: 'a' },
@@ -57,14 +128,83 @@ const katakanaCharts: CharacterData[][] = [
     { character: 'エ', romaji: 'e' },
     { character: 'オ', romaji: 'o' }
   ],
-  // Add more rows as needed
+  [
+    { character: 'カ', romaji: 'ka' },
+    { character: 'キ', romaji: 'ki' },
+    { character: 'ク', romaji: 'ku' },
+    { character: 'ケ', romaji: 'ke' },
+    { character: 'コ', romaji: 'ko' }
+  ],
+  [
+    { character: 'サ', romaji: 'sa' },
+    { character: 'シ', romaji: 'shi' },
+    { character: 'ス', romaji: 'su' },
+    { character: 'セ', romaji: 'se' },
+    { character: 'ソ', romaji: 'so' }
+  ],
+  [
+    { character: 'タ', romaji: 'ta' },
+    { character: 'チ', romaji: 'chi' },
+    { character: 'ツ', romaji: 'tsu' },
+    { character: 'テ', romaji: 'te' },
+    { character: 'ト', romaji: 'to' }
+  ],
+  [
+    { character: 'ナ', romaji: 'na' },
+    { character: 'ニ', romaji: 'ni' },
+    { character: 'ヌ', romaji: 'nu' },
+    { character: 'ネ', romaji: 'ne' },
+    { character: 'ノ', romaji: 'no' }
+  ],
+  [
+    { character: 'ハ', romaji: 'ha' },
+    { character: 'ヒ', romaji: 'hi' },
+    { character: 'フ', romaji: 'fu' },
+    { character: 'ヘ', romaji: 'he' },
+    { character: 'ホ', romaji: 'ho' }
+  ],
+  [
+    { character: 'マ', romaji: 'ma' },
+    { character: 'ミ', romaji: 'mi' },
+    { character: 'ム', romaji: 'mu' },
+    { character: 'メ', romaji: 'me' },
+    { character: 'モ', romaji: 'mo' }
+  ],
+  [
+    { character: 'ヤ', romaji: 'ya' },
+    { character: '', romaji: '' },
+    { character: 'ユ', romaji: 'yu' },
+    { character: '', romaji: '' },
+    { character: 'ヨ', romaji: 'yo' }
+  ],
+  [
+    { character: 'ラ', romaji: 'ra' },
+    { character: 'リ', romaji: 'ri' },
+    { character: 'ル', romaji: 'ru' },
+    { character: 'レ', romaji: 're' },
+    { character: 'ロ', romaji: 'ro' }
+  ],
+  [
+    { character: 'ワ', romaji: 'wa' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' },
+    { character: 'ヲ', romaji: 'wo' }
+  ],
+  [
+    { character: 'ン', romaji: 'n' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' },
+    { character: '', romaji: '' }
+  ]
 ];
+
 const vocabularyData: { [key: string]: VocabWord[] } = {
   greetings: [
     { id: '1', word: 'こんにちは', reading: 'konnichiwa', meaning: 'Hello', category: 'greetings' },
     { id: '2', word: 'おはよう', reading: 'ohayou', meaning: 'Good morning', category: 'greetings' }
   ],
-  // Add more categories as needed
 };
 
 // Fisher-Yates shuffle
@@ -77,6 +217,19 @@ function shuffleArray<T>(array: T[]): T[] {
   return arr;
 }
 
+// Sample stroke order data for 'あ' (Hiragana) - placeholder for demonstration
+const strokeOrderData: { [key: string]: { paths: string[], strokeCount: number } } = {
+  'あ': {
+    paths: [
+      'M 20 30 C 30 10, 50 10, 60 30 S 50 50, 40 50', // Stroke 1
+      'M 30 60 C 40 40, 60 40, 70 60 S 60 80, 50 80', // Stroke 2
+      'M 70 20 L 70 80' // Stroke 3
+    ],
+    strokeCount: 3
+  }
+  // Add more characters' stroke order data here
+};
+
 export default function Practice() {
   const { state } = useApp();
   const [mode, setMode] = useState<'flashcards' | 'vocabulary' | 'charts' | null>(null);
@@ -84,7 +237,6 @@ export default function Practice() {
   const [vocabularyCategory, setVocabularyCategory] = useState('greetings');
   const [chartType, setChartType] = useState<'hiragana' | 'katakana'>('hiragana');
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [] = useState(false);
   const [isAutoplay] = useState(false);
   const [flashcards, setFlashcards] = useState<FlashCard[]>([]);
   const [isListening, setIsListening] = useState(false);
@@ -100,6 +252,7 @@ export default function Practice() {
   const [quizOptions, setQuizOptions] = useState<FlashCard[]>([]);
   const [quizAnswered, setQuizAnswered] = useState(false);
   const [quizCorrect, setQuizCorrect] = useState<boolean | null>(null);
+  const [showStrokeOrder, setShowStrokeOrder] = useState(false);
 
   const normalizeText = (text: string): string => {
     return text
@@ -636,6 +789,17 @@ export default function Practice() {
               50% { transform: translateY(-8px); }
             }
             .animate-wave { animation: wave 2s ease-in-out infinite; }
+            @keyframes draw {
+              to { stroke-dashoffset: 0; }
+            }
+            .stroke-path {
+              stroke: #000;
+              stroke-width: 2;
+              fill: none;
+              stroke-dasharray: 1000;
+              stroke-dashoffset: 1000;
+              animation: draw 2s linear forwards;
+            }
           `}
         </style>
         <JapaneseBackground />
@@ -672,7 +836,7 @@ export default function Practice() {
             <div className="bg-gradient-to-br from-white/90 to-cyan-200/90 dark:bg-gradient-to-br dark:from-gray-800/90 dark:to-cyan-800/90 rounded-3xl shadow-2xl p-8 border-4 border-yellow-400 dark:border-yellow-700">
               <div className="space-y-4">
                 {currentCharts.map((row, rowIndex) => (
-                  <div key={rowIndex} className="grid grid-cols-5 gap-2">
+                  <div key={rowIndex} className="grid grid-cols-5 gap-1">
                     {row.map((char, colIndex) => (
                       <motion.div
                         key={`${rowIndex}-${colIndex}`}
@@ -681,21 +845,23 @@ export default function Practice() {
                         onClick={() => {
                           if (char.character) {
                             setSelectedCharacter(char);
+                            setShowStrokeOrder(false);
                             speakText(char.character);
                           }
                         }}
                         className={`
-                          aspect-square flex flex-col items-center justify-center rounded-xl transition-all duration-300 cursor-pointer
+                          aspect-square flex flex-col items-center justify-center rounded-lg transition-all duration-300 cursor-pointer
                           ${char.character 
-                            ? 'bg-gradient-to-br from-cyan-400 to-blue-400 dark:from-cyan-700 dark:to-blue-700 hover:from-cyan-500 hover:to-blue-500 dark:hover:from-cyan-600 dark:hover:to-blue-600 shadow-lg hover:shadow-xl border-2 border-yellow-300 dark:border-yellow-600' 
+                            ? 'bg-gradient-to-br from-cyan-400 to-blue-400 dark:from-cyan-700 dark:to-blue-700 hover:from-cyan-500 hover:to-blue-500 dark:hover:from-cyan-600 dark:hover:to-blue-600 shadow-lg hover:shadow-xl border border-yellow-300 dark:border-yellow-600' 
                             : 'bg-transparent'
                           }
-                          p-2 min-w-[40px] min-h-[40px]
+                          p-1 min-w-[32px] min-h-[32px]
                         `}
+                        style={{ fontSize: "1.5rem" }}
                       >
                         {char.character && (
                           <>
-                            <div className="text-2xl font-extrabold text-white mb-1">{char.character}</div>
+                            <div className="font-extrabold text-white">{char.character}</div>
                             <div className="text-xs text-gray-100 font-semibold">{char.romaji}</div>
                           </>
                         )}
@@ -712,27 +878,80 @@ export default function Practice() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -50 }}
                   transition={{ duration: 0.6 }}
-                  className="mt-8 bg-gradient-to-br from-green-400 to-cyan-400 dark:from-green-800 dark:to-cyan-800 rounded-3xl shadow-2xl p-10 border-4 border-yellow-400 dark:border-yellow-700"
+                  className="mt-8 bg-gradient-to-br from-green-400 to-cyan-400 dark:from-green-800 dark:to-cyan-800 rounded-3xl shadow-2xl p-12 border-4 border-yellow-400 dark:border-yellow-700"
                 >
                   <div className="text-center">
                     <motion.div
                       initial={{ scale: 0.8 }}
                       animate={{ scale: 1 }}
                       transition={{ duration: 0.5 }}
-                      className="text-9xl font-extrabold text-white mb-6 animate-wave"
+                      className="text-10xl font-extrabold text-white mb-8 animate-wave"
                     >
                       {selectedCharacter.character}
                     </motion.div>
-                    <div className="text-4xl text-gray-100 mb-6 font-semibold">{selectedCharacter.romaji}</div>
-                    <motion.button
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => speakText(selectedCharacter.character)}
-                      className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-full font-bold shadow-2xl"
-                    >
-                      <Volume2 size={24} />
-                      <span>Pronounce</span>
-                    </motion.button>
+                    <div className="text-4xl text-gray-100 mb-8 font-semibold">{selectedCharacter.romaji}</div>
+                    <div className="flex justify-center space-x-6 mb-8">
+                      <motion.button
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => speakText(selectedCharacter.character)}
+                        className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-full font-bold shadow-2xl"
+                      >
+                        <Volume2 size={24} />
+                        <span>Pronounce</span>
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setShowStrokeOrder(!showStrokeOrder)}
+                        className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-full font-bold shadow-2xl"
+                      >
+                        <Pen size={24} />
+                        <span>{showStrokeOrder ? 'Hide Stroke Order' : 'Show Stroke Order'}</span>
+                      </motion.button>
+                    </div>
+                    {showStrokeOrder && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.5 }}
+                        className="bg-white/90 dark:bg-gray-800/90 rounded-2xl p-8 border-2 border-yellow-300 dark:border-yellow-600"
+                      >
+                        <h3 className="text-2xl font-extrabold text-cyan-600 dark:text-cyan-300 mb-4">
+                          Stroke Order for {selectedCharacter.character}
+                        </h3>
+                        <svg width="200" height="200" viewBox="0 0 100 100" className="mx-auto">
+                          {strokeOrderData[selectedCharacter.character] ? (
+                            strokeOrderData[selectedCharacter.character].paths.map((path, index) => (
+                              <path
+                                key={index}
+                                d={path}
+                                className="stroke-path"
+                                style={{ animationDelay: `${index * 0.5}s` }}
+                              />
+                            ))
+                          ) : (
+                            <text x="50%" y="50%" textAnchor="middle" className="text-gray-500 text-sm">
+                              Stroke order data not available
+                            </text>
+                          )}
+                        </svg>
+                        {strokeOrderData[selectedCharacter.character] && (
+                          <p className="text-center text-gray-700 dark:text-gray-200 mt-4">
+                            Stroke Count: {strokeOrderData[selectedCharacter.character].strokeCount}
+                          </p>
+                        )}
+                        <div className="mt-6">
+                          <h4 className="text-xl font-bold text-pink-600 dark:text-pink-300 mb-2">How to write</h4>
+                          <p className="text-gray-700 dark:text-gray-200">
+                            {strokeOrderData[selectedCharacter.character]
+                              ? 'Follow the animated strokes above to learn how to write this character. Start at the beginning of each stroke and follow the direction.'
+                              : 'Stroke order data is not available for this character yet. Try searching online or in a textbook for writing guidance!'}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
                   </div>
                 </motion.div>
               )}
@@ -764,17 +983,17 @@ export default function Practice() {
                 background: radial-gradient(circle, #ffb7c5 40%, #ff87b2 70%, transparent);
                 clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
                 animation: sakura-fall 8s linear infinite;
-              }
-              .animation-delay-2s { animation-delay: 2s; }
-              .animation-delay-4s { animation-delay: 4s; }
-              .animation-delay-6s { animation-delay: 6s; }
-              .animation-delay-8s { animation-delay: 8s; }
-              @keyframes wave {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-8px); }
-              }
-              .animate-wave { animation: wave 2s ease-in-out infinite; }
-            `}
+            }
+            .animation-delay-2s { animation-delay: 2s; }
+            .animation-delay-4s { animation-delay: 4s; }
+            .animation-delay-6s { animation-delay: 6s; }
+            .animation-delay-8s { animation-delay: 8s; }
+            @keyframes wave {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-8px); }
+            }
+            .animate-wave { animation: wave 2s ease-in-out infinite; }
+          `}
           </style>
           <JapaneseBackground />
           <div className="text-center">
