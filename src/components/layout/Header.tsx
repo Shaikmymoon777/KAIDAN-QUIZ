@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { User, BookOpen, Brain, Trophy } from 'lucide-react'; // Add Book for Grammar
+import { User, BookOpen, Brain, Trophy, Headphones } from 'lucide-react'; // Add Book for Grammar
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import { useUser } from '../../contexts/usercontext';
@@ -16,7 +16,9 @@ export default function Header() {
     { path: '/quiz', label: 'Quiz', icon: BookOpen },
     { path: '/practice', label: 'Practice', icon: Brain },
     { path: '/grammer', label: 'Grammar', icon: BookOpen },
+     { path: '/listening', label: 'Listening', icon: Headphones },
     { path: '/ranking', label: 'Ranking', icon: Trophy },
+   
   ];
 
   const handleGoogleLogin = (credentialResponse: any) => {
