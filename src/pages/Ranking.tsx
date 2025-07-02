@@ -251,7 +251,9 @@ export default function Ranking() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05, type: "spring", stiffness: 200 }}
                     className={`p-6 hover:bg-gradient-to-br hover:from-pink-200/90 hover:to-yellow-100/90 dark:hover:bg-gradient-to-br dark:hover:from-gray-700/90 dark:hover:to-yellow-700/90 transition-colors ${
-                      isCurrentUser ? 'bg-gradient-to-br from-pink-300/90 to-yellow-300/90 dark:bg-gradient-to-br dark:from-pink-800/90 dark:to-yellow-800/90 border-l-4 border-pink-600 dark:border-pink-500' : ''
+                      isCurrentUser
+                        ? 'bg-gradient-to-br from-pink-300/90 to-yellow-300/90 dark:bg-gradient-to-br dark:from-pink-800/90 dark:to-yellow-800/90 border-l-4 border-pink-600 dark:border-pink-500'
+                        : 'bg-gradient-to-br from-white to-yellow-100 dark:from-gray-900 dark:to-yellow-900'
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -264,7 +266,7 @@ export default function Ranking() {
                             <h4 className={`text-lg font-extrabold ${
                               isCurrentUser 
                                 ? 'text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600'
-                                : 'text-gray-900 dark:text-white'
+                                : 'text-gray-900 dark:text-yellow-200'
                             }`}>
                               {entry.name}
                               {isCurrentUser && (
@@ -273,7 +275,7 @@ export default function Ranking() {
                                 </span>
                               )}
                             </h4>
-                            <p className="text-sm text-gray-100 dark:text-gray-200">
+                            <p className="text-sm text-gray-700 dark:text-yellow-200">
                               JLPT {entry.level} Level
                             </p>
                           </div>
@@ -283,22 +285,22 @@ export default function Ranking() {
                         <div className="text-right">
                           <div className="flex items-center justify-end space-x-2">
                             <Target className="w-5 h-5 text-pink-600 dark:text-pink-400 animate-pulse" />
-                            <span className="text-xl font-extrabold text-yellow-400 dark:text-yellow-300">
+                            <span className="text-xl font-extrabold text-yellow-600 dark:text-yellow-300">
                               {entry.score}%
                             </span>
                           </div>
-                          <p className="text-sm text-gray-100 dark:text-gray-200">
+                          <p className="text-sm text-gray-700 dark:text-yellow-200">
                             Quiz Score
                           </p>
                         </div>
                         <div className="text-right">
                           <div className="flex items-center justify-end space-x-2">
-                            <Calendar className="w-5 h-5 text-gray-100 dark:text-gray-200 animate-pulse" />
-                            <span className="text-sm text-gray-100 dark:text-gray-200">
+                            <Calendar className="w-5 h-5 text-gray-700 dark:text-yellow-200 animate-pulse" />
+                            <span className="text-sm text-gray-700 dark:text-yellow-200">
                               {new Date(entry.date).toLocaleDateString()}
                             </span>
                           </div>
-                          <p className="text-xs text-gray-100 dark:text-gray-200">
+                          <p className="text-xs text-gray-700 dark:text-yellow-200">
                             Achievement Date
                           </p>
                         </div>
@@ -306,8 +308,8 @@ export default function Ranking() {
                     </div>
                     {rank <= 3 && (
                       <div className="mt-4 flex items-center space-x-2">
-                        <TrendingUp className="w-5 h-5 text-green-500 dark:text-green-400 animate-pulse" />
-                        <span className="text-sm text-green-500 dark:text-green-400 font-extrabold">
+                        <TrendingUp className="w-5 h-5 text-green-600 dark:text-green-400 animate-pulse" />
+                        <span className="text-sm text-green-600 dark:text-green-400 font-extrabold">
                           Top {rank} Performer
                         </span>
                       </div>

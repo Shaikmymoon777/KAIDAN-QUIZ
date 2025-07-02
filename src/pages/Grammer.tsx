@@ -1154,14 +1154,33 @@ export default function GrammarN5() {
 
 										{/* Media Section */}
 										<div className="flex flex-col sm:flex-row gap-4">
-											{point.image && (
-												<motion.img
-													src={point.image}
-													alt={point.title}
-													className="w-full sm:w-1/3 rounded-lg shadow-md"
-													whileHover={{ scale: 1.05 }}
-												/>
-											)}
+											{/* Image or fallback box with title */}
+											<motion.div
+												className="w-full sm:w-1/3 rounded-lg shadow-md flex items-center justify-center bg-gradient-to-br from-pink-100 via-yellow-100 to-cyan-100 dark:from-pink-900 dark:via-yellow-900 dark:to-cyan-900 min-h-[120px] min-w-[120px] text-center"
+												whileHover={{ scale: 1.05 }}
+											>
+												{point.image ? (
+													// Try to load the image, fallback to title if error
+													<img
+														src={point.image}
+														alt={point.title}
+														className="w-full h-full object-cover rounded-lg"
+														onError={e => {
+															e.currentTarget.onerror = null;
+															e.currentTarget.style.display = "none";
+															// Optionally, you could set a state to show the fallback, but this is a simple approach
+														}}
+													/>
+												) : (
+													<span className="text-xl font-bold text-gray-700 dark:text-gray-100 p-4">
+														{point.title}
+													</span>
+												)}
+												{/* If image fails to load, the box will be empty, so always show the title as overlay */}
+												<span className="absolute text-lg font-bold text-gray-700 dark:text-gray-100 p-2 pointer-events-none">
+													{point.title}
+												</span>
+											</motion.div>
 											<div className="flex-1">
 												{point.audio && (
 													<motion.audio
