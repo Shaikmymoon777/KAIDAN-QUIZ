@@ -174,15 +174,15 @@ export default function Ranking() {
               </div>
               <div className="grid grid-cols-3 gap-6 text-center">
                 <div className="bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 rounded-2xl p-4">
-                  <div className="text-2xl font-extrabold text-yellow-400 dark:text-yellow-300">{userRank || '-'}</div>
+                  <div className="text-2xl font-extrabold text-pink-500 dark:text-pink-300">{userRank || '-'}</div>
                   <div className="text-sm text-gray-100 dark:text-gray-200">Global Rank</div>
                 </div>
                 <div className="bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 rounded-2xl p-4">
-                  <div className="text-2xl font-extrabold text-yellow-400 dark:text-yellow-300">{Math.round(averageScore || 0)}%</div>
+                  <div className="text-2xl font-extrabold text-cyan-500 dark:text-cyan-300">{Math.round(averageScore || 0)}%</div>
                   <div className="text-sm text-gray-100 dark:text-gray-200">Avg Score</div>
                 </div>
                 <div className="bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 rounded-2xl p-4">
-                  <div className="text-2xl font-extrabold text-yellow-400 dark:text-yellow-300">{user?.streak || 0}</div>
+                  <div className="text-2xl font-extrabold text-green-500 dark:text-green-300">{user?.streak || 0}</div>
                   <div className="text-sm text-gray-100 dark:text-gray-200">Day Streak</div>
                 </div>
               </div>
