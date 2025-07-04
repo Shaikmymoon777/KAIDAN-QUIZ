@@ -56,7 +56,8 @@ type AppAction =
   | { type: 'UPDATE_QUIZ_PROGRESS'; payload: { level: string; set: string; score: number; timeSpent: number } }
   | { type: 'UPDATE_PRACTICE_PROGRESS'; payload: { type: string; data: any } }
   | { type: 'ADD_RANKING_ENTRY'; payload: RankingEntry }
-  | { type: 'LOAD_STATE'; payload: AppState };
+  | { type: 'LOAD_STATE'; payload: AppState }
+  | { type: 'LOGOUT' }; // <-- Add this line
 
 const initialState: AppState = {
   user: {
@@ -121,6 +122,27 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, rankings: newRankings };
     case 'LOAD_STATE':
       return action.payload;
+    case 'LOGOUT':
+      return {
+        ...state,
+        user: {
+          id: crypto.randomUUID(),
+          name: 'Student',
+          level: 'N5',
+          totalQuizzes: 0,
+          averageScore: 0,
+          streak: 0,
+          joinDate: new Date().toISOString(),
+        },
+        quizProgress: {}, // <-- Reset quiz progress
+        practiceProgress: {
+          flashcards: {
+            hiragana: { completed: 0, total: 46, streak: 0 },
+            katakana: { completed: 0, total: 46, streak: 0 },
+          },
+          vocabulary: {},
+        },
+      };
     default:
       return state;
   }
@@ -164,3 +186,10 @@ export function useApp() {
   }
   return context;
 }
+
+// Example usage of useApp (move this to a component file if needed)
+// const { dispatch } = useApp();
+// const handleLogout = () => {
+//   dispatch({ type: 'LOGOUT' });
+//   // ...any other logout logic (like redirect)...
+// };
