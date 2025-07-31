@@ -273,11 +273,11 @@ export default function Quiz() {
   const [, setUserAnswers] = useState<Array<{ question: Question; selected: number; correct: boolean }>>([]);
 
   const levels = [
-    { id: 'n5' as Level, name: 'N5', description: 'Beginner Level', color: 'from-green-400 to-green-600', emoji: '🌱' },
-    { id: 'n4' as Level, name: 'N4', description: 'Elementary Level', color: 'from-blue-400 to-blue-600', emoji: '📘' },
-    { id: 'n3' as Level, name: 'N3', description: 'Intermediate Level', color: 'from-yellow-400 to-yellow-600', emoji: '🌟' },
-    { id: 'n2' as Level, name: 'N2', description: 'Upper Intermediate', color: 'from-orange-400 to-orange-600', emoji: '🔥' },
-    { id: 'n1' as Level, name: 'N1', description: 'Advanced Level', color: 'from-red-400 to-red-600', emoji: '🧠' },
+    { id: 'n5' as Level, name: 'N5', description: 'Beginner Level', color: 'bg-blue-500', emoji: '🌸' },
+    { id: 'n4' as Level, name: 'N4', description: 'Elementary Level', color: 'bg-blue-600', emoji: '📖' },
+    { id: 'n3' as Level, name: 'N3', description: 'Intermediate Level', color: 'bg-blue-700', emoji: '✨' },
+    { id: 'n2' as Level, name: 'N2', description: 'Upper Intermediate', color: 'bg-blue-800', emoji: '🔥' },
+    { id: 'n1' as Level, name: 'N1', description: 'Advanced Level', color: 'bg-blue-900', emoji: '🧠' },
   ];
 
   const loadQuestions = (level: Level, set: number, setType: 'regular' | 'grammar' | 'reading') => {
@@ -293,7 +293,6 @@ export default function Quiz() {
       setQuestions(shuffled.slice(0, 25));
     } catch (error) {
       console.error('Error loading questions:', error);
-      // Fallback to default N5 set1
       const allQuestions = quizDataMap.n5.regular[1];
       const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
       setQuestions(shuffled.slice(0, 25));
@@ -396,15 +395,18 @@ export default function Quiz() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Japanese Themed Background with Sakura Petal Animations
+  // Japanese Themed Background with Wave Patterns
   const JapaneseBackground = () => (
     <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-      <div className="sakura-petal left-[10%] top-[-10%]"></div>
-      <div className="sakura-petal left-[30%] top-[-20%] animation-delay-2s"></div>
-      <div className="sakura-petal left-[50%] top-[-15%] animation-delay-4s"></div>
-      <div className="sakura-petal left-[70%] top-[-25%] animation-delay-6s"></div>
-      <div className="sakura-petal left-[90%] top-[-10%] animation-delay-8s"></div>
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-24 bg-gradient-to-t from-red-500/50 to-transparent rounded-t-full animate-pulse"></div>
+      <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="wave" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path d="M0 50 Q25 30 50 50 T100 50" fill="none" stroke="#e0f7fa" strokeWidth="1" opacity="0.2"/>
+            <path d="M0 60 Q25 40 50 60 T100 60" fill="none" stroke="#e0f7fa" strokeWidth="1" opacity="0.1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#wave)"/>
+      </svg>
     </div>
   );
 
@@ -412,122 +414,97 @@ export default function Quiz() {
   if (selectedSet && questions.length > 0 && !quizCompleted) {
     const question = questions[currentQuestion];
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-400 via-yellow-300 to-cyan-400 dark:from-pink-900 dark:via-yellow-900 dark:to-cyan-900 relative overflow-hidden">
+      <div className="min-h-screen bg-blue-50 dark:bg-gray-900 relative overflow-hidden">
         <style>
           {`
-            @keyframes sakura-fall {
-              0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.9; }
-              100% { transform: translateY(100vh) rotate(720deg); opacity: 0.2; }
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(10px); }
+              to { opacity: 1; transform: translateY(0); }
             }
-            .sakura-petal {
-              position: absolute;
-              width: 12px;
-              height: 12px;
-              background: radial-gradient(circle, #ffb7c5 40%, #ff87b2 70%, transparent);
-              clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-              animation: sakura-fall 8s linear infinite;
-            }
-            .animation-delay-2s { animation-delay: 2s; }
-            .animation-delay-4s { animation-delay: 4s; }
-            .animation-delay-6s { animation-delay: 6s; }
-            .animation-delay-8s { animation-delay: 8s; }
-            @keyframes wave {
-              0%, 100% { transform: translateY(0); }
-              50% { transform: translateY(-8px); }
-            }
-            .animate-wave { animation: wave 2s ease-in-out infinite; }
-            @keyframes shake {
-              0%, 100% { transform: translateX(0); }
-              25% { transform: translateX(-5px); }
-              75% { transform: translateX(5px); }
-            }
-            .animate-shake { animation: shake 0.3s ease-in-out 3; }
+            .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+            .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
           `}
         </style>
         <JapaneseBackground />
-        <div className="max-w-3xl mx-auto px-4 py-12">
-          <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             {/* Quiz Header */}
             <div className="flex items-center justify-between mb-8">
               <motion.button
-                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={resetQuiz}
-                className="flex items-center space-x-3 text-white bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 px-6 py-3 rounded-full font-bold shadow-2xl"
+                className="flex items-center space-x-2 text-blue-700 dark:text-blue-300 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors"
               >
-                <ArrowLeft size={24} />
+                <ArrowLeft size={20} />
                 <span>Back</span>
               </motion.button>
               <div>
-                <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600 flex items-center gap-2 animate-wave">
+                <h1 className="text-3xl font-bold text-blue-800 dark:text-blue-200 flex items-center gap-2">
                   {levels.find(l => l.id === selectedLevel)?.emoji}
                   {levels.find(l => l.id === selectedLevel)?.name} - {selectedSetType === 'grammar' ? 'Grammar ' : selectedSetType === 'reading' ? 'Reading ' : ''}Set {selectedSet}
                 </h1>
-                <p className="text-lg text-gray-100 dark:text-gray-200">
+                <p className="text-md text-gray-600 dark:text-gray-400">
                   Question {currentQuestion + 1} of {questions.length}
                 </p>
               </div>
               <div className="text-right">
-                <div className="text-sm text-gray-100 dark:text-gray-200">Score</div>
-                <div className="text-xl font-bold text-yellow-400 dark:text-yellow-300">
+                <div className="text-sm text-gray-600 dark:text-gray-400">Score</div>
+                <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
                   {score}/{questions.length}
                 </div>
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full bg-white/30 dark:bg-gray-700/30 rounded-full h-4 shadow-inner mb-8">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-8">
               <motion.div
-                className="h-4 bg-gradient-to-r from-pink-500 via-yellow-400 to-cyan-500 rounded-full shadow-lg"
+                className="h-3 bg-blue-500 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
+                transition={{ duration: 0.5 }}
               />
             </div>
 
             {/* Question */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.6 }}
-              className="bg-gradient-to-br from-white/90 to-yellow-200/90 dark:bg-gradient-to-br dark:from-gray-800/90 dark:to-yellow-800/90 rounded-3xl shadow-2xl p-8 mb-8 border-4 border-pink-400 dark:border-pink-700"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8"
             >
-              <h2 className="text-2xl font-extrabold text-pink-600 dark:text-pink-400 mb-6">
+              <h2 className="text-xl font-semibold text-blue-800 dark:text-blue-200 mb-4">
                 {question.question}
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {question.options.map((option, index) => {
-                  let buttonClass = "w-full p-4 text-left rounded-2xl border-2 transition-all duration-300 ";
+                  let buttonClass = "w-full p-3 text-left rounded-lg border transition-colors ";
                   if (selectedAnswer !== null) {
                     if (index === question.correct) {
-                      buttonClass += "bg-gradient-to-r from-green-400 to-emerald-500 border-green-300 text-white";
+                      buttonClass += "bg-green-100 dark:bg-green-900 border-green-500 text-green-700 dark:text-green-300";
                     } else if (index === selectedAnswer) {
-                      buttonClass += "bg-gradient-to-r from-red-400 to-rose-500 border-red-300 text-white animate-shake";
+                      buttonClass += "bg-red-100 dark:bg-red-900 border-red-500 text-red-700 dark:text-red-300";
                     } else {
-                      buttonClass += "bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400";
+                      buttonClass += "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400";
                     }
                   } else {
-                    buttonClass += "bg-gradient-to-r from-pink-300 to-yellow-300 dark:from-pink-700 dark:to-yellow-700 border-pink-200 dark:border-pink-600 text-pink-700 dark:text-pink-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-yellow-400 dark:hover:from-pink-600 dark:hover:to-yellow-600";
+                    buttonClass += "bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-gray-700";
                   }
                   return (
                     <motion.button
                       key={index}
-                      whileHover={selectedAnswer === null ? { scale: 1.1, rotate: 3, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" } : {}}
-                      whileTap={selectedAnswer === null ? { scale: 0.95 } : {}}
+                      whileHover={selectedAnswer === null ? { scale: 1.02 } : {}}
                       onClick={() => handleAnswerSelect(index)}
                       className={buttonClass}
                       disabled={selectedAnswer !== null}
                     >
-                      <div className="flex items-center space-x-3">
-                        <motion.div
-                          whileHover={selectedAnswer === null ? { rotate: 8, scale: 1.1 } : {}}
-                          className="w-8 h-8 rounded-full border-2 border-current flex items-center justify-center font-semibold text-lg"
-                        >
+                      <div className="flex items-center space-x-2">
+                        <div className="w-6 h-6 rounded-full border flex items-center justify-center font-medium">
                           {String.fromCharCode(65 + index)}
-                        </motion.div>
-                        <span className="text-lg font-semibold">{option}</span>
+                        </div>
+                        <span className="text-md">{option}</span>
                         {selectedAnswer !== null && index === question.correct && (
-                          <CheckCircle className="ml-auto w-6 h-6 text-white" />
+                          <CheckCircle className="ml-auto w-5 h-5" />
                         )}
                       </div>
                     </motion.button>
@@ -545,12 +522,12 @@ export default function Quiz() {
                   exit={{ opacity: 0, height: 0 }}
                   className="mb-8"
                 >
-                  <div className="p-6 bg-gradient-to-r from-blue-300 to-cyan-300 dark:from-blue-800 dark:to-cyan-800 rounded-2xl border-2 border-blue-400 dark:border-blue-700">
-                    <h3 className="font-extrabold text-blue-800 dark:text-blue-300 mb-2 flex items-center gap-2 text-lg">
-                      <Star className="w-5 h-5 text-yellow-400 animate-pulse" />
-                      Explanation:
+                  <div className="p-4 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                    <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2 flex items-center gap-2">
+                      <Star className="w-4 h-4" />
+                      Explanation
                     </h3>
-                    <p className="text-blue-700 dark:text-blue-200 text-lg">
+                    <p className="text-blue-700 dark:text-blue-300">
                       {question.explanation}
                     </p>
                   </div>
@@ -566,13 +543,13 @@ export default function Quiz() {
                 className="flex justify-center"
               >
                 <motion.button
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={nextQuestion}
-                  className="px-8 py-3 bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 text-white rounded-full font-bold shadow-2xl flex items-center space-x-2"
+                  className="px-6 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
                 >
-                  <span>{currentQuestion < questions.length - 1 ? 'Next Question' : 'Finish Quiz'}</span>
-                  <ArrowRight size={20} />
+                  {currentQuestion < questions.length - 1 ? 'Next Question' : 'Finish Quiz'}
+                  <ArrowRight size={18} className="inline ml-2" />
                 </motion.button>
               </motion.div>
             )}
@@ -587,97 +564,73 @@ export default function Quiz() {
     const finalScore = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
     const passed = finalScore >= 60;
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-400 via-yellow-300 to-cyan-400 dark:from-pink-900 dark:via-yellow-900 dark:to-cyan-900 relative overflow-hidden">
+      <div className="min-h-screen bg-blue-50 dark:bg-gray-900 relative overflow-hidden">
         <style>
           {`
-            @keyframes sakura-fall {
-              0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.9; }
-              100% { transform: translateY(100vh) rotate(720deg); opacity: 0.2; }
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(10px); }
+              to { opacity: 1; transform: translateY(0); }
             }
-            .sakura-petal {
-              position: absolute;
-              width: 12px;
-              height: 12px;
-              background: radial-gradient(circle, #ffb7c5 40%, #ff87b2 70%, transparent);
-              clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-              animation: sakura-fall 8s linear infinite;
-            }
-            .animation-delay-2s { animation-delay: 2s; }
-            .animation-delay-4s { animation-delay: 4s; }
-            .animation-delay-6s { animation-delay: 6s; }
-            .animation-delay-8s { animation-delay: 8s; }
-            @keyframes wave {
-              0%, 100% { transform: translateY(0); }
-              50% { transform: translateY(-8px); }
-            }
-            .animate-wave { animation: wave 2s ease-in-out infinite; }
+            .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
           `}
         </style>
         <JapaneseBackground />
-        <div className="max-w-xl mx-auto px-4 py-12">
+        <div className="max-w-lg mx-auto px-4 py-12">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="bg-gradient-to-br from-white/90 to-yellow-200/90 dark:bg-gradient-to-br dark:from-gray-800/90 dark:to-yellow-800/90 rounded-3xl shadow-2xl p-8 border-4 border-pink-400 dark:border-pink-700 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center"
           >
             <motion.div
-              initial={{ scale: 0.7, rotate: -10 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center ${
-                passed ? 'bg-gradient-to-br from-green-400 to-emerald-500' : 'bg-gradient-to-br from-red-400 to-rose-500'
-              }`}
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-green-500' : 'bg-red-500'}`}
             >
               {passed ? (
-                <Trophy className="w-10 h-10 text-white animate-wave" />
+                <Trophy className="w-8 h-8 text-white" />
               ) : (
-                <Target className="w-10 h-10 text-white animate-wave" />
+                <Target className="w-8 h-8 text-white" />
               )}
             </motion.div>
-            <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600 mb-4">
+            <h2 className="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-4">
               {passed ? 'Congratulations!' : 'Keep Practicing!'}
             </h2>
-            <p className="text-lg text-gray-100 dark:text-gray-200 mb-8">
+            <p className="text-md text-gray-600 dark:text-gray-400 mb-6">
               {passed 
                 ? 'You passed the quiz! You can now proceed to the next set.'
                 : 'You need 60% or higher to unlock the next set. Try again!'
               }
             </p>
-            <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 rounded-2xl p-4">
-                <div className="text-2xl font-extrabold text-yellow-400 dark:text-yellow-300">
-                  {finalScore}%
-                </div>
-                <div className="text-sm text-gray-100 dark:text-gray-200">Score</div>
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
+                <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">{finalScore}%</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Score</div>
               </div>
-              <div className="bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 rounded-2xl p-4">
-                <div className="text-2xl font-extrabold text-yellow-400 dark:text-yellow-300">
-                  {score}/{questions.length}
-                </div>
-                <div className="text-sm text-gray-100 dark:text-gray-200">Correct</div>
+              <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
+                <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">{score}/{questions.length}</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Correct</div>
               </div>
-              <div className="bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 rounded-2xl p-4">
-                <div className="text-2xl font-extrabold text-yellow-400 dark:text-yellow-300">
-                  {formatTime(timeSpent)}
-                </div>
-                <div className="text-sm text-gray-100 dark:text-gray-200">Time</div>
+              <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
+                <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">{formatTime(timeSpent)}</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">Time</div>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
-                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={resetQuiz}
-                className="px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white rounded-full font-bold shadow-2xl"
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors"
               >
                 Back to Quiz Selection
               </motion.button>
               <motion.button
-                whileHover={{ scale: 1.1, rotate: -5 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => startQuiz(selectedSet!, selectedSetType)}
-                className="px-6 py-3 bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 text-white rounded-full font-bold shadow-2xl"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
               >
                 Try Again
               </motion.button>
@@ -689,106 +642,144 @@ export default function Quiz() {
   }
 
   // --- Quiz selection (Home Quiz Page) ---
+  // Cherry Blossom Animation Component
+  const CherryBlossoms = () => {
+    const blossomTypes = [
+      { emoji: '🌸', size: 1.0, speed: 1.0, rotation: 360 },
+      { emoji: '🌸', size: 0.8, speed: 1.2, rotation: -360 },
+      { emoji: '🌸', size: 1.2, speed: 0.8, rotation: 180 }
+    ];
+
+    return (
+      <div className="cherry-blossom-container absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(25)].map((_, i) => {
+          const type = blossomTypes[Math.floor(Math.random() * blossomTypes.length)];
+          const startX = Math.random() * 100;
+          const endX = startX + (Math.random() * 20 - 10);
+          const delay = Math.random() * 10;
+          const duration = 15 + Math.random() * 20;
+          const size = 8 + Math.random() * 12;
+          const opacity = 0.2 + Math.random() * 0.6;
+          
+          return (
+            <div 
+              key={i}
+              className="cherry-blossom"
+              style={{
+                left: `${startX}%`,
+                animationDelay: `${delay}s`,
+                animationDuration: `${duration}s`,
+                fontSize: `${size}px`,
+                opacity: opacity,
+                '--end-x': `${endX}%`,
+                '--rotation': `${type.rotation}deg`
+              } as React.CSSProperties}
+            >
+              {type.emoji}
+            </div>
+          );
+        })}
+        <style>
+          {`
+            .cherry-blossom {
+              position: absolute;
+              top: -50px;
+              z-index: 0;
+              animation: falling linear infinite;
+              pointer-events: none;
+              will-change: transform;
+              filter: drop-shadow(0 0 2px rgba(255, 192, 203, 0.5));
+            }
+            
+            @keyframes falling {
+              0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+              }
+              10% {
+                opacity: 0.8;
+              }
+              90% {
+                opacity: 0.8;
+              }
+              100% {
+                transform: translateY(100vh) translateX(calc(var(--end-x) - 50%)) rotate(var(--rotation));
+                opacity: 0;
+              }
+            }
+          `}
+        </style>
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-400 via-yellow-300 to-cyan-400 dark:from-pink-900 dark:via-yellow-900 dark:to-cyan-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8 relative overflow-hidden">
+      <CherryBlossoms />
       <style>
         {`
-          @keyframes sakura-fall {
-            0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.9; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0.2; }
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
           }
-          .sakura-petal {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: radial-gradient(circle, #ffb7c5 40%, #ff87b2 70%, transparent);
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: sakura-fall 8s linear infinite;
-          }
-          .animation-delay-2s { animation-delay: 2s; }
-          .animation-delay-4s { animation-delay: 4s; }
-          .animation-delay-6s { animation-delay: 6s; }
-          .animation-delay-8s { animation-delay: 8s; }
-          @keyframes wave {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-          }
-          .animate-wave { animation: wave 2s ease-in-out infinite; }
+          .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+          .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
         `}
       </style>
       <JapaneseBackground />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <div className="text-center mb-12">
             <motion.div
-              initial={{ scale: 0.8, rotate: -10 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="mb-6"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4"
             >
-              <Smile className="w-16 h-16 text-pink-600 dark:text-pink-400 mx-auto animate-wave" />
+              <Smile className="w-12 h-12 text-blue-600 dark:text-blue-400 mx-auto" />
             </motion.div>
-            <motion.h1
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600 mb-4"
-            >
+            <h1 className="text-5xl font-bold text-blue-800 dark:text-blue-200 mb-4">
               JLPT Quiz Hub
-            </motion.h1>
-            <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-2xl text-gray-100 dark:text-gray-200 max-w-3xl mx-auto"
-            >
-              Practice and master JLPT levels with interactive quizzes.<br />
-              Currently, only N5 quizzes are available!
-            </motion.p>
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Practice and master JLPT levels with interactive quizzes. Currently, only N5 quizzes are available!
+            </p>
           </div>
 
           {/* Level Selection */}
-          <motion.div
-            className="mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600 mb-6 text-center">
+          <motion.div className="mb-12">
+            <h2 className="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-6 text-center">
               Choose Your Level
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
               {levels.map((level) => {
                 const isAvailable = level.id === 'n5';
                 return (
                   <motion.button
                     key={level.id}
-                    whileHover={isAvailable ? { scale: 1.1, rotate: 4, boxShadow: "0 15px 30px rgba(0,0,0,0.3)" } : {}}
+                    whileHover={isAvailable ? { scale: 1.05 } : {}}
                     whileTap={isAvailable ? { scale: 0.95 } : {}}
                     onClick={() => isAvailable && setSelectedLevel(level.id)}
-                    className={`p-6 rounded-3xl shadow-2xl text-center transition-all duration-300 relative border-4 ${
+                    className={`p-4 rounded-lg shadow-md text-center transition-colors relative ${
                       selectedLevel === level.id
-                        ? 'bg-gradient-to-br from-white/90 to-yellow-200/90 dark:bg-gradient-to-br dark:from-gray-800/90 dark:to-yellow-800/90 border-yellow-400 dark:border-yellow-700'
+                        ? 'bg-blue-100 dark:bg-blue-900 border-blue-500'
                         : isAvailable
-                        ? 'bg-gradient-to-br from-pink-300 to-yellow-300 dark:from-pink-700 dark:to-yellow-700 border-pink-400 dark:border-pink-600 hover:bg-gradient-to-br hover:from-pink-400 hover:to-yellow-400 dark:hover:from-pink-600 dark:hover:to-yellow-600'
-                        : 'bg-gradient-to-br from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-70'
+                        ? 'bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-gray-700'
+                        : 'bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-50'
                     }`}
                     disabled={!isAvailable}
                   >
-                    <motion.div
-                      className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${level.color} flex items-center justify-center text-3xl animate-wave`}
-                      whileHover={isAvailable ? { scale: 1.15, rotate: 8 } : {}}
-                    >
+                    <div className={`w-12 h-12 mx-auto mb-2 rounded-full ${level.color} flex items-center justify-center text-2xl text-white`}>
                       {level.emoji}
-                    </motion.div>
-                    <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-1">
+                    </div>
+                    <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-200">
                       JLPT {level.name}
                     </h3>
-                    <p className="text-sm text-gray-100 dark:text-gray-200">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       {level.description}
                     </p>
                     {!isAvailable && (
-                      <p className="text-xs text-gray-100 dark:text-gray-200 mt-2 absolute bottom-2 left-0 right-0">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 absolute bottom-2 left-0 right-0">
                         Coming Soon!
                       </p>
                     )}
@@ -803,18 +794,18 @@ export default function Quiz() {
             <>
               {/* Regular Quiz Sets */}
               <motion.div
-                className="bg-gradient-to-br from-white/90 to-yellow-200/90 dark:bg-gradient-to-br dark:from-gray-800/90 dark:to-yellow-800/90 rounded-3xl shadow-2xl p-8 mb-8 border-4 border-pink-400 dark:border-pink-700"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
+                transition={{ duration: 0.5 }}
               >
-                <div className="flex items-center space-x-3 mb-8">
-                  <BookOpen className="w-8 h-8 text-pink-600 dark:text-pink-400 animate-pulse" />
-                  <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600">
+                <div className="flex items-center space-x-2 mb-6">
+                  <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  <h2 className="text-2xl font-semibold text-blue-800 dark:text-blue-200">
                     N5 Quiz Sets
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {Array.from({ length: 7 }, (_, i) => i + 1).map((setNumber) => {
                     const isUnlocked = isSetUnlocked(selectedLevel, setNumber, 'regular');
                     const progress = getSetProgress(selectedLevel, setNumber, 'regular');
@@ -823,69 +814,67 @@ export default function Quiz() {
                         key={`regular-${setNumber}`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        whileHover={isUnlocked ? { scale: 1.1, rotate: 4, boxShadow: "0 15px 30px rgba(0,0,0,0.3)" } : {}}
-                        transition={{ delay: setNumber * 0.07 }}
-                        className={`relative p-6 rounded-3xl border-4 transition-all duration-300 cursor-pointer ${
+                        whileHover={isUnlocked ? { scale: 1.05 } : {}}
+                        transition={{ delay: setNumber * 0.05 }}
+                        className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                           isUnlocked
-                            ? 'bg-gradient-to-br from-pink-300 to-yellow-300 dark:from-pink-700 dark:to-yellow-700 border-pink-400 dark:border-pink-600 hover:bg-gradient-to-br hover:from-pink-400 hover:to-yellow-400 dark:hover:from-pink-600 dark:hover:to-yellow-600'
-                            : 'bg-gradient-to-br from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-70'
+                            ? 'bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-gray-700'
+                            : 'bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-50'
                         }`}
                         onClick={() => isUnlocked && startQuiz(setNumber, 'regular')}
                       >
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className={`text-lg font-extrabold ${
-                            isUnlocked ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className={`text-md font-semibold ${
+                            isUnlocked ? 'text-blue-800 dark:text-blue-200' : 'text-gray-500 dark:text-gray-400'
                           }`}>
                             Set {setNumber}
                           </h3>
                           {!isUnlocked && (
-                            <Lock className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                            <Lock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                           )}
                           {progress.completed && (
-                            <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400 animate-pulse" />
+                            <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400" />
                           )}
                         </div>
                         {progress.attempts > 0 && (
-                          <div className="mb-4">
-                            <div className="flex justify-between text-sm mb-1">
-                              <span className="text-gray-100 dark:text-gray-200">Best Score</span>
-                              <span className="font-extrabold text-yellow-400 dark:text-yellow-300">
-                                {progress.bestScore}%
-                              </span>
+                          <div className="mb-3">
+                            <div className="flex justify-between text-xs mb-1">
+                              <span className="text-gray-600 dark:text-gray-400">Best Score</span>
+                              <span className="font-semibold text-blue-600 dark:text-blue-400">{progress.bestScore}%</span>
                             </div>
-                            <div className="w-full bg-white/30 dark:bg-gray-700/30 rounded-full h-2">
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                               <div
-                                className="h-2 bg-gradient-to-r from-pink-500 via-yellow-400 to-cyan-500 rounded-full"
+                                className="h-2 bg-blue-500 rounded-full"
                                 style={{ width: `${progress.bestScore}%` }}
                               />
                             </div>
                           </div>
                         )}
                         {progress.attempts > 0 && (
-                          <div className="flex items-center justify-between text-xs text-gray-100 dark:text-gray-200 mb-4">
+                          <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400 mb-3">
                             <span>{progress.attempts} attempts</span>
                             <span>
-                              <Clock size={12} className="inline mr-1 text-yellow-400 dark:text-yellow-300" />
+                              <Clock size={10} className="inline mr-1 text-blue-600 dark:text-blue-400" />
                               {formatTime(progress.timeSpent)}
                             </span>
                           </div>
                         )}
                         <motion.button
-                          whileHover={isUnlocked ? { scale: 1.1, rotate: 5 } : {}}
+                          whileHover={isUnlocked ? { scale: 1.05 } : {}}
                           whileTap={isUnlocked ? { scale: 0.95 } : {}}
                           onClick={e => { e.stopPropagation(); isUnlocked && startQuiz(setNumber, 'regular'); }}
                           disabled={!isUnlocked}
-                          className={`w-full py-3 px-4 rounded-full font-bold shadow-2xl transition-colors flex items-center justify-center space-x-2 ${
+                          className={`w-full py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 ${
                             isUnlocked
-                              ? 'bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 text-white'
-                              : 'bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                              ? 'bg-blue-500 text-white hover:bg-blue-600'
+                              : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                           }`}
                         >
-                          <Play size={16} />
+                          <Play size={14} />
                           <span>{progress.attempts > 0 ? 'Retake Quiz' : 'Start Quiz'}</span>
                         </motion.button>
                         {!isUnlocked && setNumber > 1 && (
-                          <p className="text-xs text-gray-100 dark:text-gray-200 mt-2 text-center">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
                             Complete Set {setNumber - 1} with 60%+ to unlock
                           </p>
                         )}
@@ -897,18 +886,18 @@ export default function Quiz() {
 
               {/* Grammar Quiz Sets */}
               <motion.div
-                className="bg-gradient-to-br from-white/90 to-yellow-200/90 dark:bg-gradient-to-br dark:from-gray-800/90 dark:to-yellow-800/90 rounded-3xl shadow-2xl p-8 mb-8 border-4 border-pink-400 dark:border-pink-700"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
+                transition={{ duration: 0.5 }}
               >
-                <div className="flex items-center space-x-3 mb-8">
-                  <BookOpen className="w-8 h-8 text-pink-600 dark:text-pink-400 animate-pulse" />
-                  <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600">
+                <div className="flex items-center space-x-2 mb-6">
+                  <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  <h2 className="text-2xl font-semibold text-blue-800 dark:text-blue-200">
                     N5 Grammar Quiz Sets
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {Array.from({ length: 7 }, (_, i) => i + 1).map((setNumber) => {
                     const isUnlocked = isSetUnlocked(selectedLevel, setNumber, 'grammar');
                     const progress = getSetProgress(selectedLevel, setNumber, 'grammar');
@@ -917,69 +906,67 @@ export default function Quiz() {
                         key={`grammar-${setNumber}`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        whileHover={isUnlocked ? { scale: 1.1, rotate: 4, boxShadow: "0 15px 30px rgba(0,0,0,0.3)" } : {}}
-                        transition={{ delay: setNumber * 0.07 }}
-                        className={`relative p-6 rounded-3xl border-4 transition-all duration-300 cursor-pointer ${
+                        whileHover={isUnlocked ? { scale: 1.05 } : {}}
+                        transition={{ delay: setNumber * 0.05 }}
+                        className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                           isUnlocked
-                            ? 'bg-gradient-to-br from-pink-300 to-yellow-300 dark:from-pink-700 dark:to-yellow-700 border-pink-400 dark:border-pink-600 hover:bg-gradient-to-br hover:from-pink-400 hover:to-yellow-400 dark:hover:from-pink-600 dark:hover:to-yellow-600'
-                            : 'bg-gradient-to-br from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-70'
+                            ? 'bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-gray-700'
+                            : 'bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-50'
                         }`}
                         onClick={() => isUnlocked && startQuiz(setNumber, 'grammar')}
                       >
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className={`text-lg font-extrabold ${
-                            isUnlocked ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className={`text-md font-semibold ${
+                            isUnlocked ? 'text-blue-800 dark:text-blue-200' : 'text-gray-500 dark:text-gray-400'
                           }`}>
                             Grammar Set {setNumber}
                           </h3>
                           {!isUnlocked && (
-                            <Lock className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                            <Lock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                           )}
                           {progress.completed && (
-                            <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400 animate-pulse" />
+                            <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400" />
                           )}
                         </div>
                         {progress.attempts > 0 && (
-                          <div className="mb-4">
-                            <div className="flex justify-between text-sm mb-1">
-                              <span className="text-gray-100 dark:text-gray-200">Best Score</span>
-                              <span className="font-extrabold text-yellow-400 dark:text-yellow-300">
-                                {progress.bestScore}%
-                              </span>
+                          <div className="mb-3">
+                            <div className="flex justify-between text-xs mb-1">
+                              <span className="text-gray-600 dark:text-gray-400">Best Score</span>
+                              <span className="font-semibold text-blue-600 dark:text-blue-400">{progress.bestScore}%</span>
                             </div>
-                            <div className="w-full bg-white/30 dark:bg-gray-700/30 rounded-full h-2">
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                               <div
-                                className="h-2 bg-gradient-to-r from-pink-500 via-yellow-400 to-cyan-500 rounded-full"
+                                className="h-2 bg-blue-500 rounded-full"
                                 style={{ width: `${progress.bestScore}%` }}
                               />
                             </div>
                           </div>
                         )}
                         {progress.attempts > 0 && (
-                          <div className="flex items-center justify-between text-xs text-gray-100 dark:text-gray-200 mb-4">
+                          <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400 mb-3">
                             <span>{progress.attempts} attempts</span>
                             <span>
-                              <Clock size={12} className="inline mr-1 text-yellow-400 dark:text-yellow-300" />
+                              <Clock size={10} className="inline mr-1 text-blue-600 dark:text-blue-400" />
                               {formatTime(progress.timeSpent)}
                             </span>
                           </div>
                         )}
                         <motion.button
-                          whileHover={isUnlocked ? { scale: 1.1, rotate: 5 } : {}}
+                          whileHover={isUnlocked ? { scale: 1.05 } : {}}
                           whileTap={isUnlocked ? { scale: 0.95 } : {}}
                           onClick={e => { e.stopPropagation(); isUnlocked && startQuiz(setNumber, 'grammar'); }}
                           disabled={!isUnlocked}
-                          className={`w-full py-3 px-4 rounded-full font-bold shadow-2xl transition-colors flex items-center justify-center space-x-2 ${
+                          className={`w-full py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 ${
                             isUnlocked
-                              ? 'bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 text-white'
-                              : 'bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                              ? 'bg-blue-500 text-white hover:bg-blue-600'
+                              : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                           }`}
                         >
-                          <Play size={16} />
+                          <Play size={14} />
                           <span>{progress.attempts > 0 ? 'Retake Quiz' : 'Start Quiz'}</span>
                         </motion.button>
                         {!isUnlocked && setNumber > 1 && (
-                          <p className="text-xs text-gray-100 dark:text-gray-200 mt-2 text-center">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
                             Complete Grammar Set {setNumber - 1} with 60%+ to unlock
                           </p>
                         )}
@@ -991,18 +978,18 @@ export default function Quiz() {
 
               {/* Reading Quiz Sets */}
               <motion.div
-                className="bg-gradient-to-br from-white/90 to-yellow-200/90 dark:bg-gradient-to-br dark:from-gray-800/90 dark:to-yellow-800/90 rounded-3xl shadow-2xl p-8 border-4 border-pink-400 dark:border-pink-700"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.9 }}
+                transition={{ duration: 0.5 }}
               >
-                <div className="flex items-center space-x-3 mb-8">
-                  <BookOpen className="w-8 h-8 text-pink-600 dark:text-pink-400 animate-pulse" />
-                  <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600">
+                <div className="flex items-center space-x-2 mb-6">
+                  <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  <h2 className="text-2xl font-semibold text-blue-800 dark:text-blue-200">
                     N5 Reading Quiz Sets
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {Array.from({ length: 7 }, (_, i) => i + 1).map((setNumber) => {
                     const isUnlocked = isSetUnlocked(selectedLevel, setNumber, 'reading');
                     const progress = getSetProgress(selectedLevel, setNumber, 'reading');
@@ -1011,69 +998,67 @@ export default function Quiz() {
                         key={`reading-${setNumber}`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        whileHover={isUnlocked ? { scale: 1.1, rotate: 4, boxShadow: "0 15px 30px rgba(0,0,0,0.3)" } : {}}
-                        transition={{ delay: setNumber * 0.07 }}
-                        className={`relative p-6 rounded-3xl border-4 transition-all duration-300 cursor-pointer ${
+                        whileHover={isUnlocked ? { scale: 1.05 } : {}}
+                        transition={{ delay: setNumber * 0.05 }}
+                        className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                           isUnlocked
-                            ? 'bg-gradient-to-br from-pink-300 to-yellow-300 dark:from-pink-700 dark:to-yellow-700 border-pink-400 dark:border-pink-600 hover:bg-gradient-to-br hover:from-pink-400 hover:to-yellow-400 dark:hover:from-pink-600 dark:hover:to-yellow-600'
-                            : 'bg-gradient-to-br from-gray-200/50 to-gray-300/50 dark:from-gray-700/50 dark:to-gray-600/50 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-70'
+                            ? 'bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-gray-700'
+                            : 'bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-50'
                         }`}
                         onClick={() => isUnlocked && startQuiz(setNumber, 'reading')}
                       >
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className={`text-lg font-extrabold ${
-                            isUnlocked ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className={`text-md font-semibold ${
+                            isUnlocked ? 'text-blue-800 dark:text-blue-200' : 'text-gray-500 dark:text-gray-400'
                           }`}>
                             Reading Set {setNumber}
                           </h3>
                           {!isUnlocked && (
-                            <Lock className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                            <Lock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                           )}
                           {progress.completed && (
-                            <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400 animate-pulse" />
+                            <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400" />
                           )}
                         </div>
                         {progress.attempts > 0 && (
-                          <div className="mb-4">
-                            <div className="flex justify-between text-sm mb-1">
-                              <span className="text-gray-100 dark:text-gray-200">Best Score</span>
-                              <span className="font-extrabold text-yellow-400 dark:text-yellow-300">
-                                {progress.bestScore}%
-                              </span>
+                          <div className="mb-3">
+                            <div className="flex justify-between text-xs mb-1">
+                              <span className="text-gray-600 dark:text-gray-400">Best Score</span>
+                              <span className="font-semibold text-blue-600 dark:text-blue-400">{progress.bestScore}%</span>
                             </div>
-                            <div className="w-full bg-white/30 dark:bg-gray-700/30 rounded-full h-2">
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                               <div
-                                className="h-2 bg-gradient-to-r from-pink-500 via-yellow-400 to-cyan-500 rounded-full"
+                                className="h-2 bg-blue-500 rounded-full"
                                 style={{ width: `${progress.bestScore}%` }}
                               />
                             </div>
                           </div>
                         )}
                         {progress.attempts > 0 && (
-                          <div className="flex items-center justify-between text-xs text-gray-100 dark:text-gray-200 mb-4">
+                          <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400 mb-3">
                             <span>{progress.attempts} attempts</span>
                             <span>
-                              <Clock size={12} className="inline mr-1 text-yellow-400 dark:text-yellow-300" />
+                              <Clock size={10} className="inline mr-1 text-blue-600 dark:text-blue-400" />
                               {formatTime(progress.timeSpent)}
                             </span>
                           </div>
                         )}
                         <motion.button
-                          whileHover={isUnlocked ? { scale: 1.1, rotate: 5 } : {}}
+                          whileHover={isUnlocked ? { scale: 1.05 } : {}}
                           whileTap={isUnlocked ? { scale: 0.95 } : {}}
                           onClick={e => { e.stopPropagation(); isUnlocked && startQuiz(setNumber, 'reading'); }}
                           disabled={!isUnlocked}
-                          className={`w-full py-3 px-4 rounded-full font-bold shadow-2xl transition-colors flex items-center justify-center space-x-2 ${
+                          className={`w-full py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 ${
                             isUnlocked
-                              ? 'bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 text-white'
-                              : 'bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                              ? 'bg-blue-500 text-white hover:bg-blue-600'
+                              : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                           }`}
                         >
-                          <Play size={16} />
+                          <Play size={14} />
                           <span>{progress.attempts > 0 ? 'Retake Quiz' : 'Start Quiz'}</span>
                         </motion.button>
                         {!isUnlocked && setNumber > 1 && (
-                          <p className="text-xs text-gray-100 dark:text-gray-200 mt-2 text-center">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
                             Complete Reading Set {setNumber - 1} with 60%+ to unlock
                           </p>
                         )}
@@ -1090,13 +1075,13 @@ export default function Quiz() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="bg-gradient-to-br from-white/90 to-yellow-200/90 dark:bg-gradient-to-br dark:from-gray-800/90 dark:to-yellow-800/90 rounded-3xl shadow-2xl p-8 border-4 border-pink-400 dark:border-pink-700 text-center"
+              transition={{ duration: 0.5 }}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center"
             >
-              <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-cyan-600 mb-4">
+              <h2 className="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-4">
                 {levels.find(l => l.id === selectedLevel)?.name} Quizzes
               </h2>
-              <p className="text-lg text-gray-100 dark:text-gray-200">
+              <p className="text-md text-gray-600 dark:text-gray-400">
                 Quizzes for {levels.find(l => l.id === selectedLevel)?.name} are coming soon! Please select N5 to start practicing.
               </p>
             </motion.div>

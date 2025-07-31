@@ -1,0 +1,338 @@
+[
+    {
+      "id": "1",
+      "question": "What is the meaning of 見ます（みます）?",
+      "options": ["be late", "attend", "check", "feel ill"],
+      "correct": 2,
+      "explanation": "見ます (みます) means 'to check' or 'to look at' in Japanese, often used in contexts like checking or observing something."
+    },
+    {
+      "id": "2",
+      "question": "What is the meaning of 探します（さがします）?",
+      "options": ["look for, search", "place", "do", "volunteer"],
+      "correct": 0,
+      "explanation": "探します (さがします) means 'to look for' or 'to search' for something or someone."
+    },
+    {
+      "id": "3",
+      "question": "What is the meaning of 遅れます（おくれます）?",
+      "options": ["check", "apply for", "be late [for an appointment, etc.]", "be in time"],
+      "correct": 2,
+      "explanation": "遅れます (おくれます) means 'to be late' for an appointment or event."
+    },
+    {
+      "id": "4",
+      "question": "What is the meaning of 間に合います（まにあいます）?",
+      "options": ["be in time [for an appointment, etc.]", "do", "feel well", "search"],
+      "correct": 0,
+      "explanation": "間に合います (まにあいます) means 'to be in time' for an appointment or deadline."
+    },
+    {
+      "id": "5",
+      "question": "What is the meaning of やります?",
+      "options": ["do", "attend", "next time", "be late"],
+      "correct": 0,
+      "explanation": "やります means 'to do' or 'to perform' an action or task."
+    },
+    {
+      "id": "6",
+      "question": "What is the meaning of 参加します（さんかします）?",
+      "options": ["volunteer", "attend [a party]", "check", "be in time"],
+      "correct": 1,
+      "explanation": "参加します (さんかします) means 'to attend' or 'to participate' in an event or gathering, such as a party."
+    },
+    {
+      "id": "7",
+      "question": "What is the meaning of 申し込みます（もうしこみます）?",
+      "options": ["search", "feel ill", "apply for, enter for", "check"],
+      "correct": 2,
+      "explanation": "申し込みます (もうしこみます) means 'to apply for' or 'to enter for' something, like a program or event."
+    },
+    {
+      "id": "8",
+      "question": "What is the meaning of 都合がいい（つごうがいい）?",
+      "options": ["pretty", "convenient (concerning time)", "athletic meeting", "office"],
+      "correct": 1,
+      "explanation": "都合がいい (つごうがいい) means 'convenient' in terms of time or schedule."
+    },
+    {
+      "id": "9",
+      "question": "What is the meaning of 都合が悪い（つごうがわるい）?",
+      "options": ["do", "next time", "inconvenient (concerning time)", "directly"],
+      "correct": 2,
+      "explanation": "都合が悪い (つごうがわるい) means 'inconvenient' in terms of time or schedule."
+    },
+    {
+      "id": "10",
+      "question": "What is the meaning of 気分がいい（きぶんがいい）?",
+      "options": ["feel ill", "feel well", "volunteer", "dialect"],
+      "correct": 1,
+      "explanation": "気分がいい (きぶんがいい) means 'to feel well' or 'to be in a good mood.'"
+    },
+    {
+      "id": "11",
+      "question": "What is the meaning of 気分が悪い（きぶんがわるい）?",
+      "options": ["feel well", "search", "feel ill", "check"],
+      "correct": 2,
+      "explanation": "気分が悪い (きぶんがわるい) means 'to feel ill' or 'to be in a bad mood.'"
+    },
+    {
+      "id": "12",
+      "question": "What is the meaning of 新聞社（しんぶんしゃ）?",
+      "options": ["place", "volunteer", "newspaper publishing company, newspaper office", "form"],
+      "correct": 2,
+      "explanation": "新聞社 (しんぶんしゃ) refers to a 'newspaper publishing company' or 'newspaper office.'"
+    },
+    {
+      "id": "13",
+      "question": "What is the meaning of 柔道（じゅうどう）?",
+      "options": ["karate", "team game", "running", "judo"],
+      "correct": 3,
+      "explanation": "柔道 (じゅうどう) means 'judo,' a traditional Japanese martial art."
+    },
+    {
+      "id": "14",
+      "question": "What is the meaning of 運動会（うんどうかい）?",
+      "options": ["volunteer", "competition", "athletic meeting", "next time"],
+      "correct": 2,
+      "explanation": "運動会 (うんどうかい) refers to an 'athletic meeting' or sports day, often held at schools."
+    },
+    {
+      "id": "15",
+      "question": "What is the meaning of 場所（ばしょ）?",
+      "options": ["place", "space", "building", "time"],
+      "correct": 0,
+      "explanation": "場所 (ばしょ) means 'place' or 'location.'"
+    },
+    {
+      "id": "16",
+      "question": "What is the meaning of ボランティア?",
+      "options": ["police", "official", "volunteer", "teacher"],
+      "correct": 2,
+      "explanation": "ボランティア means 'volunteer,' referring to someone who offers their services willingly."
+    },
+    {
+      "id": "17",
+      "question": "What is the meaning of 〜弁（〜べん）?",
+      "options": ["language", "tone", "accent", "〜 dialect"],
+      "correct": 3,
+      "explanation": "〜弁 (〜べん) refers to a 'dialect,' used to describe regional speech variations in Japanese."
+    },
+    {
+      "id": "18",
+      "question": "What is the meaning of 今度（こんど）?",
+      "options": ["once more", "just now", "this time", "next time, another time"],
+      "correct": 3,
+      "explanation": "今度 (こんど) means 'next time' or 'another time,' referring to a future occasion."
+    },
+    {
+      "id": "19",
+      "question": "What is the meaning of ずいぶん?",
+      "options": ["not at all", "pretty, very", "a little", "slowly"],
+      "correct": 1,
+      "explanation": "ずいぶん means 'pretty' or 'very,' used to emphasize a degree or extent."
+    },
+    {
+      "id": "20",
+      "question": "What is the meaning of 直接（ちょくせつ）?",
+      "options": ["quickly", "directly", "accidentally", "secretly"],
+      "correct": 1,
+      "explanation": "直接 (ちょくせつ) means 'directly,' as in doing something without intermediaries."
+    },
+    {
+      "id": "21",
+      "question": "What is the meaning of いつでも?",
+      "options": ["never", "no time", "sometime", "any time"],
+      "correct": 3,
+      "explanation": "いつでも means 'any time,' indicating flexibility in timing."
+    },
+    {
+      "id": "22",
+      "question": "What is the meaning of どこでも?",
+      "options": ["everywhere", "nowhere", "anywhere", "somewhere"],
+      "correct": 2,
+      "explanation": "どこでも means 'anywhere,' indicating flexibility in location."
+    },
+    {
+      "id": "23",
+      "question": "What is the meaning of だれでも?",
+      "options": ["nobody", "anybody", "somebody", "everybody"],
+      "correct": 1,
+      "explanation": "だれでも means 'anybody,' referring to any person without restriction."
+    },
+    {
+      "id": "24",
+      "question": "What is the meaning of 何でも（なんでも）?",
+      "options": ["everything", "anything", "nothing", "something"],
+      "correct": 1,
+      "explanation": "何でも (なんでも) means 'anything,' indicating no specific restriction on choice."
+    },
+    {
+      "id": "25",
+      "question": "What is the meaning of こんな〜?",
+      "options": ["〜 like this", "〜 like that (far away)", "〜 like what", "〜 like that (near listener)"],
+      "correct": 0,
+      "explanation": "こんな〜 means '〜 like this,' used to describe something close to the speaker."
+    },
+    {
+      "id": "26",
+      "question": "What is the meaning of そんな〜?",
+      "options": ["〜 like that (near the listener)", "〜 like this", "〜 like those", "〜 like what"],
+      "correct": 0,
+      "explanation": "そんな〜 means '〜 like that (near the listener),' used to describe something near the listener."
+    },
+    {
+      "id": "27",
+      "question": "What is the meaning of あんな〜?",
+      "options": ["〜 like that (far from speaker and listener)", "〜 like that (near listener)", "〜 like those", "〜 like this"],
+      "correct": 0,
+      "explanation": "あんな〜 means '〜 like that (far from speaker and listener),' used to describe something distant."
+    },
+    {
+      "id": "28",
+      "question": "What is the meaning of 片づきます（かたづきます）?",
+      "options": ["burn", "put in order", "trash", "be afraid of"],
+      "correct": 1,
+      "explanation": "片づきます (かたづきます) means 'to be put in order' or 'to be tidied up.'"
+    },
+    {
+      "id": "29",
+      "question": "What is the meaning of ごみ?",
+      "options": ["bottle", "side", "garbage, trash, dust", "can"],
+      "correct": 2,
+      "explanation": "ごみ means 'garbage,' 'trash,' or 'dust,' referring to waste materials."
+    },
+    {
+      "id": "30",
+      "question": "What is the meaning of 出します（だします）?",
+      "options": ["put out [the trash]", "burn", "contact", "company"],
+      "correct": 0,
+      "explanation": "出します (だします) in this context means 'to put out' the trash for collection."
+    },
+    {
+      "id": "31",
+      "question": "What is the meaning of 燃えます（もえます）?",
+      "options": ["burn", "put in order", "another", "bottle"],
+      "correct": 0,
+      "explanation": "燃えます (もえます) means 'to burn' or 'to be combustible.'"
+    },
+    {
+      "id": "32",
+      "question": "What does 月・水・金（げつ・すい・きん） mean?",
+      "options": ["Monday, Wednesday and Friday", "every day", "trash days", "holiday"],
+      "correct": 0,
+      "explanation": "月・水・金 (げつ・すい・きん) refers to 'Monday, Wednesday, and Friday,' often used for schedules like trash collection days."
+    },
+    {
+      "id": "33",
+      "question": "What is the meaning of 置き場（おきば）?",
+      "options": ["place where something is put", "electronic mail", "space", "bottle"],
+      "correct": 0,
+      "explanation": "置き場 (おきば) means 'place where something is put,' such as a designated spot for items like trash."
+    },
+    {
+      "id": "34",
+      "question": "What is the meaning of 横（よこ）?",
+      "options": ["can", "hot water", "side", "company"],
+      "correct": 2,
+      "explanation": "横 (よこ) means 'side,' referring to a lateral position or direction."
+    },
+    {
+      "id": "35",
+      "question": "What is the meaning of 瓶（びん）?",
+      "options": ["can", "hot water", "bottle", "side"],
+      "correct": 2,
+      "explanation": "瓶 (びん) means 'bottle,' typically referring to glass bottles."
+    },
+    {
+      "id": "36",
+      "question": "What is the meaning of 缶（かん）?",
+      "options": ["can", "burn", "be afraid of", "gas"],
+      "correct": 0,
+      "explanation": "缶 (かん) means 'can,' referring to metal containers like aluminum cans."
+    },
+    {
+      "id": "37",
+      "question": "What is the meaning of [お]湯（おゆ）?",
+      "options": ["can", "gas", "hot water", "company"],
+      "correct": 2,
+      "explanation": "[お]湯 (おゆ) means 'hot water,' often used in daily contexts like bathing or cooking."
+    },
+    {
+      "id": "38",
+      "question": "What is the meaning of ガス?",
+      "options": ["gas", "bottle", "side", "place where something is put"],
+      "correct": 0,
+      "explanation": "ガス means 'gas,' referring to fuel or gaseous substances."
+    },
+    {
+      "id": "39",
+      "question": "What is the meaning of 〜会社（〜がいしゃ）?",
+      "options": ["~company", "~group", "~location", "~industry"],
+      "correct": 0,
+      "explanation": "〜会社 (〜がいしゃ) means 'company,' used as a suffix for business organizations."
+    },
+    {
+      "id": "40",
+      "question": "What is the meaning of 連絡します（れんらくします）?",
+      "options": ["put in order", "contact", "apply for", "take out"],
+      "correct": 1,
+      "explanation": "連絡します (れんらくします) means 'to contact' or 'to get in touch with someone.'"
+    },
+    {
+      "id": "41",
+      "question": "What is the meaning of 困ったなあ（こまったなあ）?",
+      "options": ["What shall I do?", "Be afraid!", "I don’t want to", "What happened?"],
+      "correct": 0,
+      "explanation": "困ったなあ (こまったなあ) is an expression meaning 'What shall I do?' used when someone is in a difficult situation."
+    },
+    {
+      "id": "42",
+      "question": "What is the meaning of 電子メール（でんしメール）?",
+      "options": ["electronic mail", "postcard", "delivery", "voice mail"],
+      "correct": 0,
+      "explanation": "電子メール (でんしメール) means 'electronic mail' or 'email.'"
+    },
+    {
+      "id": "43",
+      "question": "What is the meaning of 宇宙（うちゅう）?",
+      "options": ["universe", "astronaut", "sky", "heaven"],
+      "correct": 0,
+      "explanation": "宇宙 (うちゅう) means 'universe,' referring to space or the cosmos."
+    },
+    {
+      "id": "44",
+      "question": "What is the meaning of 怖い（こわい）?",
+      "options": ["be afraid of", "contact", "dangerous", "put in order"],
+      "correct": 0,
+      "explanation": "怖い (こわい) means 'be afraid of' or 'scary,' describing something frightening."
+    },
+    {
+      "id": "45",
+      "question": "What is the meaning of 宇宙船（うちゅうせん）?",
+      "options": ["spaceship", "rocket", "jet", "satellite"],
+      "correct": 0,
+      "explanation": "宇宙船 (うちゅうせん) means 'spaceship,' a vehicle designed for space travel."
+    },
+    {
+      "id": "46",
+      "question": "What is the meaning of 別の（べつの）?",
+      "options": ["another", "special", "unknown", "different kind"],
+      "correct": 0,
+      "explanation": "別の (べつの) means 'another,' referring to a different item or option."
+    },
+    {
+      "id": "47",
+      "question": "What is the meaning of 宇宙飛行士（うちゅうひこうし）?",
+      "options": ["astronaut", "alien", "scientist", "explorer"],
+      "correct": 0,
+      "explanation": "宇宙飛行士 (うちゅうひこうし) means 'astronaut,' a person trained for space travel."
+    },
+    {
+      "id": "48",
+      "question": "Who is 土井隆雄（どい たかお）?",
+      "options": ["Japanese astronaut (1955– )", "JAXA scientist", "rocket engineer", "pilot trainer"],
+      "correct": 0,
+      "explanation": "土井隆雄 (どい たかお) is a Japanese astronaut born in 1955, known for his contributions to space exploration."
+    }
+  ]

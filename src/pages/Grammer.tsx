@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Video } from 'lucide-react';
+import { ArrowLeft, BookOpen, Pen, Star, Target, Video, Zap } from 'lucide-react';
 
 // Example data for lessons (unchanged)
 const lessons = [
@@ -970,68 +970,74 @@ const grammarLevels = [
 	{
 		id: 'n5',
 		label: 'N5',
-		color: 'from-green-300 to-green-500',
-		emoji: '🌱',
+		icon: <BookOpen className="w-8 h-8" />,
 		description: 'Beginner grammar for JLPT N5',
 		active: true,
 	},
 	{
 		id: 'n4',
 		label: 'N4',
-		color: 'from-blue-300 to-blue-500',
-		emoji: '📘',
+		icon: <Star className="w-8 h-8" />,
 		description: 'Elementary grammar for JLPT N4',
 		active: false,
 	},
 	{
 		id: 'n3',
 		label: 'N3',
-		color: 'from-yellow-300 to-yellow-500',
-		emoji: '🌟',
+		icon: <Zap className="w-8 h-8" />,
 		description: 'Intermediate grammar for JLPT N3',
 		active: false,
 	},
 	{
 		id: 'n2',
 		label: 'N2',
-		color: 'from-orange-300 to-orange-500',
-		emoji: '🔥',
+		icon: <Target className="w-8 h-8" />,
 		description: 'Upper-intermediate grammar for JLPT N2',
 		active: false,
 	},
 	{
 		id: 'n1',
 		label: 'N1',
-		color: 'from-red-300 to-red-500',
-		emoji: '🧠',
+		icon: <Pen className="w-8 h-8" />,
 		description: 'Advanced grammar for JLPT N1',
 		active: false,
 	},
 ];
 
 export default function GrammarN5() {
-	const [] = useState(0);
-	const [] = useState<number | null>(null);
-	const [] = useState(false);
-	const [] = useState(0);
 	const [selectedLevel, setSelectedLevel] = useState('n5');
 	const [showVideo, setShowVideo] = useState<{ lesson: number; point: number } | null>(null);
-	const [selectedLesson, setSelectedLesson] = useState(0);
+	const [selectedLesson, setSelectedLesson] = useState<number | null>(null);
 
-	// Japanese Themed Background with Sakura Petal Animations
+	// Japanese Themed Background with Wave Animations
 	const JapaneseBackground = () => (
 		<div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+			<div className="absolute inset-0">
+				<svg className="absolute bottom-0 w-full h-24 text-blue-200 dark:text-blue-900" viewBox="0 0 1440 100" preserveAspectRatio="none">
+					<path
+						d="M0,60 C200,80 300,20 500,40 C700,60 900,20 1100,40 C1300,60 1440,20 1440,60 L1440,100 L0,100 Z"
+						fill="currentColor"
+						className="animate-wave"
+					/>
+				</svg>
+				<svg className="absolute bottom-0 w-full h-32 text-blue-300 dark:text-blue-800" viewBox="0 0 1440 100" preserveAspectRatio="none">
+					<path
+						d="M0,40 C150,60 350,10 550,30 C750,50 950,10 1150,30 C1350,50 1440,10 1440,40 L1440,100 L0,100 Z"
+						fill="currentColor"
+						className="animate-wave animation-delay-2s"
+					/>
+				</svg>
+			</div>
 			<div className="sakura-petal left-[10%] top-[-10%]"></div>
 			<div className="sakura-petal left-[30%] top-[-20%] animation-delay-2s"></div>
 			<div className="sakura-petal left-[50%] top-[-15%] animation-delay-4s"></div>
 			<div className="sakura-petal left-[70%] top-[-25%] animation-delay-6s"></div>
 			<div className="sakura-petal left-[90%] top-[-10%] animation-delay-8s"></div>
-			<div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-24 bg-gradient-to-t from-red-500/50 to-transparent rounded-t-full animate-pulse"></div>
 		</div>
 	);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-pink-400 via-yellow-300 to-cyan-400 dark:from-pink-900 dark:via-yellow-900 dark:to-cyan-900 relative overflow-hidden">
+		<div className="min-h-screen bg-blue-50 dark:bg-gray-900 relative overflow-hidden">
 			<style>
 				{`
 					@keyframes sakura-fall {
@@ -1046,213 +1052,211 @@ export default function GrammarN5() {
 						clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 						animation: sakura-fall 8s linear infinite;
 					}
-					.animation-delay-2s { animation-delay: 2s; }
-					.animation-delay-4s { animation-delay: 4s; }
-					.animation-delay-6s { animation-delay: 6s; }
-					.animation-delay-8s { animation-delay: 8s; }
 					@keyframes wave {
 						0%, 100% { transform: translateY(0); }
 						50% { transform: translateY(-8px); }
 					}
 					.animate-wave { animation: wave 2s ease-in-out infinite; }
+										.animation-delay-2s { animation-delay: 2s; }
+					.animation-delay-4s { animation-delay: 4s; }
+					.animation-delay-6s { animation-delay: 6s; }
+					.animation-delay-8s { animation-delay: 8s; }
 				`}
 			</style>
 			<JapaneseBackground />
-			<motion.div
-				initial={{ opacity: 0, y: 50 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.8 }}
-				className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
-			>
+
+			<div className="container mx-auto px-4 py-12 relative z-10">
 				{/* Header */}
-				<div className="text-center mb-12">
-					<motion.div
-						initial={{ scale: 0.8, rotate: -10 }}
-                              animate={{ scale: 1, rotate: 0 }}
-							transition={{ duration: 0.5 }}
-							className="inline-block"
+				<motion.div
+					initial={{ opacity: 0, y: -20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.5 }}
+					className="text-center mb-12"
+				>
+					<h1 className="text-4xl md:text-5xl font-bold text-blue-900 dark:text-blue-100">
+						JLPT N5 Grammar Lessons
+					</h1>
+					<p className="mt-4 text-lg text-blue-700 dark:text-blue-300">
+						Master beginner-level Japanese grammar with interactive lessons and examples.
+					</p>
+				</motion.div>
+
+				{/* Level Selection */}
+				<div className="flex flex-wrap justify-center gap-4 mb-12">
+					{grammarLevels.map((level) => (
+						<button
+							key={level.id}
+							onClick={() => setSelectedLevel(level.id)}
+							disabled={!level.active}
+							className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-300 ${
+								selectedLevel === level.id
+									? 'bg-blue-600 text-white'
+									: level.active
+									? 'bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-700'
+									: 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+							}`}
+							aria-label={`Select JLPT ${level.label} level`}
 						>
-							<h1 className="text-5xl font-bold bg-gradient-to-r from-pink-600 via-yellow-500 to-cyan-500 bg-clip-text text-transparent">
-								JLPT N5 Grammar
-							</h1>
-						</motion.div>
-						<p className="mt-4 text-lg text-gray-800 dark:text-gray-200">
-							{grammarLevels.find(level => level.id === selectedLevel)?.description}
-						</p>
-					</div>
+							{level.icon}
+							<span>{level.label}</span>
+						</button>
+					))}
+				</div>
 
-					{/* Level Selector */}
-					<div className="flex justify-center mb-8 space-x-4">
-						{grammarLevels.map(level => (
-							<motion.button
-								key={level.id}
-								onClick={() => setSelectedLevel(level.id)}
-								className={`px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300 ${
-									selectedLevel === level.id
-										? `bg-gradient-to-r ${level.color} text-white shadow-lg`
-										: 'bg-white/50 dark:bg-gray-800/50 text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r hover:from-pink-300 hover:to-cyan-300'
-								} flex items-center space-x-2`}
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-							>
-								<span>{level.emoji}</span>
-								<span>{level.label}</span>
-							</motion.button>
-						))}
-					</div>
+				{/* Back Button (Visible when a lesson is selected) */}
+				{selectedLesson !== null && (
+					<motion.button
+						initial={{ opacity: 0, x: -20 }}
+						animate={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.3 }}
+						onClick={() => setSelectedLesson(null)}
+						className="flex items-center gap-2 mb-8 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100"
+						aria-label="Back to lesson selection"
+					>
+						<ArrowLeft className="w-5 h-5" />
+						<span>Back to Lessons</span>
+					</motion.button>
+				)}
 
-					{/* Lesson Selector */}
-					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-12">
-						{lessons.map((lesson, index) => (
-							<motion.button
-								key={index}
-								onClick={() => setSelectedLesson(index)}
-								className={`p-4 rounded-2xl text-center font-semibold transition-all duration-300 ${
-									selectedLesson === index
-										? 'bg-gradient-to-r from-pink-500 to-cyan-500 text-white shadow-xl'
-										: 'bg-white/70 dark:bg-gray-800/70 text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r hover:from-pink-300 hover:to-cyan-300'
-								}`}
-								whileHover={{ scale: 1.05, rotate: 2 }}
-								whileTap={{ scale: 0.95 }}
-							>
-								{lesson.title}
-							</motion.button>
-						))}
-					</div>
-
-					{/* Lesson Content */}
-					{selectedLesson !== null && (
-						<motion.div
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.5 }}
-							className="bg-white/90 dark:bg-gray-800/90 rounded-2xl p-8 shadow-2xl"
-						>
-							<h2 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-cyan-600 bg-clip-text text-transparent mb-4">
-								{lessons[selectedLesson].title}
-							</h2>
-							<p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-								{lessons[selectedLesson].description}
-							</p>
-
-							{/* Grammar Points */}
-							<div className="space-y-6">
-								{lessons[selectedLesson].grammarPoints.map((point, pointIndex) => (
-									<motion.div
-										key={pointIndex}
-										className="bg-gradient-to-r from-pink-200 via-yellow-200 to-cyan-200 dark:from-pink-900 dark:via-yellow-900 dark:to-cyan-900 rounded-xl p-6 shadow-lg"
-										initial={{ opacity: 0, x: -20 }}
-										animate={{ opacity: 1, x: 0 }}
-										transition={{ duration: 0.5, delay: pointIndex * 0.1 }}
-									>
-										<h3 className="text-2xl font-semibold bg-gradient-to-r from-pink-600 to-cyan-600 bg-clip-text text-transparent mb-2">
-											{point.title}
-										</h3>
-										<p className="text-gray-700 dark:text-gray-300 whitespace-pre-line mb-4">
-											{point.explanation}
-										</p>
-
-										{/* Media Section */}
-										<div className="flex flex-col sm:flex-row gap-4">
-											{/* Image or fallback box with title */}
-											<motion.div
-												className="w-full sm:w-1/3 rounded-lg shadow-md flex items-center justify-center bg-gradient-to-br from-pink-100 via-yellow-100 to-cyan-100 dark:from-pink-900 dark:via-yellow-900 dark:to-cyan-900 min-h-[120px] min-w-[120px] text-center"
-												whileHover={{ scale: 1.05 }}
-											>
-												{point.image ? (
-													// Try to load the image, fallback to title if error
-													<img
-														src={point.image}
-														alt={point.title}
-														className="w-full h-full object-cover rounded-lg"
-														onError={e => {
-															e.currentTarget.onerror = null;
-															e.currentTarget.style.display = "none";
-															// Optionally, you could set a state to show the fallback, but this is a simple approach
-														}}
-													/>
-												) : (
-													<span className="text-xl font-bold text-gray-700 dark:text-gray-100 p-4">
-														{point.title}
-													</span>
-												)}
-												{/* If image fails to load, the box will be empty, so always show the title as overlay */}
-												<span className="absolute text-lg font-bold text-gray-700 dark:text-gray-100 p-2 pointer-events-none">
-													{point.title}
-												</span>
-											</motion.div>
-											<div className="flex-1">
-												{point.audio && (
-													<motion.audio
-														controls
-														className="w-full mb-4"
-														whileHover={{ scale: 1.02 }}
-													>
-														<source src={point.audio} type="audio/mpeg" />
-													</motion.audio>
-												)}
-												{point.video && (
-													<motion.button
-														onClick={() =>
-															setShowVideo({
-																lesson: selectedLesson,
-																point: pointIndex,
-															})
-														}
-														className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-cyan-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-cyan-600 transition-all duration-300"
-														whileHover={{ scale: 1.05 }}
-														whileTap={{ scale: 0.95 }}
-													>
-														<Video className="w-5 h-5 animate-wave" />
-														<span>Watch Video</span>
-													</motion.button>
-												)}
-											</div>
-										</div>
-									</motion.div>
-								))}
-							</div>
-						</motion.div>
-					)}
-
-					{/* Video Modal */}
-					{showVideo && (
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
-							onClick={() => setShowVideo(null)}
-						>
-							<motion.div
-								className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-3xl w-full"
-								onClick={e => e.stopPropagation()}
-								initial={{ scale: 0.8 }}
-								animate={{ scale: 1 }}
-								transition={{ duration: 0.3 }}
-							>
-								<h3 className="text-xl font-semibold bg-gradient-to-r from-pink-600 to-cyan-600 bg-clip-text text-transparent mb-4">
-									{lessons[showVideo.lesson].grammarPoints[showVideo.point].title}
-								</h3>
-								<iframe
-									className="w-full h-64 sm:h-96 rounded-lg"
-									src={lessons[showVideo.lesson].grammarPoints[showVideo.point].video}
-									title="Grammar Video"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-									allowFullScreen
-								></iframe>
-								<motion.button
-									onClick={() => setShowVideo(null)}
-									className="mt-4 px-4 py-2 bg-gradient-to-r from-pink-500 to-cyan-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-cyan-600 transition-all duration-300"
+				{/* Lesson Selection or Grammar Points */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.5 }}
+					className="grid gap-8"
+				>
+					{selectedLesson === null ? (
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+							{lessons.map((lesson) => (
+								<motion.div
+									key={lesson.lesson}
 									whileHover={{ scale: 1.05 }}
 									whileTap={{ scale: 0.95 }}
+									onClick={() => setSelectedLesson(lesson.lesson)}
+									className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow duration-300"
+									role="button"
+									tabIndex={0}
+									aria-label={`Select ${lesson.title}`}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											setSelectedLesson(lesson.lesson);
+										}
+									}}
 								>
-									Close
-								</motion.button>
-							</motion.div>
-						</motion.div>
+									<h2 className="text-xl font-semibold text-blue-900 dark:text-blue-100">
+										{lesson.title}
+									</h2>
+									<p className="mt-2 text-blue-600 dark:text-blue-300">
+										{lesson.description}
+									</p>
+								</motion.div>
+							))}
+						</div>
+					) : (
+						<div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+							<h2 className="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-4">
+								{lessons.find((l) => l.lesson === selectedLesson)?.title}
+							</h2>
+							<p className="text-blue-600 dark:text-blue-300 mb-6">
+								{lessons.find((l) => l.lesson === selectedLesson)?.description}
+							</p>
+							<div className="space-y-8">
+								{lessons
+									.find((l) => l.lesson === selectedLesson)
+									?.grammarPoints.map((point, index) => (
+										<div
+											key={index}
+											className="border-l-4 border-blue-500 pl-4"
+										>
+											<h3 className="text-xl font-semibold text-blue-900 dark:text-blue-100">
+												{point.title}
+											</h3>
+											<p className="mt-2 text-blue-700 dark:text-blue-200 whitespace-pre-line">
+												{point.explanation}
+											</p>
+											{point.image && (
+												<img
+													src={point.image}
+													alt={`${point.title} example`}
+													className="mt-4 rounded-lg max-w-full h-auto"
+												/>
+											)}
+											{point.audio && (
+												<audio
+													controls
+													src={point.audio}
+													className="mt-4 w-full"
+													aria-label={`Audio for ${point.title}`}
+												>
+													Your browser does not support the audio element.
+												</audio>
+											)}
+											{point.video && (
+												<button
+													onClick={() =>
+														setShowVideo({
+															lesson: selectedLesson,
+															point: index,
+														})
+													}
+													className="mt-4 flex items-center gap-2 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100"
+													aria-label={`Watch video for ${point.title}`}
+												>
+													<Video className="w-5 h-5" />
+													<span>Watch Explanation Video</span>
+												</button>
+											)}
+										</div>
+									))}
+							</div>
+						</div>
 					)}
 				</motion.div>
+
+				{/* Video Modal */}
+				{showVideo && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+						role="dialog"
+						aria-label="Video modal"
+					>
+						<div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-3xl w-full">
+							<div className="flex justify-between items-center mb-4">
+								<h3 className="text-xl font-semibold text-blue-900 dark:text-blue-100">
+									{
+										lessons
+											.find((l) => l.lesson === showVideo.lesson)
+											?.grammarPoints[showVideo.point]?.title
+									}
+								</h3>
+								<button
+									onClick={() => setShowVideo(null)}
+									className="text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100"
+									aria-label="Close video"
+								>
+									✕
+								</button>
+							</div>
+							<div className="relative pb-[56.25%]">
+								<iframe
+									src={
+										lessons
+											.find((l) => l.lesson === showVideo.lesson)
+											?.grammarPoints[showVideo.point]?.video
+									}
+									className="absolute top-0 left-0 w-full h-full rounded-lg"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowFullScreen
+									title="Grammar explanation video"
+								/>
+							</div>
+						</div>
+					</motion.div>
+				)}
 			</div>
-		);
+		</div>
+	);
 }
