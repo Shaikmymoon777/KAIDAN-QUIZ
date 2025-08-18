@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, CheckCircle, XCircle, ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ArrowRight, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 // Types

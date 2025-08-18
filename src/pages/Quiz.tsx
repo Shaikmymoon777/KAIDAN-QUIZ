@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   BookOpen, 
@@ -395,6 +395,17 @@ export default function Quiz() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  useEffect(() => {
+    if (questions.length > 0 && !quizCompleted) {
+      const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+        e.preventDefault();
+        e.returnValue = '';
+      };
+      window.addEventListener('beforeunload', handleBeforeUnload);
+      return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }
+  }, [questions.length, quizCompleted]);
+
   // Japanese Themed Background with Wave Patterns
   const JapaneseBackground = () => (
     <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
@@ -423,6 +434,12 @@ export default function Quiz() {
             }
             .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
             .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
+            .no-select {
+              user-select: none;
+              -webkit-user-select: none;
+              -ms-user-select: none;
+              -moz-user-select: none;
+            }
           `}
         </style>
         <JapaneseBackground />
@@ -473,7 +490,7 @@ export default function Quiz() {
               transition={{ duration: 0.5 }}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8"
             >
-              <h2 className="text-xl font-semibold text-blue-800 dark:text-blue-200 mb-4">
+              <h2 className="text-xl font-semibold text-blue-800 dark:text-blue-200 mb-4 no-select">
                 {question.question}
               </h2>
               <div className="space-y-3">
@@ -502,7 +519,7 @@ export default function Quiz() {
                         <div className="w-6 h-6 rounded-full border flex items-center justify-center font-medium">
                           {String.fromCharCode(65 + index)}
                         </div>
-                        <span className="text-md">{option}</span>
+                        <span className="text-md no-select">{option}</span>
                         {selectedAnswer !== null && index === question.correct && (
                           <CheckCircle className="ml-auto w-5 h-5" />
                         )}
