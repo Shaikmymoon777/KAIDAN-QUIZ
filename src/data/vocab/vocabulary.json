@@ -1,302 +1,278 @@
 [
     {
         "id": 1,
-        "japanese": "嗚呼",
-        "reading": "ああ",
-        "meaning": "Ah!, Oh!, Alas!"
-    },
-    {
-        "id": 2,
-        "japanese": "相",
-        "reading": "あい",
-        "meaning": "together, mutually, fellow"
-    },
-    {
-        "id": 3,
-        "japanese": "相変わらず",
-        "reading": "あいかわらず",
-        "meaning": "as ever, as usual, the same"
-    },
-    {
-        "id": 4,
-        "japanese": "愛想",
-        "reading": "あいそ",
-        "meaning": "civility, courtesy, compliments, sociability, graces"
-    },
-    {
-        "id": 5,
-        "japanese": "相対",
-        "reading": "あいたい",
-        "meaning": "confrontation, facing, between ourselves, no third party, tete-a-tete"
-    },
-    {
-        "id": 6,
-        "japanese": "間柄",
-        "reading": "あいだがら",
-        "meaning": "relation(ship)"
-    },
-    {
-        "id": 7,
-        "japanese": "愛憎",
-        "reading": "あいにく",
-        "meaning": "likes and dislikes"
-    },
-    {
-        "id": 8,
-        "japanese": "合間",
-        "reading": "あいま",
-        "meaning": "interval"
-    },
-    {
-        "id": 9,
-        "japanese": "曖昧",
-        "reading": "あいまい",
-        "meaning": "vague, ambiguous"
-    },
-    {
-        "id": 10,
-        "japanese": "敢えて",
-        "reading": "あえて",
-        "meaning": "dare (to do), challenge (to do)"
-    },
-    {
-        "id": 11,
-        "japanese": "仰ぐ",
-        "reading": "あおぐ",
-        "meaning": "to look up (to), to respect, to depend on, to ask for, to seek, to revere, to drink, to take"
-    },
-    {
-        "id": 12,
-        "japanese": "垢",
-        "reading": "あか",
-        "meaning": "dirt, filth"
-    },
-    {
-        "id": 13,
-        "japanese": "亜科",
-        "reading": "あか",
-        "meaning": "suborder, subfamily"
-    },
-    {
-        "id": 14,
-        "japanese": "銅",
-        "reading": "あかがね",
-        "meaning": "copper"
-    },
-    {
-        "id": 15,
-        "japanese": "証",
-        "reading": "あかし",
-        "meaning": "proof, evidence"
-    },
-    {
-        "id": 16,
-        "japanese": "赤字",
-        "reading": "あかじ",
-        "meaning": "deficit, go in the red"
-    },
-    {
-        "id": 17,
-        "japanese": "明かす",
-        "reading": "あかす",
-        "meaning": "to pass, spend, to reveal, to divulge"
-    },
-    {
-        "id": 18,
-        "japanese": "赤ちゃん",
-        "reading": "あかちゃん",
-        "meaning": "baby, infant"
-    },
-    {
-        "id": 19,
-        "japanese": "明白",
-        "reading": "あからさま",
-        "meaning": "obvious, overt, plainly, frankly"
-    },
-    {
-        "id": 20,
-        "japanese": "赤らむ",
-        "reading": "あからむ",
-        "meaning": "to become red, to redden, to blush"
-    },
-    {
-        "id": 21,
-        "japanese": "明るい",
-        "reading": "あかるい",
-        "meaning": "bright, cheerful"
-    },
-    {
-        "id": 22,
-        "japanese": "上がり",
-        "reading": "あがり",
-        "meaning": "slope, advance income, crop yield, ascent, rise, advance, death, spinning, completion, stop, finish, after"
-    },
-    {
-        "id": 23,
-        "japanese": "上がる",
-        "reading": "あがる",
-        "meaning": "to enter, to go up, to rise, to climb up, to advance, to appreciate, to be promoted, to improve, to call on"
-    },
-    {
-        "id": 24,
-        "japanese": "商人",
-        "reading": "あきうど",
-        "meaning": "trader, shopkeeper, merchant"
-    },
-    {
-        "id": 25,
-        "japanese": "空間",
-        "reading": "あきま",
-        "meaning": "vacancy, room for rent or lease"
-    },
-    {
-        "id": 26,
-        "japanese": "諦め",
-        "reading": "あきらめ",
-        "meaning": "resignation, acceptance, consolation"
-    },
-    {
-        "id": 27,
-        "japanese": "呆れる",
-        "reading": "あきれる",
-        "meaning": "to be amazed, to be shocked"
-    },
-    {
-        "id": 28,
-        "japanese": "悪",
-        "reading": "あく",
-        "meaning": "evil, wickedness"
-    },
-    {
-        "id": 29,
-        "japanese": "灰",
-        "reading": "あく",
-        "meaning": "puckery juice"
-    },
-    {
-        "id": 30,
-        "japanese": "あくどい",
-        "reading": "あくどい",
-        "meaning": "gaudy, showy, excessive, vicious"
-    },
-    {
-        "id": 31,
-        "japanese": "悪日",
-        "reading": "あくび",
-        "meaning": "unlucky day"
-    },
-    {
-        "id": 32,
-        "japanese": "明くる",
-        "reading": "あくる",
-        "meaning": "next, following"
-    },
-    {
-        "id": 33,
-        "japanese": "憧れ",
-        "reading": "あこがれ",
-        "meaning": "yearning, longing, aspiration"
-    },
-    {
-        "id": 34,
-        "japanese": "顎",
-        "reading": "あご",
-        "meaning": "chin"
-    },
-    {
-        "id": 35,
-        "japanese": "麻",
-        "reading": "あさ",
-        "meaning": "flax, linen, hemp"
-    },
-    {
-        "id": 36,
-        "japanese": "明後日",
-        "reading": "あさって",
-        "meaning": "day after tomorrow"
-    },
-    {
-        "id": 37,
-        "japanese": "朝寝坊",
-        "reading": "あさねぼう",
-        "meaning": "oversleeping, late riser"
-    },
-    {
-        "id": 38,
-        "japanese": "浅ましい",
-        "reading": "あさましい",
-        "meaning": "wretched, miserable, shameful, mean, despicable, abject"
-    },
-    {
-        "id": 39,
-        "japanese": "字",
-        "reading": "あざ",
-        "meaning": "section of village"
-    },
-    {
-        "id": 40,
-        "japanese": "欺く",
-        "reading": "あざむく",
-        "meaning": "to deceive"
-    },
-    {
-        "id": 41,
-        "japanese": "鮮やか",
-        "reading": "あざやか",
-        "meaning": "vivid, clear, brilliant"
-    },
-    {
-        "id": 42,
-        "japanese": "あざ笑う",
-        "reading": "あざわらう",
-        "meaning": "to sneer at, to ridicule"
-    },
-    {
-        "id": 43,
-        "japanese": "味わい",
-        "reading": "あじわい",
-        "meaning": "flavour, meaning, significance"
-    },
-    {
-        "id": 44,
-        "japanese": "東",
-        "reading": "あずま",
-        "meaning": "east, Eastern Japan"
-    },
-    {
-        "id": 45,
-        "japanese": "焦る",
-        "reading": "あせる",
-        "meaning": "to be in a hurry, to be impatient"
-    },
-    {
-        "id": 46,
-        "japanese": "彼処",
-        "reading": "あそこ",
-        "meaning": "there, over there, that place, (col) genitals"
-    },
-    {
-        "id": 47,
-        "japanese": "値",
-        "reading": "あたい",
-        "meaning": "value, price, cost, worth, merit"
-    },
-    {
-        "id": 48,
-        "japanese": "値する",
-        "reading": "あたいする",
-        "meaning": "to be worth, to deserve, to merit"
-    },
-    {
-        "id": 49,
-        "japanese": "私",
-        "reading": "あたし",
-        "meaning": "I (fem)"
-    },
-    {
-        "id": 50,
         "japanese": "当たり",
         "reading": "あたり",
         "meaning": "hit, success, reaching the mark, per ..., vicinity, neighborhood"
+    },
+    {
+        "id": 2,
+        "japanese": "当たり前",
+        "reading": "あたりまえ",
+        "meaning": "usual, common, ordinary, natural, reasonable, obvious"
+    },
+    {
+        "id": 3,
+        "japanese": "他人",
+        "reading": "あだびと",
+        "meaning": "another person, unrelated person, outsider, stranger"
+    },
+    {
+        "id": 4,
+        "japanese": "彼方此方",
+        "reading": "あちこち",
+        "meaning": "here and there"
+    },
+    {
+        "id": 5,
+        "japanese": "彼方",
+        "reading": "あちら",
+        "meaning": "there, yonder, that"
+    },
+    {
+        "id": 6,
+        "japanese": "彼方此方",
+        "reading": "あちらこちら",
+        "meaning": "here and there"
+    },
+    {
+        "id": 7,
+        "japanese": "悪化",
+        "reading": "あっか",
+        "meaning": "deterioration, growing worse, aggravation, degeneration, corruption"
+    },
+    {
+        "id": 8,
+        "japanese": "呆気ない",
+        "reading": "あっけない",
+        "meaning": "not enough, too quick (short, long etc.)"
+    },
+    {
+        "id": 9,
+        "japanese": "悪口",
+        "reading": "あっこう",
+        "meaning": "abuse, insult, slander, evil speaking"
+    },
+    {
+        "id": 10,
+        "japanese": "圧迫",
+        "reading": "あっぱく",
+        "meaning": "pressure, coercion, oppression"
+    },
+    {
+        "id": 11,
+        "japanese": "扱い",
+        "reading": "あつかい",
+        "meaning": "treatment, service"
+    },
+    {
+        "id": 12,
+        "japanese": "集まる",
+        "reading": "あつまる",
+        "meaning": "to gather, to collect, to assemble"
+    },
+    {
+        "id": 13,
+        "japanese": "誂える",
+        "reading": "あつらえる",
+        "meaning": "to give an order, to place an order"
+    },
+    {
+        "id": 14,
+        "japanese": "圧力",
+        "reading": "あつりょく",
+        "meaning": "stress, pressure"
+    },
+    {
+        "id": 15,
+        "japanese": "当て",
+        "reading": "あて",
+        "meaning": "object, aim, end, hopes, expectations"
+    },
+    {
+        "id": 16,
+        "japanese": "宛",
+        "reading": "あて",
+        "meaning": "addressed to"
+    },
+    {
+        "id": 17,
+        "japanese": "当て字",
+        "reading": "あてじ",
+        "meaning": "phonetic-equivalent character, substitute character"
+    },
+    {
+        "id": 18,
+        "japanese": "当てはまる",
+        "reading": "あてはまる",
+        "meaning": "to apply (a rule)"
+    },
+    {
+        "id": 19,
+        "japanese": "当てはめる",
+        "reading": "あてはめる",
+        "meaning": "to apply, to adapt"
+    },
+    {
+        "id": 20,
+        "japanese": "宛てる",
+        "reading": "あてる",
+        "meaning": "to address"
+    },
+    {
+        "id": 21,
+        "japanese": "跡継ぎ",
+        "reading": "あとつぎ",
+        "meaning": "heir, successor"
+    },
+    {
+        "id": 22,
+        "japanese": "後回し",
+        "reading": "あとまわし",
+        "meaning": "putting off, postponing"
+    },
+    {
+        "id": 23,
+        "japanese": "貴女",
+        "reading": "あなた",
+        "meaning": "you, lady"
+    },
+    {
+        "id": 24,
+        "japanese": "彼の",
+        "reading": "あの",
+        "meaning": "that over there"
+    },
+    {
+        "id": 25,
+        "japanese": "溢れる",
+        "reading": "あふれる",
+        "meaning": "to flood, to overflow, to brim over"
+    },
+    {
+        "id": 26,
+        "japanese": "油絵",
+        "reading": "あぶらえ",
+        "meaning": "oil painting"
+    },
+    {
+        "id": 27,
+        "japanese": "炙る",
+        "reading": "あぶる",
+        "meaning": "to scorch"
+    },
+    {
+        "id": 28,
+        "japanese": "甘える",
+        "reading": "あまえる",
+        "meaning": "to behave like a spoiled child, to fawn on"
+    },
+    {
+        "id": 29,
+        "japanese": "甘口",
+        "reading": "あまくち",
+        "meaning": "sweet flavour, mildness, flattery, stupidity"
+    },
+    {
+        "id": 30,
+        "japanese": "雨具",
+        "reading": "あまぐ",
+        "meaning": "rain gear"
+    },
+    {
+        "id": 31,
+        "japanese": "天",
+        "reading": "あまつ",
+        "meaning": "heavenly, imperial"
+    },
+    {
+        "id": 32,
+        "japanese": "網",
+        "reading": "あみ",
+        "meaning": "net, network"
+    },
+    {
+        "id": 33,
+        "japanese": "天地",
+        "reading": "あめつち",
+        "meaning": "heaven and earth, the universe, nature, top and bottom, realm, sphere, world"
+    },
+    {
+        "id": 34,
+        "japanese": "操る",
+        "reading": "あやつる",
+        "meaning": "to manipulate, to operate, to pull strings"
+    },
+    {
+        "id": 35,
+        "japanese": "危ぶむ",
+        "reading": "あやぶむ",
+        "meaning": "to fear, to have misgivings, to be doubtful, to mistrust"
+    },
+    {
+        "id": 36,
+        "japanese": "過ち",
+        "reading": "あやまち",
+        "meaning": "fault, error, indiscretion"
+    },
+    {
+        "id": 37,
+        "japanese": "誤る",
+        "reading": "あやまる",
+        "meaning": "to make a mistake"
+    },
+    {
+        "id": 38,
+        "japanese": "歩み",
+        "reading": "あゆみ",
+        "meaning": "walking"
+    },
+    {
+        "id": 39,
+        "japanese": "歩む",
+        "reading": "あゆむ",
+        "meaning": "to walk, to go on foot"
+    },
+    {
+        "id": 40,
+        "japanese": "予め",
+        "reading": "あらかじめ",
+        "meaning": "beforehand, in advance, previously"
+    },
+    {
+        "id": 41,
+        "japanese": "荒らす",
+        "reading": "あらす",
+        "meaning": "to lay waste, to devastate, to damage, to invade, to break into"
+    },
+    {
+        "id": 42,
+        "japanese": "粗筋",
+        "reading": "あらすじ",
+        "meaning": "outline, summary"
+    },
+    {
+        "id": 43,
+        "japanese": "争い",
+        "reading": "あらそい",
+        "meaning": "dispute, strife, quarrel, dissension, conflict, rivalry, contest"
+    },
+    {
+        "id": 44,
+        "japanese": "改まる",
+        "reading": "あらたまる",
+        "meaning": "to be renewed"
+    },
+    {
+        "id": 45,
+        "japanese": "荒っぽい",
+        "reading": "あらっぽい",
+        "meaning": "rough, rude"
+    },
+    {
+        "id": 46,
+        "japanese": "凡ゆる",
+        "reading": "あらゆる",
+        "meaning": "all, every"
     }
 ]

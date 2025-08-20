@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import vocabularyData from '../data/vocab/vocabulary.json';
 import emailjs from '@emailjs/browser';
+import * as XLSX from 'xlsx';
 
 // Initialize EmailJS with your public key
 emailjs.init('jBr6c1UQy5gCNkzB0');
@@ -42,10 +43,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 
 // Function to get random questions for the exam
 const getRandomQuestions = (count: number): GeminiVocabularyQuestion[] => {
-  // Create a copy of the vocabulary data to avoid mutating the original
   const shuffledVocab = shuffleArray([...vocabularyData]);
-  
-  // Take the first 'count' questions from the shuffled array
   return shuffledVocab.slice(0, count).map((item, index) => ({
     id: `q-${Date.now()}-${index}`,
     part: 'part1' as const,
@@ -78,18 +76,17 @@ const Exam: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [, setScoreHistory] = useState<ScoreHistory[]>([]);
+  const [] = useState(true); // State for collapsible sidebar
   const [] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
-    // Check local storage for login state
     const storedUser = localStorage.getItem('username');
     if (storedUser) {
       setLoggedIn(true);
       setUsername(storedUser);
     }
 
-    // Load score history
     const history = localStorage.getItem('scoreHistory');
     if (history) {
       try {
@@ -147,12 +144,9 @@ const Exam: React.FC = () => {
     if (loggedIn) {
       try {
         setIsLoading(true);
-        // Generate 25 random questions for the exam
         const randomQuestions = getRandomQuestions(25);
         setQuestions(randomQuestions);
         setTotalQuestions(randomQuestions.length);
-        
-        // Initialize user answers array
         setUserAnswers(
           randomQuestions.map((q) => ({
             questionId: q.id,
@@ -200,82 +194,122 @@ const Exam: React.FC = () => {
     }
   };
 
+  const handleExamComplete = () => {
+    const totalQuestions = questions.length;
+    const correctAnswers = userAnswers.filter((answer) => answer.correct).length;
+    const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+
+    const examResults = {
+      userId: username || 'anonymous',
+      userName: username || 'Anonymous User',
+      timestamp: new Date().toISOString(),
+      score: correctAnswers,
+      totalQuestions,
+      percentage,
+      answers: userAnswers.map((answer) => {
+        const question = questions.find((q) => q.id === answer.questionId);
+        if (!question?.options) return null;
+
+        const selectedIndex = answer.selected ?? -1;
+        const selectedOption = selectedIndex >= 0 && selectedIndex < question.options.length
+          ? question.options[selectedIndex]
+          : 'Not answered';
+
+        return {
+          question: question.question,
+          correctAnswer: question.correct >= 0 && question.correct < question.options.length
+            ? question.options[question.correct]
+            : 'No correct answer',
+          userAnswer: selectedOption,
+          isCorrect: answer.correct ?? false,
+        };
+      }).filter(Boolean),
+    };
+
+    const existingResults = JSON.parse(localStorage.getItem('examResults') || '[]');
+    const updatedResults = [...existingResults, examResults];
+    localStorage.setItem('examResults', JSON.stringify(updatedResults));
+
+    sendExamResultsEmail(examResults);
+
+    setExamCompleted(true);
+    localStorage.setItem('examAttempted', 'true');
+  };
+
   const sendExamResultsEmail = async (result: any) => {
     try {
+      const wb = XLSX.utils.book_new();
+      
+      const excelData = [
+        ['User ID', result.userId],
+        ['User Name', result.userName],
+        ['Date', new Date(result.timestamp).toLocaleString()],
+        ['Score', `${result.score}/${result.totalQuestions}`],
+        ['Percentage', `${result.percentage}%`],
+        [],
+        ['Question', 'Your Answer', 'Correct Answer', 'Status']
+      ];
+
+      result.answers.forEach((answer: any, index: number) => {
+        excelData.push([
+          `Q${index + 1}. ${answer.question}`,
+          answer.userAnswer,
+          answer.correctAnswer,
+          answer.isCorrect ? 'Correct' : 'Incorrect'
+        ]);
+      });
+
+      const ws = XLSX.utils.aoa_to_sheet(excelData);
+      XLSX.utils.book_append_sheet(wb, ws, 'Exam Results');
+      
+      const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+      const excelBase64 = btoa(
+        new Uint8Array(excelBuffer).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ''
+        )
+      );
+
       const templateParams = {
         to_email: 'mymoonshaik004@gmail.com',
         to_name: 'Admin',
-        from_name: 'Exam System',
-        subject: `New Exam Results - ${result.userName || 'User'}`,
-        message: `
-          User: ${result.userName || 'Anonymous User'} (${result.userId})
-          Score: ${result.score}/${result.totalQuestions}
-          Percentage: ${result.percentage}%
-          Date: ${new Date(result.timestamp).toLocaleString()}
-          
-          Detailed Results:
-          ${result.answers.map((ans: any, idx: number) => {
-            const selectedAnswer = ans.selected != null ? ans.selected + 1 : 'N/A';
-            return `Q${idx + 1}: ${ans.correct ? '✓' : '✗'} (Selected: ${selectedAnswer})`;
-          }).join('\n')}
-        `
+        from_name: 'Japanese Learning App',
+        subject: `Exam Results - ${result.userName}`,
+        name: result.userName,
+        user_name: result.userName,
+        user_id: result.userId,
+        score: result.score,
+        total_questions: result.totalQuestions,
+        percentage: `${result.percentage}%`,
+        date: new Date(result.timestamp).toLocaleString(),
+        message: 'Please find the detailed exam results in the attached Excel file.',
+        attachment: excelBase64,
+        filename: `Exam_Results_${result.userId}_${new Date().toISOString().split('T')[0]}.xlsx`
       };
 
-      await emailjs.send(
+      const response = await emailjs.send(
         'service_zb7ruvd',
         'template_xc0kd4e',
         templateParams,
         'jBr6c1UQy5gCNkzB0'
       );
-      
-      console.log('Exam results email sent successfully');
+
+      console.log('Email sent successfully:', response);
+      return true;
     } catch (error) {
       console.error('Failed to send exam results email:', error);
-      // Don't show error to user, just log it
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { response: { data: any } };
+        console.error('Error response:', err.response.data);
+      }
+      return false;
     }
   };
 
-  const handleExamComplete = () => {
-    // Calculate final score
-    const finalScore = userAnswers.filter(answer => answer.correct).length;
-    const total = questions.length;
-    const percentage = Math.round((finalScore / total) * 100);
-    
-    // Prepare exam results
-    const examResults = {
-      userId: username || 'anonymous',
-      userName: username || 'Anonymous User',
-      score: finalScore,
-      totalQuestions: total,
-      percentage: percentage,
-      timestamp: new Date().toISOString(),
-      answers: userAnswers,
-    };
-
-    // Save to local storage
-    const existingResults = JSON.parse(localStorage.getItem('examResults') || '[]');
-    const updatedResults = [...existingResults, examResults];
-    localStorage.setItem('examResults', JSON.stringify(updatedResults));
-    
-    // Mark exam as completed
-    setExamCompleted(true);
-    localStorage.setItem('examAttempted', 'true');
-    
-    // Send email with results
-    sendExamResultsEmail(examResults);
-    
-    // Redirect to registration after a short delay
-    setTimeout(() => {
-      window.location.href = '/register';
-    }, 3000);
-  };
-
   const handleRetakeWithDifferentEmail = () => {
-    // Clear all exam-related data
     localStorage.removeItem('examAttempted');
     localStorage.removeItem('username');
     
-    // Reset all states
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setUserAnswers([]);
@@ -283,78 +317,151 @@ const Exam: React.FC = () => {
     setLoggedIn(false);
     setUsername('');
     
-    // Redirect to registration page
     window.location.href = '/register';
+  };
+
+  const handleAnswerSelect = (questionId: string, answerIndex: number) => {
+    setSelectedAnswer(answerIndex);
+    
+    const updatedAnswers = [...userAnswers];
+    const answerIndexInArray = updatedAnswers.findIndex(a => a.questionId === questionId);
+    
+    const question = questions.find(q => q.id === questionId);
+    if (!question) {
+      console.error(`Question with id ${questionId} not found`);
+      return;
+    }
+    
+    const isCorrect = answerIndex === question.correct;
+    
+    if (answerIndexInArray >= 0) {
+      updatedAnswers[answerIndexInArray] = {
+        ...updatedAnswers[answerIndexInArray],
+        selected: answerIndex,
+        correct: isCorrect,
+      };
+    } else {
+      updatedAnswers.push({
+        questionId,
+        selected: answerIndex,
+        correct: isCorrect,
+        feedback: '',
+      });
+    }
+    
+    setUserAnswers(updatedAnswers);
   };
 
   const renderQuestion = () => {
     if (isLoading) {
       return (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Preparing your exam...</p>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center animate-fade-in">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-lg text-gray-700 font-semibold">Preparing your exam...</p>
           </div>
         </div>
       );
     }
 
     if (questions.length === 0) {
-      return <div>No questions available. Please check the vocabulary data.</div>;
+      return <div className="text-center text-red-600 font-medium">No questions available. Please check the vocabulary data.</div>;
     }
 
     const question = questions[currentQuestionIndex];
+    const userAnswer = userAnswers.find(a => a.questionId === question.id);
 
     return (
-      <div className="space-y-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-800">Vocabulary Section</h2>
-            <span className="text-sm text-gray-500">
-              Question {currentQuestionIndex + 1} of {questions.length}
-            </span>
-          </div>
-          <div className="space-y-4">
-            <p className="text-lg">
-              {question.kanji && <span className="mr-2">{question.kanji}</span>}
-              ({question.question})
-            </p>
-            <div className="space-y-2">
-              {question.options.map((option, index) => (
+      <div className="space-y-6 p-4 md:p-6 bg-white rounded-xl shadow-lg animate-fade-in">
+        <div className="flex justify-between items-center border-b pb-4">
+          <h2 className="text-2xl font-bold text-gray-800">Vocabulary Challenge</h2>
+          <span className="text-sm text-gray-600 font-medium">
+            Question {currentQuestionIndex + 1} of {questions.length}
+          </span>
+        </div>
+        <div className="space-y-4">
+          <p className="text-xl text-gray-800 font-medium">
+            {question.kanji && <span className="text-2xl mr-2">{question.kanji}</span>}
+            {question.question}
+          </p>
+          <div className="grid gap-3">
+            {question.options.map((option, index) => {
+              const isSelected = userAnswer?.selected === index;
+              let buttonStyle = 'border-gray-300 hover:bg-gray-50 hover:border-blue-300';
+              
+              // Only show correct/incorrect states after exam is submitted
+              if (examCompleted) {
+                if (index === question.correct) {
+                  buttonStyle = 'bg-green-100 border-green-500 text-green-800';
+                } else if (isSelected && !userAnswer?.correct) {
+                  buttonStyle = 'bg-red-100 border-red-500 text-red-800';
+                } else if (isSelected) {
+                  buttonStyle = 'bg-blue-100 border-blue-500 text-blue-800';
+                }
+              } else if (isSelected) {
+                buttonStyle = 'bg-blue-100 border-blue-500 text-blue-800';
+              }
+              
+              return (
                 <button
                   key={index}
-                  onClick={() => setSelectedAnswer(index)}
-                  className={`w-full p-3 text-left rounded border transition-colors ${
-                    selectedAnswer === index
-                      ? 'bg-blue-100 border-blue-500'
-                      : 'border-gray-200 hover:bg-gray-50'
+                  onClick={() => !examCompleted && handleAnswerSelect(question.id, index)}
+                  disabled={examCompleted}
+                  className={`w-full p-4 rounded-lg border text-left transition-all duration-200 ${buttonStyle} ${
+                    examCompleted ? 'cursor-default' : 'cursor-pointer'
                   }`}
                 >
-                  {String.fromCharCode(65 + index)}. {option}
+                  <span className="font-semibold text-gray-700">
+                    {String.fromCharCode(65 + index)}.
+                  </span>{' '}
+                  <span className="ml-2">{option}</span>
                 </button>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
-        <div className="flex justify-end">
+        
+        {/* Show feedback only after exam is completed */}
+        {examCompleted && userAnswer?.feedback && (
+          <div className="mt-4 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded-r">
+            <p className="text-sm text-yellow-700">{userAnswer.feedback}</p>
+          </div>
+        )}
+        
+        <div className="flex justify-between items-center">
+          <button
+            onClick={() => {
+              if (currentQuestionIndex > 0) {
+                setCurrentQuestionIndex(currentQuestionIndex - 1);
+              }
+            }}
+            disabled={currentQuestionIndex === 0}
+            className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
+              currentQuestionIndex === 0
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-blue-500 text-white hover:bg-blue-600 hover:shadow-lg'
+            }`}
+          >
+            Previous
+          </button>
+          
           <button
             onClick={handleSubmit}
-            className="px-6 py-2 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors"
+            className="px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 hover:shadow-lg transition-all duration-200"
           >
-            {currentQuestionIndex < questions.length - 1 ? 'Next' : 'Finish'}
+            {currentQuestionIndex < questions.length - 1 ? 'Next' : examCompleted ? 'View Results' : 'Finish'}
           </button>
         </div>
       </div>
     );
   };
 
-
   if (!loggedIn && !showRegister) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h1>
-          <form onSubmit={handleLogin} className="space-y-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50">
+        <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full transform transition-all duration-300 hover:shadow-2xl">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Welcome Back!</h1>
+          <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
               <input
@@ -362,7 +469,7 @@ const Exam: React.FC = () => {
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 required
               />
             </div>
@@ -373,24 +480,24 @@ const Exam: React.FC = () => {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 required
               />
             </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
             <button
               type="submit"
-              className="w-full px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
+              className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
             >
               Login
             </button>
-            <p className="text-sm text-center mt-4">
-              Don't have an account?{' '}
+            <p className="text-sm text-center text-gray-600">
+              New here?{' '}
               <button
                 onClick={() => setShowRegister(true)}
-                className="text-blue-500 hover:underline"
+                className="text-blue-600 hover:underline font-medium"
               >
-                Register
+                Create an account
               </button>
             </p>
           </form>
@@ -401,10 +508,10 @@ const Exam: React.FC = () => {
 
   if (!loggedIn && showRegister) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Register</h1>
-          <form onSubmit={handleRegister} className="space-y-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50">
+        <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full transform transition-all duration-300 hover:shadow-2xl">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Create Account</h1>
+          <form onSubmit={handleRegister} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
               <input
@@ -412,7 +519,7 @@ const Exam: React.FC = () => {
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 required
               />
             </div>
@@ -423,22 +530,22 @@ const Exam: React.FC = () => {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 required
               />
             </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
             <button
               type="submit"
-              className="w-full px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
+              className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
             >
               Register
             </button>
-            <p className="text-sm text-center mt-4">
+            <p className="text-sm text-center text-gray-600">
               Already have an account?{' '}
               <button
                 onClick={() => setShowRegister(false)}
-                className="text-blue-500 hover:underline"
+                className="text-blue-600 hover:underline font-medium"
               >
                 Login
               </button>
@@ -451,11 +558,11 @@ const Exam: React.FC = () => {
 
   if (examCompleted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-lg text-center">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-gray-50 p-4">
+        <div className="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full text-center animate-fade-in">
+          <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 transform transition-all duration-500 hover:scale-110">
             <svg
-              className="w-12 h-12 text-green-500"
+              className="w-16 h-16 text-green-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -469,16 +576,12 @@ const Exam: React.FC = () => {
               />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Exam Submitted Successfully</h2>
-          <p className="text-gray-600 mb-6">
-            Thank you for completing the exam.
-          </p>
-          <p className="text-gray-500 text-sm mb-6">
-            Your results have been recorded.
-          </p>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Congratulations!</h2>
+          <p className="text-lg text-gray-600 mb-6">Your exam has been submitted successfully.</p>
+          <p className="text-gray-500 mb-6">Check your email for the results.</p>
           <button
             onClick={handleRetakeWithDifferentEmail}
-            className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
           >
             Take Exam with Different Email
           </button>
@@ -488,18 +591,21 @@ const Exam: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8" 
-         onContextMenu={(e) => e.preventDefault()}>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8" onContextMenu={(e) => e.preventDefault()}>
       <style jsx global>{`
-        /* Prevent text selection */
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.5s ease-in-out;
+        }
         .exam-content {
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
           user-select: none;
         }
-        
-        /* Disable right-click context menu */
         .exam-content * {
           -webkit-touch-callout: none;
           -webkit-user-select: none;
@@ -509,36 +615,37 @@ const Exam: React.FC = () => {
           user-select: none;
         }
       `}</style>
-      
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden exam-content">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold text-gray-800">Japanese Vocabulary Exam</h1>
+      <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden exam-content transition-all duration-300 hover:shadow-2xl">
+        <div className="flex justify-between items-center p-6 border-b">
+          <h1 className="text-3xl font-bold text-gray-800">Japanese Vocabulary Challenge</h1>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors"
+            className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-all duration-200 shadow-md hover:shadow-lg"
           >
             Logout
           </button>
         </div>
-        <div className="mb-8">
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
+        <div className="p-6">
+          <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
             <div
-              className="bg-blue-600 h-2.5 rounded-full"
+              className="bg-blue-600 h-4 rounded-full transition-all duration-500 ease-out"
               style={{
                 width: `${((currentQuestionIndex + 1) / questions.length) * 100}%`,
-                transition: 'width 0.3s ease',
               }}
-            />
+            >
+              <span className="text-xs text-white font-medium ml-2">
+                {Math.round(((currentQuestionIndex + 1) / questions.length) * 100)}%
+              </span>
+            </div>
           </div>
+          {error ? (
+            <div className="p-4 mb-6 text-red-700 bg-red-100 rounded-lg text-center animate-pulse">
+              {error}
+            </div>
+          ) : (
+            renderQuestion()
+          )}
         </div>
-
-        {error ? (
-          <div className="p-4 mb-6 text-red-700 bg-red-100 rounded-md">
-            {error}
-          </div>
-        ) : (
-          renderQuestion()
-        )}
       </div>
     </div>
   );

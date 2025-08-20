@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
+import * as XLSX from 'xlsx';
 
 interface ExamResult {
   userId: string;
@@ -8,10 +9,13 @@ interface ExamResult {
   totalQuestions: number;
   percentage: number;
   timestamp: string;
-  answers: Array<{
-    questionId: string;
-    selected?: number | null;
-    correct?: boolean;
+  questions: Array<{
+    id: string;
+    question: string;
+    options: string[];
+    correctAnswer: number;
+    userAnswer: number | null;
+    isCorrect: boolean;
     feedback?: string;
   }>;
 }
@@ -27,7 +31,7 @@ const Admin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [selectedResult, setSelectedResult] = useState<ExamResult | null>(null);
-  const [, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Admin credentials (in a real app, this should be handled server-side)
   const ADMIN_CREDENTIALS = {
@@ -97,9 +101,11 @@ const Admin = () => {
           Date: ${new Date(result.timestamp).toLocaleString()}
           
           Detailed Results:
-          ${result.answers.map((ans, idx) => {
-            const selectedAnswer = ans.selected != null ? ans.selected + 1 : 'N/A';
-            return `Q${idx + 1}: ${ans.correct ? '✓' : '✗'} (Selected: ${selectedAnswer})`;
+          ${result.questions.map((question, idx) => {
+            const userAnswer = question.userAnswer !== null 
+              ? `${String.fromCharCode(65 + question.userAnswer)}. ${question.options[question.userAnswer]}` 
+              : 'Not answered';
+            return `Q${idx + 1}: ${question.isCorrect ? '✓' : '✗'} (Your Answer: ${userAnswer})`;
           }).join('\n')}
         `
       };
@@ -121,84 +127,44 @@ const Admin = () => {
     }
   };
 
-  const renderDetailsModal = () => {
-    if (!selectedResult) return null;
+  const downloadExcel = (result: ExamResult) => {
+    // Prepare data for Excel
+    const data = [
+      ['User ID', result.userId],
+      ['User Name', result.userName],
+      ['Date', new Date(result.timestamp).toLocaleString()],
+      ['Score', `${result.score}/${result.totalQuestions}`],
+      ['Percentage', `${result.percentage}%`],
+      [],
+      ['Question', 'Your Answer', 'Correct Answer', 'Status']
+    ];
 
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="p-6">
-            <div className="flex justify-between items-start mb-4">
-              <h3 className="text-xl font-bold text-gray-800">
-                Exam Details - {selectedResult.userName} ({selectedResult.userId})
-              </h3>
-              <button
-                onClick={() => {
-                  setIsModalOpen(false);
-                  setSelectedResult(null);
-                }}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-500">Score</p>
-                  <p className="font-medium">{selectedResult.score} / {selectedResult.totalQuestions}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Percentage</p>
-                  <p className="font-medium">{selectedResult.percentage}%</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Date</p>
-                  <p className="font-medium">{new Date(selectedResult.timestamp).toLocaleString()}</p>
-                </div>
-              </div>
-            </div>
+    // Add each question and answer to the Excel data
+    result.questions.forEach((question, index) => {
+      data.push([
+        `Q${index + 1}. ${question.question}`,
+        question.userAnswer !== null 
+          ? `${String.fromCharCode(65 + question.userAnswer)}. ${question.options[question.userAnswer]}` 
+          : 'Not answered',
+        `${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}`,
+        question.isCorrect ? 'Correct' : 'Incorrect'
+      ]);
+    });
 
-            <div className="space-y-6">
-              <h4 className="font-semibold text-gray-700 border-b pb-2">Question Details</h4>
-              {selectedResult.answers.map((answer, index) => (
-                <div key={index} className={`p-4 rounded-lg ${
-                  answer.correct ? 'bg-green-50' : 'bg-red-50'
-                }`}>
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <p className="font-medium">
-                        Q{index + 1}. 
-                      </p>
-                      <p className="mt-1 text-sm text-gray-600">
-                        Selected: {answer.selected != null ? `Option ${answer.selected + 1}` : 'Not answered'}
-                      </p>
-                      {answer.feedback && (
-                        <p className="mt-1 text-sm text-gray-600">
-                          Feedback: {answer.feedback}
-                        </p>
-                      )}
-                    </div>
-                    <span className={`ml-4 px-3 py-1 rounded-full text-xs font-medium ${
-                      answer.correct 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
-                    }`}>
-                      {answer.correct ? 'Correct' : 'Incorrect'}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    // Create worksheet and workbook
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Exam Results');
+    
+    // Generate Excel file
+    XLSX.writeFile(wb, `Exam_Results_${result.userName || result.userId}.xlsx`);
   };
 
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedResult(null), 300); // Wait for animation to complete
+  };
 
   // Check if already authenticated on component mount
   useEffect(() => {
@@ -256,7 +222,95 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      {renderDetailsModal()}
+      {/* Modal Overlay */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          {selectedResult && (
+            <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-fade-in">
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-xl font-bold text-gray-800">
+                    Exam Details - {selectedResult.userName} ({selectedResult.userId})
+                  </h3>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        downloadExcel(selectedResult);
+                      }}
+                      className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                    >
+                      Download Excel
+                    </button>
+                    <button
+                      onClick={closeModal}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-sm text-gray-500">Score</p>
+                      <p className="font-medium">{selectedResult.score} / {selectedResult.totalQuestions}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Percentage</p>
+                      <p className="font-medium">{selectedResult.percentage}%</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Date</p>
+                      <p className="font-medium">{new Date(selectedResult.timestamp).toLocaleString()}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-gray-700 border-b pb-2">Questions</h4>
+                  {selectedResult.questions.map((question, index) => (
+                    <div key={question.id} className={`p-4 rounded-lg ${question.isCorrect ? 'bg-green-50' : 'bg-red-50'}`}>
+                      <p className="font-medium mb-2">Q{index + 1}. {question.question}</p>
+                      <div className="mt-2">
+                        <p className="text-sm font-medium text-gray-700">Options:</p>
+                        <ul className="list-disc pl-5 mt-1 space-y-1">
+                          {question.options.map((option, i) => (
+                            <li 
+                              key={i} 
+                              className={`text-sm ${
+                                i === question.correctAnswer 
+                                  ? 'text-green-600 font-medium' 
+                                  : i === question.userAnswer 
+                                    ? 'text-red-600 font-medium' 
+                                    : 'text-gray-600'
+                              }`}
+                            >
+                              {String.fromCharCode(65 + i)}. {option}
+                              {i === question.correctAnswer && ' (Correct)'}
+                              {i === question.userAnswer && !question.isCorrect && ' (Your Answer)'}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      {question.feedback && (
+                        <div className="mt-2 p-2 bg-yellow-50 border-l-4 border-yellow-400">
+                          <p className="text-sm text-yellow-700">{question.feedback}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800">Exam Results Dashboard</h1>
@@ -339,7 +393,7 @@ const Admin = () => {
                             setSelectedResult(result);
                             setIsModalOpen(true);
                           }}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-sm"
                         >
                           View Details
                         </button>
