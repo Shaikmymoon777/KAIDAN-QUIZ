@@ -163,29 +163,76 @@ const Exam: React.FC = () => {
     }
   }, [loggedIn]);
 
+  const handleAnswerSelect = (questionId: string, answerIndex: number) => {
+    setSelectedAnswer(answerIndex);
+    
+    // Only update the selected answer, don't mark as correct/incorrect yet
+    setUserAnswers(prev => {
+      const existingAnswerIndex = prev.findIndex(a => a.questionId === questionId);
+      
+      if (existingAnswerIndex >= 0) {
+        const newAnswers = [...prev];
+        newAnswers[existingAnswerIndex] = {
+          ...newAnswers[existingAnswerIndex],
+          selected: answerIndex
+        };
+        return newAnswers;
+      }
+      
+      return [
+        ...prev,
+        {
+          questionId,
+          selected: answerIndex,
+          correct: false, // Will be set when submitted
+          feedback: ''
+        }
+      ];
+    });
+  };
+
   const handleSubmit = () => {
     const currentQuestion = questions[currentQuestionIndex];
-    let isCorrect = false;
-    let feedback = '';
-
-    if (currentQuestion.type === 'vocabulary') {
-      if (selectedAnswer === null) {
-        alert('Please select an answer before submitting.');
-        return;
-      }
-
-      isCorrect = selectedAnswer === currentQuestion.correct;
-      feedback = isCorrect ? 'Correct!' : `Incorrect. The correct answer was: ${currentQuestion.options[currentQuestion.correct]}`;
-      setUserAnswers(prev => [...prev, {
-        questionId: currentQuestion.id,
-        selected: selectedAnswer,
-        correct: isCorrect,
-        feedback
-      }]);
-
-      if (isCorrect) setScore(prev => prev + 1);
+    
+    if (selectedAnswer === null) {
+      alert('Please select an answer before submitting.');
+      return;
     }
 
+    const isCorrect = selectedAnswer === currentQuestion.correct;
+    const feedback = isCorrect 
+      ? 'Correct!' 
+      : `Incorrect. The correct answer was: ${currentQuestion.options[currentQuestion.correct]}`;
+    
+    // Update the answer with correct/incorrect status and feedback
+    setUserAnswers(prev => {
+      const newAnswers = [...prev];
+      const answerIndex = newAnswers.findIndex(a => a.questionId === currentQuestion.id);
+      
+      if (answerIndex >= 0) {
+        newAnswers[answerIndex] = {
+          ...newAnswers[answerIndex],
+          correct: isCorrect,
+          feedback
+        };
+      } else {
+        newAnswers.push({
+          questionId: currentQuestion.id,
+          selected: selectedAnswer,
+          correct: isCorrect,
+          feedback
+        });
+      }
+      
+      return newAnswers;
+    });
+
+    // Update score if correct
+    if (isCorrect) {
+      setScore(prev => prev + 1);
+    }
+
+    // Move to next question or complete exam
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
@@ -318,38 +365,6 @@ const Exam: React.FC = () => {
     setUsername('');
     
     window.location.href = '/register';
-  };
-
-  const handleAnswerSelect = (questionId: string, answerIndex: number) => {
-    setSelectedAnswer(answerIndex);
-    
-    const updatedAnswers = [...userAnswers];
-    const answerIndexInArray = updatedAnswers.findIndex(a => a.questionId === questionId);
-    
-    const question = questions.find(q => q.id === questionId);
-    if (!question) {
-      console.error(`Question with id ${questionId} not found`);
-      return;
-    }
-    
-    const isCorrect = answerIndex === question.correct;
-    
-    if (answerIndexInArray >= 0) {
-      updatedAnswers[answerIndexInArray] = {
-        ...updatedAnswers[answerIndexInArray],
-        selected: answerIndex,
-        correct: isCorrect,
-      };
-    } else {
-      updatedAnswers.push({
-        questionId,
-        selected: answerIndex,
-        correct: isCorrect,
-        feedback: '',
-      });
-    }
-    
-    setUserAnswers(updatedAnswers);
   };
 
   const renderQuestion = () => {
