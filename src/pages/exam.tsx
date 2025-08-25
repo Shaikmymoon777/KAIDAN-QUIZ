@@ -156,7 +156,7 @@ const Exam: React.FC = () => {
   const [error, setError] = useState('');
   const [examCompleted, setExamCompleted] = useState(false);
   const [score, setScore] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<{questionId: string; selected: number | null; correct: boolean; feedback?: string}[]>([]);
+  const [userAnswers, setUserAnswers] = useState<{questionId: string; selected: number | null; correct: boolean}[]>([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -253,22 +253,19 @@ const Exam: React.FC = () => {
         questionId: currentQuestion.id,
         selected: selectedAnswer,
         correct: isCorrect,
-        feedback: isCorrect 
-          ? 'Correct!' 
-          : `Incorrect. The correct answer is: ${currentQuestion.options[currentQuestion.correct]}`
       },
       ...userAnswers.slice(currentQuestionIndex + 1)
     ];
     
     setUserAnswers(updatedAnswers);
+    
     if (isCorrect) {
       setScore(newScore);
     }
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
-      const nextAnswer = updatedAnswers[currentQuestionIndex + 1]?.selected;
-      setSelectedAnswer(nextAnswer ?? null);
+      setSelectedAnswer(null);
       setError('');
     } else {
       setExamCompleted(true);
@@ -284,11 +281,6 @@ const Exam: React.FC = () => {
                   `Score: ${newScore} out of ${questions.length} (${((newScore / questions.length) * 100).toFixed(1)}%)\n` +
                   `Date: ${new Date().toLocaleString()}\n` +
                   `User: ${username || 'Guest'}\n\n` +
-                  `Test Details:\n` +
-                  `- Total Questions: ${questions.length}\n` +
-                  `- Correct Answers: ${newScore}\n` +
-                  `- Incorrect Answers: ${questions.length - newScore}\n` +
-                  `- Success Rate: ${((newScore / questions.length) * 100).toFixed(1)}%\n\n` +
                   '---\n' +
                   'This is an automated message from the Japanese Learning App.'
         };
@@ -441,62 +433,28 @@ const Exam: React.FC = () => {
             {currentQuestion.question}
           </h2>
           <div className="space-y-3">
-            {currentQuestion.options.map((option, index) => {
-              let buttonClass = "w-full p-3 text-left rounded-lg border transition-colors ";
-              if (selectedAnswer !== null) {
-                if (index === currentQuestion.correct) {
-                  buttonClass += "bg-green-100 dark:bg-green-900 border-green-500 text-green-700 dark:text-green-300";
-                } else if (index === selectedAnswer) {
-                  buttonClass += "bg-red-100 dark:bg-red-900 border-red-500 text-red-700 dark:text-red-300";
-                } else {
-                  buttonClass += "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400";
-                }
-              } else {
-                buttonClass += "bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-gray-700";
-              }
-              return (
-                <motion.button
-                  key={index}
-                  whileHover={selectedAnswer === null ? { scale: 1.02 } : {}}
-                  onClick={() => setSelectedAnswer(index)}
-                  className={buttonClass}
-                  disabled={selectedAnswer !== null}
-                >
-                  <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 rounded-full border flex items-center justify-center font-medium">
-                      {String.fromCharCode(65 + index)}
-                    </div>
-                    <span className="text-md no-select">{option}</span>
-                    {selectedAnswer !== null && index === currentQuestion.correct && (
-                      <CheckCircle className="ml-auto w-5 h-5" />
-                    )}
+            {currentQuestion.options.map((option, index) => (
+              <motion.button
+                key={index}
+                whileHover={selectedAnswer === null ? { scale: 1.02 } : {}}
+                onClick={() => selectedAnswer === null && setSelectedAnswer(index)}
+                className={`w-full p-3 text-left rounded-lg border transition-colors ${
+                  selectedAnswer === index
+                    ? 'bg-blue-100 dark:bg-blue-900 border-blue-500 text-blue-700 dark:text-blue-300'
+                    : 'bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-gray-700'
+                }`}
+                disabled={selectedAnswer !== null}
+              >
+                <div className="flex items-center space-x-2">
+                  <div className="w-6 h-6 rounded-full border flex items-center justify-center font-medium">
+                    {String.fromCharCode(65 + index)}
                   </div>
-                </motion.button>
-              );
-            })}
+                  <span className="text-md no-select">{option}</span>
+                </div>
+              </motion.button>
+            ))}
           </div>
         </motion.div>
-
-        <AnimatePresence>
-          {selectedAnswer !== null && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mb-8"
-            >
-              <div className="p-4 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2 flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4" />
-                  Explanation
-                </h3>
-                <p className="text-blue-700 dark:text-blue-300">
-                  {currentQuestion.explanation}
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {selectedAnswer !== null && (
           <motion.div
