@@ -61,7 +61,7 @@ const CherryBlossoms = () => {
           </div>
         );
       })}
-      <style jsx global>{`
+      <style>{`
         .cherry-blossom {
           position: absolute;
           top: -50px;
@@ -265,6 +265,41 @@ const LandingPage: React.FC = () => {
               >
                 <Target size={18} />
                 <span>Start Practice</span>
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+            </div>
+          </motion.div>
+
+          {/* Vocabulary Exam */}
+          <motion.div
+            whileHover={{ scale: 1.05, rotateY: 5 }}
+            whileTap={{ scale: 0.95 }}
+            className="gradient-border cursor-pointer group"
+            onClick={() => navigate('/vocabulary-exam')}
+          >
+            <div className="gradient-border-content h-full bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-gray-700 text-center hover:shadow-2xl transition-all duration-300">
+              <div className="relative mb-4">
+                <img 
+                  src="https://images.pexels.com/photos/2133/man-person-people-emotions.jpg?auto=compress&cs=tinysrgb&w=400&h=200&fit=crop" 
+                  alt="Vocabulary Exam" 
+                  className="w-full h-32 object-cover mb-4"
+                />
+                <div className="absolute inset-0 bg-purple-600 opacity-20 rounded-lg"></div>
+                <BookOpen className="absolute top-2 right-2 w-8 h-8 text-white drop-shadow-lg" />
+              </div>
+              <h3 className="text-2xl font-bold text-purple-800 dark:text-purple-200 mb-3">
+                Vocabulary Test
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
+                Test your Japanese vocabulary knowledge with this quick quiz
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg"
+              >
+                <Play size={18} />
+                <span>Start Test</span>
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </motion.button>
             </div>

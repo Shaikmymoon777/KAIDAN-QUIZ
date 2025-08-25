@@ -1,83 +1,165 @@
 import { useState, useEffect } from 'react';
-import vocabularyData from '../data/vocab/vocabulary.json';
+import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import * as XLSX from 'xlsx';
+import { ArrowLeft, CheckCircle, ArrowRight, BookOpen, Smile, Trophy } from 'lucide-react';
+import vocabularyData from '../data/vocab/vocabulary.json';
 
 // Initialize EmailJS with your public key
 emailjs.init('jBr6c1UQy5gCNkzB0');
 
-type ExamSection = 'vocabulary';
+type ExamSection = 'vocabulary' | 'listening' | 'speaking';
 
-interface GeminiQuestionBase {
+interface GeminiVocabularyQuestion {
   id: string;
-  part: 'part1';
-  explanation: string;
-  type: string;
-}
-
-interface GeminiVocabularyQuestion extends GeminiQuestionBase {
-  type: 'vocabulary';
   question: string;
   options: string[];
   correct: number;
+  explanation: string;
+  part: string;
+  type: 'vocabulary' | 'grammar' | 'kanji' | 'reading';
   kanji?: string;
+  japanese?: string;
+  reading?: string;
+  meaning?: string;
 }
 
-type Question = GeminiVocabularyQuestion;
-
-interface ScoreHistory {
-  date: string;
-  score: number;
-  total: number;
+interface VocabularyItem {
+  id: number;
+  japanese: string;
+  reading: string;
+  meaning: string;
 }
-
-// Function to shuffle an array using Fisher-Yates algorithm
-const shuffleArray = <T,>(array: T[]): T[] => {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-  }
-  return newArray;
-};
 
 // Function to get random questions for the exam
-const getRandomQuestions = (count: number): GeminiVocabularyQuestion[] => {
-  const shuffledVocab = shuffleArray([...vocabularyData]);
-  return shuffledVocab.slice(0, count).map((item, index) => ({
-    id: `q-${Date.now()}-${index}`,
-    part: 'part1' as const,
-    explanation: '',
-    type: 'vocabulary' as const,
-    question: `What is the meaning of "${item.japanese}" (${item.reading})?`,
-    options: generateOptions(item.meaning, vocabularyData),
-    correct: generateCorrectIndex(item.meaning, generateOptions(item.meaning, vocabularyData)),
-    kanji: item.japanese,
-  }));
+const prepareVocabularyQuestions = (vocabData: VocabularyItem[], count: number = 10): GeminiVocabularyQuestion[] => {
+  const shuffled = [...vocabData].sort(() => 0.5 - Math.random());
+  const selectedWords = shuffled.slice(0, count);
+
+  return selectedWords.map(word => {
+    const otherWords = vocabData
+      .filter(w => w.id !== word.id)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3)
+      .map(w => w.meaning);
+    
+    const options = [word.meaning, ...otherWords].sort(() => 0.5 - Math.random());
+    
+    return {
+      id: `vocab-${word.id}`,
+      question: `What does "${word.japanese}" (${word.reading}) mean?`,
+      options,
+      correct: options.indexOf(word.meaning),
+      explanation: `"${word.japanese}" (${word.reading}) means "${word.meaning}"`,
+      part: 'vocabulary',
+      type: 'vocabulary',
+      japanese: word.japanese,
+      reading: word.reading,
+      meaning: word.meaning
+    };
+  });
+};
+
+const QUESTION_COUNT = 25;
+
+const JapaneseBackground = () => (
+  <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+    <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="wave" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+          <path d="M0 50 Q25 30 50 50 T100 50" fill="none" stroke="#e0f7fa" strokeWidth="1" opacity="0.2"/>
+          <path d="M0 60 Q25 40 50 60 T100 60" fill="none" stroke="#e0f7fa" strokeWidth="1" opacity="0.1"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#wave)"/>
+    </svg>
+  </div>
+);
+
+const CherryBlossoms = () => {
+  const blossomTypes = [
+    { emoji: '🌸', size: 1.0, speed: 1.0, rotation: 360 },
+    { emoji: '🌸', size: 0.8, speed: 1.2, rotation: -360 },
+    { emoji: '🌸', size: 1.2, speed: 0.8, rotation: 180 }
+  ];
+
+  return (
+    <div className="cherry-blossom-container absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(25)].map((_, i) => {
+        const type = blossomTypes[Math.floor(Math.random() * blossomTypes.length)];
+        const startX = Math.random() * 100;
+        const endX = startX + (Math.random() * 20 - 10);
+        const delay = Math.random() * 10;
+        const duration = 15 + Math.random() * 20;
+        const size = 8 + Math.random() * 12;
+        const opacity = 0.2 + Math.random() * 0.6;
+        
+        return (
+          <div 
+            key={i}
+            className="cherry-blossom"
+            style={{
+              left: `${startX}%`,
+              animationDelay: `${delay}s`,
+              animationDuration: `${duration}s`,
+              fontSize: `${size}px`,
+              opacity: opacity,
+              '--end-x': `${endX}%`,
+              '--rotation': `${type.rotation}deg`
+            } as React.CSSProperties}
+          >
+            {type.emoji}
+          </div>
+        );
+      })}
+      <style>
+        {`
+          .cherry-blossom {
+            position: absolute;
+            top: -50px;
+            z-index: 0;
+            animation: falling linear infinite;
+            pointer-events: none;
+            will-change: transform;
+            filter: drop-shadow(0 0 2px rgba(255, 192, 203, 0.5));
+          }
+          
+          @keyframes falling {
+            0% {
+              transform: translateY(-10vh) translateX(0) rotate(0deg);
+              opacity: 0;
+            }
+            10% {
+              opacity: 0.8;
+            }
+            90% {
+              opacity: 0.8;
+            }
+            100% {
+              transform: translateY(100vh) translateX(calc(var(--end-x) - 50%)) rotate(var(--rotation));
+              opacity: 0;
+            }
+          }
+        `}
+      </style>
+    </div>
+  );
 };
 
 const Exam: React.FC = () => {
   const [] = useState<ExamSection>('vocabulary');
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<GeminiVocabularyQuestion[]>([]);
+  const [, setListeningQuestions] = useState<any[]>([]);
+  const [, setSpeakingQuestions] = useState<any[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [examCompleted, setExamCompleted] = useState(false);
-  const [, setScore] = useState(0);
-  const [, setTotalQuestions] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<Array<{
-    questionId: string;
-    selected?: number | null;
-    correct?: boolean;
-    feedback?: string;
-  }>>([]);
+  const [score, setScore] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<{questionId: string; selected: number | null; correct: boolean; feedback?: string}[]>([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [, setScoreHistory] = useState<ScoreHistory[]>([]);
-  const [] = useState(true); // State for collapsible sidebar
-  const [] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
@@ -85,15 +167,6 @@ const Exam: React.FC = () => {
     if (storedUser) {
       setLoggedIn(true);
       setUsername(storedUser);
-    }
-
-    const history = localStorage.getItem('scoreHistory');
-    if (history) {
-      try {
-        setScoreHistory(JSON.parse(history));
-      } catch (err) {
-        console.error('Error parsing score history:', err);
-      }
     }
   }, []);
 
@@ -133,551 +206,527 @@ const Exam: React.FC = () => {
     setPassword('');
     setExamCompleted(false);
     setScore(0);
-    setTotalQuestions(0);
     setQuestions([]);
     setCurrentQuestionIndex(0);
     setUserAnswers([]);
     setShowRegister(false);
   };
 
-  useEffect(() => {
-    if (loggedIn) {
-      try {
-        setIsLoading(true);
-        const randomQuestions = getRandomQuestions(25);
-        setQuestions(randomQuestions);
-        setTotalQuestions(randomQuestions.length);
-        setUserAnswers(
-          randomQuestions.map((q) => ({
-            questionId: q.id,
-            selected: null,
-            correct: false,
-          }))
-        );
-      } catch (err) {
-        console.error('Error initializing exam:', err);
-        setError('Failed to load exam questions. Please try again.');
-      } finally {
-        setIsLoading(false);
+  const loadQuestions = async () => {
+    try {
+      setIsLoading(true);
+      if (!vocabularyData || !Array.isArray(vocabularyData) || vocabularyData.length === 0) {
+        throw new Error('No vocabulary data available. Please try again later.');
       }
+      const vocabQuestions = prepareVocabularyQuestions(vocabularyData as VocabularyItem[], QUESTION_COUNT);
+      if (vocabQuestions.length === 0) {
+        throw new Error('Failed to generate questions. Please try again.');
+      }
+      setQuestions(vocabQuestions);
+      setListeningQuestions([]);
+      setSpeakingQuestions([]);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error loading questions:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load questions. Please try again later.');
+      setIsLoading(false);
     }
-  }, [loggedIn]);
-
-  const handleAnswerSelect = (questionId: string, answerIndex: number) => {
-    setSelectedAnswer(answerIndex);
-    
-    // Only update the selected answer, don't mark as correct/incorrect yet
-    setUserAnswers(prev => {
-      const existingAnswerIndex = prev.findIndex(a => a.questionId === questionId);
-      
-      if (existingAnswerIndex >= 0) {
-        const newAnswers = [...prev];
-        newAnswers[existingAnswerIndex] = {
-          ...newAnswers[existingAnswerIndex],
-          selected: answerIndex
-        };
-        return newAnswers;
-      }
-      
-      return [
-        ...prev,
-        {
-          questionId,
-          selected: answerIndex,
-          correct: false, // Will be set when submitted
-          feedback: ''
-        }
-      ];
-    });
   };
 
-  const handleSubmit = () => {
-    const currentQuestion = questions[currentQuestionIndex];
-    
+  useEffect(() => {
+    loadQuestions();
+  }, []);
+
+  const handleSubmit = async () => {
     if (selectedAnswer === null) {
-      alert('Please select an answer before submitting.');
+      setError('Please select an answer before submitting.');
       return;
     }
 
+    const currentQuestion = questions[currentQuestionIndex];
     const isCorrect = selectedAnswer === currentQuestion.correct;
-    const feedback = isCorrect 
-      ? 'Correct!' 
-      : `Incorrect. The correct answer was: ${currentQuestion.options[currentQuestion.correct]}`;
+    const newScore = isCorrect ? score + 1 : score;
     
-    // Update the answer with correct/incorrect status and feedback
-    setUserAnswers(prev => {
-      const newAnswers = [...prev];
-      const answerIndex = newAnswers.findIndex(a => a.questionId === currentQuestion.id);
-      
-      if (answerIndex >= 0) {
-        newAnswers[answerIndex] = {
-          ...newAnswers[answerIndex],
-          correct: isCorrect,
-          feedback
-        };
-      } else {
-        newAnswers.push({
-          questionId: currentQuestion.id,
-          selected: selectedAnswer,
-          correct: isCorrect,
-          feedback
-        });
-      }
-      
-      return newAnswers;
-    });
-
-    // Update score if correct
+    const updatedAnswers = [
+      ...userAnswers.slice(0, currentQuestionIndex),
+      {
+        questionId: currentQuestion.id,
+        selected: selectedAnswer,
+        correct: isCorrect,
+        feedback: isCorrect 
+          ? 'Correct!' 
+          : `Incorrect. The correct answer is: ${currentQuestion.options[currentQuestion.correct]}`
+      },
+      ...userAnswers.slice(currentQuestionIndex + 1)
+    ];
+    
+    setUserAnswers(updatedAnswers);
     if (isCorrect) {
-      setScore(prev => prev + 1);
+      setScore(newScore);
     }
 
-    // Move to next question or complete exam
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
-      setSelectedAnswer(null);
+      const nextAnswer = updatedAnswers[currentQuestionIndex + 1]?.selected;
+      setSelectedAnswer(nextAnswer ?? null);
+      setError('');
     } else {
-      handleExamComplete();
-    }
-  };
-
-  const handleExamComplete = () => {
-    const totalQuestions = questions.length;
-    const correctAnswers = userAnswers.filter((answer) => answer.correct).length;
-    const percentage = Math.round((correctAnswers / totalQuestions) * 100);
-
-    const examResults = {
-      userId: username || 'anonymous',
-      userName: username || 'Anonymous User',
-      timestamp: new Date().toISOString(),
-      score: correctAnswers,
-      totalQuestions,
-      percentage,
-      answers: userAnswers.map((answer) => {
-        const question = questions.find((q) => q.id === answer.questionId);
-        if (!question?.options) return null;
-
-        const selectedIndex = answer.selected ?? -1;
-        const selectedOption = selectedIndex >= 0 && selectedIndex < question.options.length
-          ? question.options[selectedIndex]
-          : 'Not answered';
-
-        return {
-          question: question.question,
-          correctAnswer: question.correct >= 0 && question.correct < question.options.length
-            ? question.options[question.correct]
-            : 'No correct answer',
-          userAnswer: selectedOption,
-          isCorrect: answer.correct ?? false,
+      setExamCompleted(true);
+      
+      try {
+        const templateParams = {
+          to_email: 'mymoonshaik004@gmail.com',
+          to_name: 'Admin',
+          from_name: 'Japanese Learning App',
+          reply_to: username ? username + '@example.com' : 'noreply@japaneselearningapp.com',
+          subject: `Vocabulary Test Results - ${new Date().toLocaleDateString()}`,
+          message: `A user has completed the vocabulary test with the following results:\n\n` +
+                  `Score: ${newScore} out of ${questions.length} (${((newScore / questions.length) * 100).toFixed(1)}%)\n` +
+                  `Date: ${new Date().toLocaleString()}\n` +
+                  `User: ${username || 'Guest'}\n\n` +
+                  `Test Details:\n` +
+                  `- Total Questions: ${questions.length}\n` +
+                  `- Correct Answers: ${newScore}\n` +
+                  `- Incorrect Answers: ${questions.length - newScore}\n` +
+                  `- Success Rate: ${((newScore / questions.length) * 100).toFixed(1)}%\n\n` +
+                  '---\n' +
+                  'This is an automated message from the Japanese Learning App.'
         };
-      }).filter(Boolean),
-    };
 
-    const existingResults = JSON.parse(localStorage.getItem('examResults') || '[]');
-    const updatedResults = [...existingResults, examResults];
-    localStorage.setItem('examResults', JSON.stringify(updatedResults));
-
-    sendExamResultsEmail(examResults);
-
-    setExamCompleted(true);
-    localStorage.setItem('examAttempted', 'true');
-  };
-
-  const sendExamResultsEmail = async (result: any) => {
-    try {
-      const wb = XLSX.utils.book_new();
-      
-      const excelData = [
-        ['User ID', result.userId],
-        ['User Name', result.userName],
-        ['Date', new Date(result.timestamp).toLocaleString()],
-        ['Score', `${result.score}/${result.totalQuestions}`],
-        ['Percentage', `${result.percentage}%`],
-        [],
-        ['Question', 'Your Answer', 'Correct Answer', 'Status']
-      ];
-
-      result.answers.forEach((answer: any, index: number) => {
-        excelData.push([
-          `Q${index + 1}. ${answer.question}`,
-          answer.userAnswer,
-          answer.correctAnswer,
-          answer.isCorrect ? 'Correct' : 'Incorrect'
-        ]);
-      });
-
-      const ws = XLSX.utils.aoa_to_sheet(excelData);
-      XLSX.utils.book_append_sheet(wb, ws, 'Exam Results');
-      
-      const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-      const excelBase64 = btoa(
-        new Uint8Array(excelBuffer).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          ''
-        )
-      );
-
-      const templateParams = {
-        to_email: 'mymoonshaik004@gmail.com',
-        to_name: 'Admin',
-        from_name: 'Japanese Learning App',
-        subject: `Exam Results - ${result.userName}`,
-        name: result.userName,
-        user_name: result.userName,
-        user_id: result.userId,
-        score: result.score,
-        total_questions: result.totalQuestions,
-        percentage: `${result.percentage}%`,
-        date: new Date(result.timestamp).toLocaleString(),
-        message: 'Please find the detailed exam results in the attached Excel file.',
-        attachment: excelBase64,
-        filename: `Exam_Results_${result.userId}_${new Date().toISOString().split('T')[0]}.xlsx`
-      };
-
-      const response = await emailjs.send(
-        'service_zb7ruvd',
-        'template_xc0kd4e',
-        templateParams,
-        'jBr6c1UQy5gCNkzB0'
-      );
-
-      console.log('Email sent successfully:', response);
-      return true;
-    } catch (error) {
-      console.error('Failed to send exam results email:', error);
-      if (error && typeof error === 'object' && 'response' in error) {
-        const err = error as { response: { data: any } };
-        console.error('Error response:', err.response.data);
+        await emailjs.send(
+          'service_zb7ruvd',
+          'template_xc0kd4e',
+          templateParams,
+          'jBr6c1UQy5gCNkzB0'
+        );
+        console.log('Results email sent successfully');
+      } catch (emailError) {
+        console.error('Failed to send email:', emailError);
       }
-      return false;
     }
   };
 
-  const handleRetakeWithDifferentEmail = () => {
-    localStorage.removeItem('examAttempted');
-    localStorage.removeItem('username');
-    
-    setCurrentQuestionIndex(0);
-    setSelectedAnswer(null);
-    setUserAnswers([]);
-    setExamCompleted(false);
-    setLoggedIn(false);
-    setUsername('');
-    
-    window.location.href = '/register';
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prev => prev - 1);
+      const prevAnswer = userAnswers[currentQuestionIndex - 1];
+      setSelectedAnswer(prevAnswer?.selected ?? null);
+    }
   };
 
   const renderQuestion = () => {
     if (isLoading) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="text-center animate-fade-in">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-lg text-gray-700 font-semibold">Preparing your exam...</p>
-          </div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center py-8 text-blue-700 dark:text-blue-300"
+        >
+          Loading questions...
+        </motion.div>
       );
     }
 
-    if (questions.length === 0) {
-      return <div className="text-center text-red-600 font-medium">No questions available. Please check the vocabulary data.</div>;
+    if (examCompleted) {
+      const percentage = (score / questions.length) * 100;
+      const passed = percentage >= 70;
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center"
+        >
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-green-500' : 'bg-red-500'}`}
+          >
+            {passed ? (
+              <Trophy className="w-8 h-8 text-white" />
+            ) : (
+              <CheckCircle className="w-8 h-8 text-white" />
+            )}
+          </motion.div>
+          <h2 className="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-4">
+            {passed ? 'Congratulations!' : 'Keep Practicing!'}
+          </h2>
+          <p className="text-md text-gray-600 dark:text-gray-400 mb-6">
+            {passed 
+              ? 'You passed the vocabulary test! Great job!'
+              : 'You need 70% or higher to pass. Try again!'}
+          </p>
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
+              <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">{percentage.toFixed(1)}%</div>
+              <div className="text-xs text-gray-600 dark:text-gray-400">Score</div>
+            </div>
+            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
+              <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">{score}/{questions.length}</div>
+              <div className="text-xs text-gray-600 dark:text-gray-400">Correct</div>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+            >
+              Try Again
+              <ArrowRight size={18} className="inline ml-2" />
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleLogout}
+              className="px-4 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors"
+            >
+              Logout
+            </motion.button>
+          </div>
+        </motion.div>
+      );
     }
 
-    const question = questions[currentQuestionIndex];
-    const userAnswer = userAnswers.find(a => a.questionId === question.id);
-
+    const currentQuestion = questions[currentQuestionIndex];
+    
     return (
-      <div className="space-y-6 p-4 md:p-6 bg-white rounded-xl shadow-lg animate-fade-in">
-        <div className="flex justify-between items-center border-b pb-4">
-          <h2 className="text-2xl font-bold text-gray-800">Vocabulary Challenge</h2>
-          <span className="text-sm text-gray-600 font-medium">
-            Question {currentQuestionIndex + 1} of {questions.length}
-          </span>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <div className="flex items-center justify-between mb-8">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleLogout}
+            className="flex items-center space-x-2 text-blue-700 dark:text-blue-300 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            <ArrowLeft size={20} />
+            <span>Logout</span>
+          </motion.button>
+          <div>
+            <h1 className="text-3xl font-bold text-blue-800 dark:text-blue-200 flex items-center gap-2">
+              <BookOpen className="w-6 h-6" />
+              Vocabulary Test
+            </h1>
+            <p className="text-md text-gray-600 dark:text-gray-400">
+              Question {currentQuestionIndex + 1} of {questions.length}
+            </p>
+          </div>
+          <div className="text-right">
+            <div className="text-sm text-gray-600 dark:text-gray-400">Score</div>
+            <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+              {score}/{questions.length}
+            </div>
+          </div>
         </div>
-        <div className="space-y-4">
-          <p className="text-xl text-gray-800 font-medium">
-            {question.kanji && <span className="text-2xl mr-2">{question.kanji}</span>}
-            {question.question}
-          </p>
-          <div className="grid gap-3">
-            {question.options.map((option, index) => {
-              const isSelected = userAnswer?.selected === index;
-              let buttonStyle = 'border-gray-300 hover:bg-gray-50 hover:border-blue-300';
-              
-              // Only show correct/incorrect states after exam is submitted
-              if (examCompleted) {
-                if (index === question.correct) {
-                  buttonStyle = 'bg-green-100 border-green-500 text-green-800';
-                } else if (isSelected && !userAnswer?.correct) {
-                  buttonStyle = 'bg-red-100 border-red-500 text-red-800';
-                } else if (isSelected) {
-                  buttonStyle = 'bg-blue-100 border-blue-500 text-blue-800';
+
+        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-8">
+          <motion.div
+            className="h-3 bg-blue-500 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8"
+        >
+          <h2 className="text-xl font-semibold text-blue-800 dark:text-blue-200 mb-4 no-select">
+            {currentQuestion.question}
+          </h2>
+          <div className="space-y-3">
+            {currentQuestion.options.map((option, index) => {
+              let buttonClass = "w-full p-3 text-left rounded-lg border transition-colors ";
+              if (selectedAnswer !== null) {
+                if (index === currentQuestion.correct) {
+                  buttonClass += "bg-green-100 dark:bg-green-900 border-green-500 text-green-700 dark:text-green-300";
+                } else if (index === selectedAnswer) {
+                  buttonClass += "bg-red-100 dark:bg-red-900 border-red-500 text-red-700 dark:text-red-300";
+                } else {
+                  buttonClass += "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400";
                 }
-              } else if (isSelected) {
-                buttonStyle = 'bg-blue-100 border-blue-500 text-blue-800';
+              } else {
+                buttonClass += "bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-gray-700";
               }
-              
               return (
-                <button
+                <motion.button
                   key={index}
-                  onClick={() => !examCompleted && handleAnswerSelect(question.id, index)}
-                  disabled={examCompleted}
-                  className={`w-full p-4 rounded-lg border text-left transition-all duration-200 ${buttonStyle} ${
-                    examCompleted ? 'cursor-default' : 'cursor-pointer'
-                  }`}
+                  whileHover={selectedAnswer === null ? { scale: 1.02 } : {}}
+                  onClick={() => setSelectedAnswer(index)}
+                  className={buttonClass}
+                  disabled={selectedAnswer !== null}
                 >
-                  <span className="font-semibold text-gray-700">
-                    {String.fromCharCode(65 + index)}.
-                  </span>{' '}
-                  <span className="ml-2">{option}</span>
-                </button>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-6 h-6 rounded-full border flex items-center justify-center font-medium">
+                      {String.fromCharCode(65 + index)}
+                    </div>
+                    <span className="text-md no-select">{option}</span>
+                    {selectedAnswer !== null && index === currentQuestion.correct && (
+                      <CheckCircle className="ml-auto w-5 h-5" />
+                    )}
+                  </div>
+                </motion.button>
               );
             })}
           </div>
-        </div>
-        
-        {/* Show feedback only after exam is completed */}
-        {examCompleted && userAnswer?.feedback && (
-          <div className="mt-4 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded-r">
-            <p className="text-sm text-yellow-700">{userAnswer.feedback}</p>
-          </div>
+        </motion.div>
+
+        <AnimatePresence>
+          {selectedAnswer !== null && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mb-8"
+            >
+              <div className="p-4 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2 flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4" />
+                  Explanation
+                </h3>
+                <p className="text-blue-700 dark:text-blue-300">
+                  {currentQuestion.explanation}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {selectedAnswer !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex justify-center gap-4"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handlePrevious}
+              disabled={currentQuestionIndex === 0}
+              className={`px-6 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 ${
+                currentQuestionIndex === 0
+                  ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                  : 'bg-gray-500 text-white hover:bg-gray-600'
+              }`}
+            >
+              <ArrowLeft size={18} />
+              <span>Previous</span>
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleSubmit}
+              className="px-6 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center space-x-2"
+            >
+              <span>{currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Finish Test'}</span>
+              <ArrowRight size={18} />
+            </motion.button>
+          </motion.div>
         )}
-        
-        <div className="flex justify-between items-center">
-          <button
-            onClick={() => {
-              if (currentQuestionIndex > 0) {
-                setCurrentQuestionIndex(currentQuestionIndex - 1);
-              }
-            }}
-            disabled={currentQuestionIndex === 0}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
-              currentQuestionIndex === 0
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-blue-500 text-white hover:bg-blue-600 hover:shadow-lg'
-            }`}
-          >
-            Previous
-          </button>
-          
-          <button
-            onClick={handleSubmit}
-            className="px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 hover:shadow-lg transition-all duration-200"
-          >
-            {currentQuestionIndex < questions.length - 1 ? 'Next' : examCompleted ? 'View Results' : 'Finish'}
-          </button>
-        </div>
-      </div>
+      </motion.div>
     );
   };
 
   if (!loggedIn && !showRegister) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50">
-        <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full transform transition-all duration-300 hover:shadow-2xl">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Welcome Back!</h1>
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                required
-              />
-            </div>
-            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-            <button
-              type="submit"
-              className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
+        <style>
+          {`
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+            .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
+          `}
+        </style>
+        <JapaneseBackground />
+        <CherryBlossoms />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-md mx-auto px-4 py-12"
+        >
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4"
             >
-              Login
-            </button>
-            <p className="text-sm text-center text-gray-600">
-              New here?{' '}
-              <button
-                onClick={() => setShowRegister(true)}
-                className="text-blue-600 hover:underline font-medium"
+              <Smile className="w-12 h-12 text-blue-600 dark:text-blue-400 mx-auto" />
+            </motion.div>
+            <h1 className="text-3xl font-bold text-blue-800 dark:text-blue-200 mb-6">Welcome Back!</h1>
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="mt-1 block w-full p-3 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 block w-full p-3 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  required
+                />
+              </div>
+              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                type="submit"
+                className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-all duration-200"
               >
-                Create an account
-              </button>
-            </p>
-          </form>
-        </div>
+                Login
+              </motion.button>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
+                New here?{' '}
+                <button
+                  onClick={() => setShowRegister(true)}
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                >
+                  Create an account
+                </button>
+              </p>
+            </form>
+          </div>
+        </motion.div>
       </div>
     );
   }
 
   if (!loggedIn && showRegister) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50">
-        <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full transform transition-all duration-300 hover:shadow-2xl">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Create Account</h1>
-          <form onSubmit={handleRegister} className="space-y-6">
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                required
-              />
-            </div>
-            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-            <button
-              type="submit"
-              className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
+        <style>
+          {`
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+            .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
+          `}
+        </style>
+        <JapaneseBackground />
+        <CherryBlossoms />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-md mx-auto px-4 py-12"
+        >
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4"
             >
-              Register
-            </button>
-            <p className="text-sm text-center text-gray-600">
-              Already have an account?{' '}
-              <button
-                onClick={() => setShowRegister(false)}
-                className="text-blue-600 hover:underline font-medium"
+              <Smile className="w-12 h-12 text-blue-600 dark:text-blue-400 mx-auto" />
+            </motion.div>
+            <h1 className="text-3xl font-bold text-blue-800 dark:text-blue-200 mb-6">Create Account</h1>
+            <form onSubmit={handleRegister} className="space-y-6">
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="mt-1 block w-full p-3 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 block w-full p-3 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  required
+                />
+              </div>
+              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                type="submit"
+                className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-all duration-200"
               >
-                Login
-              </button>
-            </p>
-          </form>
-        </div>
-      </div>
-    );
-  }
-
-  if (examCompleted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-gray-50 p-4">
-        <div className="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full text-center animate-fade-in">
-          <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 transform transition-all duration-500 hover:scale-110">
-            <svg
-              className="w-16 h-16 text-green-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
+                Register
+              </motion.button>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
+                Already have an account?{' '}
+                <button
+                  onClick={() => setShowRegister(false)}
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                >
+                  Login
+                </button>
+              </p>
+            </form>
           </div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Congratulations!</h2>
-          <p className="text-lg text-gray-600 mb-6">Your exam has been submitted successfully.</p>
-          <p className="text-gray-500 mb-6">Check your email for the results.</p>
-          <button
-            onClick={handleRetakeWithDifferentEmail}
-            className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
-          >
-            Take Exam with Different Email
-          </button>
-        </div>
+        </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8" onContextMenu={(e) => e.preventDefault()}>
-      <style jsx global>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.5s ease-in-out;
-        }
-        .exam-content {
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-        .exam-content * {
-          -webkit-touch-callout: none;
-          -webkit-user-select: none;
-          -khtml-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-      `}</style>
-      <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden exam-content transition-all duration-300 hover:shadow-2xl">
-        <div className="flex justify-between items-center p-6 border-b">
-          <h1 className="text-3xl font-bold text-gray-800">Japanese Vocabulary Challenge</h1>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-all duration-200 shadow-md hover:shadow-lg"
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8 relative overflow-hidden">
+      <style>
+        {`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+          .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
+          .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -moz-user-select: none;
+          }
+        `}
+      </style>
+      <JapaneseBackground />
+      <CherryBlossoms />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {error ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-4"
           >
-            Logout
-          </button>
-        </div>
-        <div className="p-6">
-          <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
-            <div
-              className="bg-blue-600 h-4 rounded-full transition-all duration-500 ease-out"
-              style={{
-                width: `${((currentQuestionIndex + 1) / questions.length) * 100}%`,
-              }}
-            >
-              <span className="text-xs text-white font-medium ml-2">
-                {Math.round(((currentQuestionIndex + 1) / questions.length) * 100)}%
-              </span>
-            </div>
-          </div>
-          {error ? (
-            <div className="p-4 mb-6 text-red-700 bg-red-100 rounded-lg text-center animate-pulse">
-              {error}
-            </div>
-          ) : (
-            renderQuestion()
-          )}
-        </div>
+            {error}
+          </motion.div>
+        ) : (
+          renderQuestion()
+        )}
       </div>
     </div>
   );
 };
 
 export default Exam;
-
-function generateOptions(meaning: string, vocabularyData: { id: number; japanese: string; reading: string; meaning: string }[]): string[] {
-  const incorrectOptions = vocabularyData
-    .filter(item => item.meaning !== meaning)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3)
-    .map(item => item.meaning);
-  const options = [meaning, ...incorrectOptions].sort(() => Math.random() - 0.5);
-  return options;
-}
-
-function generateCorrectIndex(meaning: string, options: string[]): number {
-  return options.findIndex(option => option === meaning);
-}
