@@ -11,7 +11,6 @@ import Ranking from './pages/Ranking';
 import Contact from './pages/Contact';
 import Grammer from './pages/Grammer';
 import Listening from './pages/listening';
-import Vocabulary from './pages/Vocabulary';
 import Exam from './pages/exam';
 import Home from './pages/home';
 import Admin from './pages/admin';
@@ -29,7 +28,6 @@ function App() {
                   <Route path="/" element={<Navigate to="/home" replace />} />
                   <Route path="/home" element={<Home />} />
                   <Route path="/exam" element={<Exam />} />
-                  <Route path="/vocabulary-exam" element={<Vocabulary />} />
                   <Route path="/admin" element={<Admin />} />
                   <Route path="/quiz" element={<Quiz />} />
                   <Route path="/practice" element={<Practice />} />
@@ -38,7 +36,6 @@ function App() {
                   <Route path="/ranking" element={<Ranking />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/vocabulary" element={<Vocabulary />} />
                   
                 </Routes>
               </main>
