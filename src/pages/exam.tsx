@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import { ArrowLeft, CheckCircle, ArrowRight, BookOpen, Smile, Trophy } from 'lucide-react';
 import vocabularyData from '../data/vocab/vocabulary.json';
 
 // Initialize EmailJS with your public key
@@ -30,19 +28,25 @@ interface VocabularyItem {
   meaning: string;
 }
 
+// Function to shuffle an array using Fisher-Yates algorithm
+
 // Function to get random questions for the exam
 const prepareVocabularyQuestions = (vocabData: VocabularyItem[], count: number = 10): GeminiVocabularyQuestion[] => {
+  // Shuffle array and take first 'count' items
   const shuffled = [...vocabData].sort(() => 0.5 - Math.random());
   const selectedWords = shuffled.slice(0, count);
 
   return selectedWords.map(word => {
+    // Get 3 random wrong answers
     const otherWords = vocabData
       .filter(w => w.id !== word.id)
       .sort(() => 0.5 - Math.random())
       .slice(0, 3)
       .map(w => w.meaning);
     
-    const options = [word.meaning, ...otherWords].sort(() => 0.5 - Math.random());
+    // Combine correct answer with wrong answers and shuffle
+    const options = [word.meaning, ...otherWords]
+      .sort(() => 0.5 - Math.random());
     
     return {
       id: `vocab-${word.id}`,
@@ -61,90 +65,6 @@ const prepareVocabularyQuestions = (vocabData: VocabularyItem[], count: number =
 
 const QUESTION_COUNT = 25;
 
-const JapaneseBackground = () => (
-  <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-    <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="wave" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-          <path d="M0 50 Q25 30 50 50 T100 50" fill="none" stroke="#e0f7fa" strokeWidth="1" opacity="0.2"/>
-          <path d="M0 60 Q25 40 50 60 T100 60" fill="none" stroke="#e0f7fa" strokeWidth="1" opacity="0.1"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#wave)"/>
-    </svg>
-  </div>
-);
-
-const CherryBlossoms = () => {
-  const blossomTypes = [
-    { emoji: '🌸', size: 1.0, speed: 1.0, rotation: 360 },
-    { emoji: '🌸', size: 0.8, speed: 1.2, rotation: -360 },
-    { emoji: '🌸', size: 1.2, speed: 0.8, rotation: 180 }
-  ];
-
-  return (
-    <div className="cherry-blossom-container absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(25)].map((_, i) => {
-        const type = blossomTypes[Math.floor(Math.random() * blossomTypes.length)];
-        const startX = Math.random() * 100;
-        const endX = startX + (Math.random() * 20 - 10);
-        const delay = Math.random() * 10;
-        const duration = 15 + Math.random() * 20;
-        const size = 8 + Math.random() * 12;
-        const opacity = 0.2 + Math.random() * 0.6;
-        
-        return (
-          <div 
-            key={i}
-            className="cherry-blossom"
-            style={{
-              left: `${startX}%`,
-              animationDelay: `${delay}s`,
-              animationDuration: `${duration}s`,
-              fontSize: `${size}px`,
-              opacity: opacity,
-              '--end-x': `${endX}%`,
-              '--rotation': `${type.rotation}deg`
-            } as React.CSSProperties}
-          >
-            {type.emoji}
-          </div>
-        );
-      })}
-      <style>
-        {`
-          .cherry-blossom {
-            position: absolute;
-            top: -50px;
-            z-index: 0;
-            animation: falling linear infinite;
-            pointer-events: none;
-            will-change: transform;
-            filter: drop-shadow(0 0 2px rgba(255, 192, 203, 0.5));
-          }
-          
-          @keyframes falling {
-            0% {
-              transform: translateY(-10vh) translateX(0) rotate(0deg);
-              opacity: 0;
-            }
-            10% {
-              opacity: 0.8;
-            }
-            90% {
-              opacity: 0.8;
-            }
-            100% {
-              transform: translateY(100vh) translateX(calc(var(--end-x) - 50%)) rotate(var(--rotation));
-              opacity: 0;
-            }
-          }
-        `}
-      </style>
-    </div>
-  );
-};
-
 const Exam: React.FC = () => {
   const [] = useState<ExamSection>('vocabulary');
   const [questions, setQuestions] = useState<GeminiVocabularyQuestion[]>([]);
@@ -156,7 +76,7 @@ const Exam: React.FC = () => {
   const [error, setError] = useState('');
   const [examCompleted, setExamCompleted] = useState(false);
   const [score, setScore] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<{questionId: string; selected: number | null; correct: boolean}[]>([]);
+  const [userAnswers, setUserAnswers] = useState<{questionId: string; selected: number | null; correct: boolean; feedback?: string}[]>([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -167,6 +87,15 @@ const Exam: React.FC = () => {
     if (storedUser) {
       setLoggedIn(true);
       setUsername(storedUser);
+    }
+
+    const history = localStorage.getItem('scoreHistory');
+    if (history) {
+      try {
+        // setScoreHistory(JSON.parse(history));
+      } catch (err) {
+        console.error('Error parsing score history:', err);
+      }
     }
   }, []);
 
@@ -212,16 +141,22 @@ const Exam: React.FC = () => {
     setShowRegister(false);
   };
 
+  // Load questions when component mounts
   const loadQuestions = async () => {
     try {
       setIsLoading(true);
+      
+      // Validate vocabulary data
       if (!vocabularyData || !Array.isArray(vocabularyData) || vocabularyData.length === 0) {
         throw new Error('No vocabulary data available. Please try again later.');
       }
+      
+      // Load vocabulary questions with 25 questions
       const vocabQuestions = prepareVocabularyQuestions(vocabularyData as VocabularyItem[], QUESTION_COUNT);
       if (vocabQuestions.length === 0) {
         throw new Error('Failed to generate questions. Please try again.');
       }
+      
       setQuestions(vocabQuestions);
       setListeningQuestions([]);
       setSpeakingQuestions([]);
@@ -247,30 +182,40 @@ const Exam: React.FC = () => {
     const isCorrect = selectedAnswer === currentQuestion.correct;
     const newScore = isCorrect ? score + 1 : score;
     
+    // Update user answers
     const updatedAnswers = [
       ...userAnswers.slice(0, currentQuestionIndex),
       {
         questionId: currentQuestion.id,
         selected: selectedAnswer,
         correct: isCorrect,
+        feedback: isCorrect 
+          ? 'Correct! ' 
+          : `Incorrect. The correct answer is: ${currentQuestion.options[currentQuestion.correct]}`
       },
       ...userAnswers.slice(currentQuestionIndex + 1)
     ];
     
     setUserAnswers(updatedAnswers);
-    
+
+    // Update score if correct
     if (isCorrect) {
       setScore(newScore);
     }
 
+    // Move to next question or complete exam
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
-      setSelectedAnswer(null);
+      // Pre-select the answer if already answered
+      const nextAnswer = updatedAnswers[currentQuestionIndex + 1]?.selected;
+      setSelectedAnswer(nextAnswer ?? null);
       setError('');
     } else {
+      // Exam completed
       setExamCompleted(true);
       
       try {
+        // Prepare email template parameters with more details
         const templateParams = {
           to_email: 'mymoonshaik004@gmail.com',
           to_name: 'Admin',
@@ -281,19 +226,28 @@ const Exam: React.FC = () => {
                   `Score: ${newScore} out of ${questions.length} (${((newScore / questions.length) * 100).toFixed(1)}%)\n` +
                   `Date: ${new Date().toLocaleString()}\n` +
                   `User: ${username || 'Guest'}\n\n` +
+                  `Test Details:\n` +
+                  `- Total Questions: ${questions.length}\n` +
+                  `- Correct Answers: ${newScore}\n` +
+                  `- Incorrect Answers: ${questions.length - newScore}\n` +
+                  `- Success Rate: ${((newScore / questions.length) * 100).toFixed(1)}%\n\n` +
                   '---\n' +
                   'This is an automated message from the Japanese Learning App.'
         };
 
+        // Send email using EmailJS
         await emailjs.send(
-          'service_zb7ruvd',
-          'template_xc0kd4e',
+          'service_zb7ruvd', // Replace with your EmailJS service ID
+          'template_xc0kd4e', // Replace with your EmailJS template ID
           templateParams,
-          'jBr6c1UQy5gCNkzB0'
+          'jBr6c1UQy5gCNkzB0' // Your public key
         );
+        
         console.log('Results email sent successfully');
       } catch (emailError) {
         console.error('Failed to send email:', emailError);
+        // Consider showing a non-intrusive message to the user
+        // that the results couldn't be sent but were saved locally
       }
     }
   };
@@ -301,6 +255,7 @@ const Exam: React.FC = () => {
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prev => prev - 1);
+      // Restore the previously selected answer if it exists
       const prevAnswer = userAnswers[currentQuestionIndex - 1];
       setSelectedAnswer(prevAnswer?.selected ?? null);
     }
@@ -308,381 +263,247 @@ const Exam: React.FC = () => {
 
   const renderQuestion = () => {
     if (isLoading) {
+      return <div className="text-center py-8">Loading questions...</div>;
+    }
+
+    if (error) {
       return (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center py-8 text-blue-700 dark:text-blue-300"
-        >
-          Loading questions...
-        </motion.div>
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {error}
+        </div>
       );
     }
 
-    if (examCompleted) {
-      const percentage = (score / questions.length) * 100;
-      const passed = percentage >= 70;
+    if (!questions.length) {
       return (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center"
-        >
-          <motion.div
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-green-500' : 'bg-red-500'}`}
+        <div className="text-center py-8">
+          <p>No questions available. Please try again later.</p>
+          <button
+            onClick={loadQuestions}
+            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
-            {passed ? (
-              <Trophy className="w-8 h-8 text-white" />
-            ) : (
-              <CheckCircle className="w-8 h-8 text-white" />
-            )}
-          </motion.div>
-          <h2 className="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-4">
-            {passed ? 'Congratulations!' : 'Keep Practicing!'}
-          </h2>
-          <p className="text-md text-gray-600 dark:text-gray-400 mb-6">
-            {passed 
-              ? 'You passed the vocabulary test! Great job!'
-              : 'You need 70% or higher to pass. Try again!'}
-          </p>
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
-              <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">{percentage.toFixed(1)}%</div>
-              <div className="text-xs text-gray-600 dark:text-gray-400">Score</div>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
-              <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">{score}/{questions.length}</div>
-              <div className="text-xs text-gray-600 dark:text-gray-400">Correct</div>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
-            >
-              Try Again
-              <ArrowRight size={18} className="inline ml-2" />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleLogout}
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors"
-            >
-              Logout
-            </motion.button>
-          </div>
-        </motion.div>
+            Retry
+          </button>
+        </div>
       );
     }
 
     const currentQuestion = questions[currentQuestionIndex];
     
-    return (
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <div className="flex items-center justify-between mb-8">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleLogout}
-            className="flex items-center space-x-2 text-blue-700 dark:text-blue-300 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors"
+    if (!currentQuestion) {
+      return (
+        <div className="text-center py-8">
+          <p>Error loading question. Please try again.</p>
+          <button
+            onClick={loadQuestions}
+            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
-            <ArrowLeft size={20} />
-            <span>Logout</span>
-          </motion.button>
-          <div>
-            <h1 className="text-3xl font-bold text-blue-800 dark:text-blue-200 flex items-center gap-2">
-              <BookOpen className="w-6 h-6" />
-              Vocabulary Test
-            </h1>
-            <p className="text-md text-gray-600 dark:text-gray-400">
+            Reload Questions
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <div className="mb-4">
+            <span className="text-gray-600">
               Question {currentQuestionIndex + 1} of {questions.length}
-            </p>
-          </div>
-          <div className="text-right">
-            <div className="text-sm text-gray-600 dark:text-gray-400">Score</div>
-            <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
-              {score}/{questions.length}
+            </span>
+            <div className="w-full bg-gray-200 h-2 mt-2 rounded">
+              <div 
+                className="bg-blue-500 h-2 rounded" 
+                style={{ width: `${((currentQuestionIndex) / questions.length) * 100}%` }}
+              />
             </div>
           </div>
-        </div>
-
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-8">
-          <motion.div
-            className="h-3 bg-blue-500 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
-            transition={{ duration: 0.5 }}
-          />
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8"
-        >
-          <h2 className="text-xl font-semibold text-blue-800 dark:text-blue-200 mb-4 no-select">
-            {currentQuestion.question}
-          </h2>
+          
+          <h3 className="text-xl font-semibold mb-6">{currentQuestion.question}</h3>
+          
           <div className="space-y-3">
             {currentQuestion.options.map((option, index) => (
-              <motion.button
+              <div
                 key={index}
-                whileHover={selectedAnswer === null ? { scale: 1.02 } : {}}
-                onClick={() => selectedAnswer === null && setSelectedAnswer(index)}
-                className={`w-full p-3 text-left rounded-lg border transition-colors ${
+                onClick={() => setSelectedAnswer(index)}
+                className={`p-4 border rounded-lg cursor-pointer transition-colors ${
                   selectedAnswer === index
-                    ? 'bg-blue-100 dark:bg-blue-900 border-blue-500 text-blue-700 dark:text-blue-300'
-                    : 'bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-gray-700'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:bg-gray-50'
                 }`}
-                disabled={selectedAnswer !== null}
               >
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 rounded-full border flex items-center justify-center font-medium">
-                    {String.fromCharCode(65 + index)}
-                  </div>
-                  <span className="text-md no-select">{option}</span>
-                </div>
-              </motion.button>
+                {option}
+              </div>
             ))}
           </div>
-        </motion.div>
-
-        {selectedAnswer !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex justify-center gap-4"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          
+          <div className="flex flex-col sm:flex-row gap-4 mt-8">
+            <button
               onClick={handlePrevious}
               disabled={currentQuestionIndex === 0}
-              className={`px-6 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                 currentQuestionIndex === 0
-                  ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-500 text-white hover:bg-gray-600'
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              <ArrowLeft size={18} />
-              <span>Previous</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              Previous
+            </button>
+            
+            <button
               onClick={handleSubmit}
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center space-x-2"
+              disabled={selectedAnswer === null}
+              className={`flex-1 py-3 rounded-lg font-medium transition-colors ${
+                selectedAnswer === null
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-blue-500 text-white hover:bg-blue-600 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200'
+              }`}
             >
-              <span>{currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Finish Test'}</span>
-              <ArrowRight size={18} />
-            </motion.button>
-          </motion.div>
-        )}
-      </motion.div>
+              {currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Finish Test'}
+            </button>
+          </div>
+        </div>
+      </div>
     );
   };
 
   if (!loggedIn && !showRegister) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
-        <style>
-          {`
-            @keyframes fadeIn {
-              from { opacity: 0; transform: translateY(10px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-            .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
-            .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
-          `}
-        </style>
-        <JapaneseBackground />
-        <CherryBlossoms />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-md mx-auto px-4 py-12"
-        >
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="mb-4"
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50">
+        <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full transform transition-all duration-300 hover:shadow-2xl">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Welcome Back!</h1>
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                required
+              />
+            </div>
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+            <button
+              type="submit"
+              className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
             >
-              <Smile className="w-12 h-12 text-blue-600 dark:text-blue-400 mx-auto" />
-            </motion.div>
-            <h1 className="text-3xl font-bold text-blue-800 dark:text-blue-200 mb-6">Welcome Back!</h1>
-            <form onSubmit={handleLogin} className="space-y-6">
-              <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="mt-1 block w-full p-3 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 block w-full p-3 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  required
-                />
-              </div>
-              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="submit"
-                className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-all duration-200"
+              Login
+            </button>
+            <p className="text-sm text-center text-gray-600">
+              New here?{' '}
+              <button
+                onClick={() => setShowRegister(true)}
+                className="text-blue-600 hover:underline font-medium"
               >
-                Login
-              </motion.button>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
-                New here?{' '}
-                <button
-                  onClick={() => setShowRegister(true)}
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
-                >
-                  Create an account
-                </button>
-              </p>
-            </form>
-          </div>
-        </motion.div>
+                Create an account
+              </button>
+            </p>
+          </form>
+        </div>
       </div>
     );
   }
 
   if (!loggedIn && showRegister) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
-        <style>
-          {`
-            @keyframes fadeIn {
-              from { opacity: 0; transform: translateY(10px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-            .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
-            .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
-          `}
-        </style>
-        <JapaneseBackground />
-        <CherryBlossoms />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-md mx-auto px-4 py-12"
-        >
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="mb-4"
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-50">
+        <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full transform transition-all duration-300 hover:shadow-2xl">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Create Account</h1>
+          <form onSubmit={handleRegister} className="space-y-6">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                required
+              />
+            </div>
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+            <button
+              type="submit"
+              className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
             >
-              <Smile className="w-12 h-12 text-blue-600 dark:text-blue-400 mx-auto" />
-            </motion.div>
-            <h1 className="text-3xl font-bold text-blue-800 dark:text-blue-200 mb-6">Create Account</h1>
-            <form onSubmit={handleRegister} className="space-y-6">
-              <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="mt-1 block w-full p-3 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 block w-full p-3 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  required
-                />
-              </div>
-              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="submit"
-                className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-all duration-200"
+              Register
+            </button>
+            <p className="text-sm text-center text-gray-600">
+              Already have an account?{' '}
+              <button
+                onClick={() => setShowRegister(false)}
+                className="text-blue-600 hover:underline font-medium"
               >
-                Register
-              </motion.button>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
-                Already have an account?{' '}
-                <button
-                  onClick={() => setShowRegister(false)}
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
-                >
-                  Login
-                </button>
-              </p>
-            </form>
+                Login
+              </button>
+            </p>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  if (examCompleted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-gray-50 p-4">
+        <div className="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full text-center animate-fade-in">
+          <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 transform transition-all duration-500 hover:scale-110">
+            <svg
+              className="w-16 h-16 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
           </div>
-        </motion.div>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Congratulations!</h2>
+          <p className="text-lg text-gray-600 mb-6">Your exam has been submitted successfully.</p>
+          <button
+            onClick={handleLogout}
+            className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8 relative overflow-hidden">
-      <style>
-        {`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
-          .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
-          .no-select {
-            user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            -moz-user-select: none;
-          }
-        `}
-      </style>
-      <JapaneseBackground />
-      <CherryBlossoms />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {error ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-4"
-          >
-            {error}
-          </motion.div>
-        ) : (
-          renderQuestion()
-        )}
-      </div>
+    <div className="max-w-4xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-6">Vocabulary Test</h1>
+      {renderQuestion()}
     </div>
   );
 };
