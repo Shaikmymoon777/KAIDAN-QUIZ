@@ -64,6 +64,7 @@ const prepareVocabularyQuestions = (vocabData: VocabularyItem[], count: number =
 };
 
 const QUESTION_COUNT = 25;
+const EXAM_DURATION = 15 * 60 * 1000; // 15 minutes in milliseconds
 
 const Exam: React.FC = () => {
   const [] = useState<ExamSection>('vocabulary');
@@ -81,6 +82,8 @@ const Exam: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showRegister, setShowRegister] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
+  const [examStarted, setExamStarted] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('username');
@@ -161,6 +164,7 @@ const Exam: React.FC = () => {
       setListeningQuestions([]);
       setSpeakingQuestions([]);
       setIsLoading(false);
+      setExamStarted(true); // Start the timer when questions are loaded
     } catch (error) {
       console.error('Error loading questions:', error);
       setError(error instanceof Error ? error.message : 'Failed to load questions. Please try again later.');
@@ -168,10 +172,43 @@ const Exam: React.FC = () => {
     }
   };
 
+  // Timer effect
   useEffect(() => {
-    loadQuestions();
-  }, []);
+    if (!examStarted || examCompleted) return;
 
+    const timer = setInterval(() => {
+      setTimeLeft(prevTime => {
+        if (prevTime <= 1000) {
+          clearInterval(timer);
+          handleTimeUp();
+          return 0;
+        }
+        return prevTime - 1000;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [examStarted, examCompleted]);
+
+  // Handle time up
+  const handleTimeUp = () => {
+    setExamCompleted(true);
+    // Submit the exam with current answers
+    const currentScore = userAnswers.filter(answer => answer.correct).length;
+    setScore(currentScore);
+    
+    // Send email with results
+    sendResultsEmail(currentScore);
+  };
+
+  // Function to format time
+  const formatTime = (ms: number) => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  // Modified handleSubmit to use the sendResultsEmail function
   const handleSubmit = async () => {
     if (selectedAnswer === null) {
       setError('Please select an answer before submitting.');
@@ -213,52 +250,131 @@ const Exam: React.FC = () => {
     } else {
       // Exam completed
       setExamCompleted(true);
-      
-      try {
-        // Prepare email template parameters with more details
-        const templateParams = {
-          to_email: 'mymoonshaik004@gmail.com',
-          to_name: 'Admin',
-          from_name: 'Japanese Learning App',
-          reply_to: username ? username + '@example.com' : 'noreply@japaneselearningapp.com',
-          subject: `Vocabulary Test Results - ${new Date().toLocaleDateString()}`,
-          message: `A user has completed the vocabulary test with the following results:\n\n` +
-                  `Score: ${newScore} out of ${questions.length} (${((newScore / questions.length) * 100).toFixed(1)}%)\n` +
-                  `Date: ${new Date().toLocaleString()}\n` +
-                  `User: ${username || 'Guest'}\n\n` +
-                  `Test Details:\n` +
-                  `- Total Questions: ${questions.length}\n` +
-                  `- Correct Answers: ${newScore}\n` +
-                  `- Incorrect Answers: ${questions.length - newScore}\n` +
-                  `- Success Rate: ${((newScore / questions.length) * 100).toFixed(1)}%\n\n` +
-                  '---\n' +
-                  'This is an automated message from the Japanese Learning App.'
-        };
-
-        // Send email using EmailJS
-        await emailjs.send(
-          'service_zb7ruvd', // Replace with your EmailJS service ID
-          'template_xc0kd4e', // Replace with your EmailJS template ID
-          templateParams,
-          'jBr6c1UQy5gCNkzB0' // Your public key
-        );
-        
-        console.log('Results email sent successfully');
-      } catch (emailError) {
-        console.error('Failed to send email:', emailError);
-        // Consider showing a non-intrusive message to the user
-        // that the results couldn't be sent but were saved locally
-      }
+      sendResultsEmail(newScore);
     }
   };
 
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(prev => prev - 1);
-      // Restore the previously selected answer if it exists
-      const prevAnswer = userAnswers[currentQuestionIndex - 1];
-      setSelectedAnswer(prevAnswer?.selected ?? null);
+  // Function to send results email
+  const sendResultsEmail = async (finalScore: number) => {
+    try {
+      // Prepare email template parameters with more details
+      const templateParams = {
+        to_email: 'mymoonshaik004@gmail.com',
+        to_name: 'Admin',
+        from_name: 'Japanese Learning App',
+        reply_to: username ? username + '@example.com' : 'noreply@japaneselearningapp.com',
+        subject: `Vocabulary Test Results - ${new Date().toLocaleDateString()}`,
+        message: `A user has completed the vocabulary test with the following results:\n\n` +
+                `Score: ${finalScore} out of ${questions.length} (${((finalScore / questions.length) * 100).toFixed(1)}%)\n` +
+                `Time Taken: ${formatTime(EXAM_DURATION - timeLeft)}\n` +
+                `Date: ${new Date().toLocaleString()}\n` +
+                `User: ${username || 'Guest'}\n\n` +
+                `Test Details:\n` +
+                `- Total Questions: ${questions.length}\n` +
+                `- Correct Answers: ${finalScore}\n` +
+                `- Incorrect Answers: ${questions.length - finalScore}\n` +
+                `- Success Rate: ${((finalScore / questions.length) * 100).toFixed(1)}%\n\n` +
+                '---\n' +
+                'This is an automated message from the Japanese Learning App.'
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(
+        'service_zb7ruvd', // Replace with your EmailJS service ID
+        'template_xc0kd4e', // Replace with your EmailJS template ID
+        templateParams,
+        'jBr6c1UQy5gCNkzB0' // Your public key
+      );
+      
+      console.log('Results email sent successfully');
+    } catch (emailError) {
+      console.error('Failed to send email:', emailError);
+      // Consider showing a non-intrusive message to the user
+      // that the results couldn't be sent but were saved locally
     }
+  };
+
+  useEffect(() => {
+    loadQuestions();
+  }, []);
+
+  useEffect(() => {
+    if (!examStarted || examCompleted) return;
+
+    // Prevent right-click
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Prevent keyboard shortcuts
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, Ctrl+P
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) ||
+        (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's' || e.key === 'P' || e.key === 'p' || e.key === 'c' || e.key === 'C'))
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Prevent text selection
+    const handleSelectStart = (e: Event) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Prevent drag and drop
+    const handleDragStart = (e: DragEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Add event listeners
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('selectstart', handleSelectStart);
+    document.addEventListener('dragstart', handleDragStart);
+    
+    // Cleanup function
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('selectstart', handleSelectStart);
+      document.removeEventListener('dragstart', handleDragStart);
+    };
+  }, [examStarted, examCompleted]);
+
+  useEffect(() => {
+    if (!examStarted || examCompleted) return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      const message = 'Are you sure you want to leave? The exam will be submitted automatically if you leave this page.';
+      e.preventDefault();
+      e.returnValue = message; // For Chrome
+      return message; // For other browsers
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [examStarted, examCompleted]);
+
+  const preventCopyStyle: React.CSSProperties = {
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
+    msUserSelect: 'none',
+    MozUserSelect: 'none',
+    WebkitTouchCallout: 'none',
+  };
+
+  const containerStyle: React.CSSProperties = {
+    ...preventCopyStyle,
+    pointerEvents: 'auto',
   };
 
   const renderQuestion = () => {
@@ -306,6 +422,27 @@ const Exam: React.FC = () => {
 
     return (
       <div className="space-y-6">
+        <div className="flex justify-between items-center mb-4">
+          <div className="text-lg font-medium text-gray-700">
+            Time Remaining: <span className={`font-bold ${timeLeft < 60000 ? 'text-red-600' : 'text-gray-800'}`}>
+              {formatTime(timeLeft)}
+            </span>
+          </div>
+          <div className="text-gray-600">
+            Question {currentQuestionIndex + 1} of {questions.length}
+          </div>
+        </div>
+        
+        <div className="w-full bg-gray-200 h-2 rounded-full mb-6">
+          <div 
+            className="h-full rounded-full transition-all duration-1000 ease-linear"
+            style={{
+              width: `${(timeLeft / EXAM_DURATION) * 100}%`,
+              backgroundColor: timeLeft < 60000 ? '#dc2626' : '#3b82f6' // Red if less than 1 minute left, else blue
+            }}
+          />
+        </div>
+        
         <div className="bg-white p-6 rounded-lg shadow-md">
           <div className="mb-4">
             <span className="text-gray-600">
@@ -365,6 +502,15 @@ const Exam: React.FC = () => {
         </div>
       </div>
     );
+  };
+
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prev => prev - 1);
+      // Restore the previously selected answer if it exists
+      const prevAnswer = userAnswers[currentQuestionIndex - 1];
+      setSelectedAnswer(prevAnswer?.selected ?? null);
+    }
   };
 
   if (!loggedIn && !showRegister) {
@@ -501,7 +647,7 @@ const Exam: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-4xl mx-auto p-4" style={containerStyle}>
       <h1 className="text-2xl font-bold mb-6">Vocabulary Test</h1>
       {renderQuestion()}
     </div>
