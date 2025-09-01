@@ -3,23 +3,36 @@ import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    if (users[username]) {
-      setError('Username already exists. Please choose another.');
-    } else if (username && password) {
-      users[username] = password;
-      localStorage.setItem('users', JSON.stringify(users));
-      localStorage.setItem('username', username);
-      navigate('/login');
-      setError('');
-    } else {
-      setError('Please enter username and password.');
+    setError('');
+    try {
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+      if (users[username]) {
+        setError('Username already exists. Please choose another.');
+      } else if (username && password && email) {
+        users[username] = { 
+          password,
+          email,
+          createdAt: new Date().toISOString()
+        };
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('currentUser', JSON.stringify({ username, email }));
+        if (!localStorage.getItem('userId')) {
+          localStorage.setItem('userId', Math.random().toString(36).substr(2, 9));
+        }
+        navigate('/');
+        setError('');
+      } else {
+        setError('Please fill in all fields.');
+      }
+    } catch (err) {
+      setError('An error occurred during registration.');
     }
   };
 
@@ -37,6 +50,19 @@ const Register: React.FC = () => {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
               required
             />
