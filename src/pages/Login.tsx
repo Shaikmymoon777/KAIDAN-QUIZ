@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useUser } from '../contexts/usercontext';
+import { User } from '../types';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { setUser } = useUser();
@@ -21,21 +22,33 @@ const Login: React.FC = () => {
     }
   }, [navigate, from]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
     try {
       const users = JSON.parse(localStorage.getItem('users') || '{}');
-      const user = users[email];
-      
+      const user = users[username];
+
       if (!user || user.password !== password) {
-        setError('Invalid email or password');
+        setError('Invalid username or password');
         return;
       }
       
-      setUser({ email, username: user.username });
+      // Create a user object that matches our User type
+      const userData: User = {
+        id: username, // Using username as ID for now, in a real app this would come from the server
+        username,
+        email: user.email || '',
+        name: user.name || username,
+        avatar: user.avatar,
+        level: user.level,
+        streak: user.streak,
+        joinDate: user.joinDate || new Date().toISOString(),
+        averageScore: 0
+      };
       
+      setUser(userData);
       // Redirect to the page the user was trying to access, or /exam
       navigate(from, { replace: true });
     } catch (err) {
@@ -52,26 +65,24 @@ const Login: React.FC = () => {
             Sign in to your account
           </h2>
         </div>
-        
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
             <span className="block sm:inline">{error}</span>
           </div>
         )}
-
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email-address" className="sr-only">Email address</label>
+              <label htmlFor="username" className="sr-only">Username</label>
               <input
-                id="email-address"
-                name="email"
-                type="email"
+                id="username"
+                name="username"
+                type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
@@ -80,6 +91,7 @@ const Login: React.FC = () => {
                 id="password"
                 name="password"
                 type="password"
+                autoComplete="current-password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                 placeholder="Password"

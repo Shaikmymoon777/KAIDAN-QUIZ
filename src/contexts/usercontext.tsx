@@ -1,11 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-
-interface User {
-  id: string;
-  email?: string;
-  username?: string;
-  // Add other user properties as needed
-}
+import { User } from "../types";
 
 interface UserContextType {
   user: User | null;
@@ -13,60 +7,47 @@ interface UserContextType {
   loading: boolean;
 }
 
-export const UserContext = createContext<UserContextType>({
-  user: null,
-  setUser: () => {},
-  loading: true, // Start with loading true
-});
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export function UserProvider({ children }: { children: React.ReactNode }) {
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from localStorage on initial render
+  // Load user from localStorage on initial load
   useEffect(() => {
-    const loadUser = () => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
       try {
-        const stored = localStorage.getItem("user");
-        if (stored) {
-          setUser(JSON.parse(stored));
-        }
+        setUser(JSON.parse(storedUser));
       } catch (error) {
-        console.error('Failed to load user from localStorage', error);
-      } finally {
-        setLoading(false);
+        console.error('Failed to parse user data from localStorage', error);
       }
-    };
-
-    loadUser();
+    }
+    setLoading(false);
   }, []);
 
-  // Save user to localStorage when it changes
+  // Update localStorage when user changes
   useEffect(() => {
     if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     } else {
-      localStorage.removeItem("user");
+      localStorage.removeItem('user');
     }
   }, [user]);
 
-  const contextValue = {
-    user,
-    setUser,
-    loading,
-  };
-
   return (
-    <UserContext.Provider value={contextValue}>
-      {children}
+    <UserContext.Provider value={{ user, setUser, loading }}>
+      {!loading && children}
     </UserContext.Provider>
   );
-}
+};
 
-export function useUser() {
+export const useUser = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;
-}
+};
+
+export default UserContext;

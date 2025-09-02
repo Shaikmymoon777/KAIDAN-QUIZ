@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Trophy, Medal, Award, Star, TrendingUp, Calendar, Target } from 'lucide-react';
 import { useUser } from '../contexts/usercontext';
 import { useApp } from '../contexts/AppContext';
+import { User } from '../types';
 
 // Japanese Themed Background with Wave and Sakura Petal Animations
 const JapaneseBackground = () => (
@@ -70,9 +71,9 @@ export default function Ranking() {
         if (!response.ok) throw new Error('Failed to fetch rankings');
         const data = await response.json();
         // Map backend data to frontend format
-        const mappedRankings: RankingEntry[] = data.map((user: any) => ({
-          id: user._id,
-          name: user.name,
+        const mappedRankings: RankingEntry[] = data.map((user: User) => ({
+          id: user.id,
+          name: user.name || user.username,
           avatar: user.avatar || '',
           level: user.level,
           score: Math.round(user.averageScore || 0),
@@ -84,7 +85,7 @@ export default function Ranking() {
             id: user.id,
             name: user.name || 'You',
             avatar: user.avatar || '',
-            level: user.level || 'N5',
+            level: String(user.level || 'N5'),
             score: Math.round(averageScore || 0),
             date: user.joinDate || new Date().toISOString(),
           });
