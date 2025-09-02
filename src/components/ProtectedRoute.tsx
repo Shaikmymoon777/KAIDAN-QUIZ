@@ -1,16 +1,28 @@
-<<<<<<< HEAD
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useUser } from '../contexts/usercontext';
+import { useEffect, useState } from 'react';
 
 interface ProtectedRouteProps {
   redirectPath?: string;
+  children?: React.ReactNode;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-  redirectPath = '/login' 
+  redirectPath = '/login',
+  children 
 }) => {
   const { user } = useUser();
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Add any additional auth checks here if needed
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Or a proper loading spinner
+  }
 
   if (!user) {
     // Redirect them to the /login page, but save the current location they were
@@ -19,38 +31,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to={redirectPath} state={{ from: location }} replace />;
   }
 
-  return <Outlet />;
+  // If there are children, render them, otherwise render the Outlet
+  return children ? <>{children}</> : <Outlet />;
 };
 
 export default ProtectedRoute;
-=======
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
-
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const [loading, setLoading] = useState(true);
-  const { user, loading: authLoading } = useAuth();
-
-  useEffect(() => {
-    // Set loading to false once auth state is determined
-    if (!authLoading) {
-      setLoading(false);
-    }
-  }, [authLoading]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  return user ? <>{children}</> : <Navigate to="/login" replace />;
-};
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307

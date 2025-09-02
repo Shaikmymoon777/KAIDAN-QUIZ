@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useState, useEffect, useRef, useCallback } from 'react';
-=======
 import { useState, useEffect, useCallback } from 'react';
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../contexts/usercontext';
 import emailjs from '@emailjs/browser';
@@ -135,11 +131,7 @@ const Exam: React.FC = () => {
     );
   }
 
-<<<<<<< HEAD
-  const [currentSection, setCurrentSection] = useState<ExamSection>('vocabulary');
-=======
   const [currentSection] = useState<ExamSection>('vocabulary');
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
   const [vocabularyQuestions, setVocabularyQuestions] = useState<GeminiVocabularyQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -150,18 +142,6 @@ const Exam: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<{questionId: string; selected?: number | null; correct: boolean; feedback?: string; section?: string}[]>([]);
   const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
   const [examStarted, setExamStarted] = useState(false);
-<<<<<<< HEAD
-  const [, setRecognition] = useState<SpeechRecognition | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [recordedAudio, setRecordedAudio] = useState<string | null>(null);
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
-  const [, setAudioChunks] = useState<Blob[]>([]);
-  const [emailStatus, setEmailStatus] = useState<{success: boolean; message: string} | null>(null);
-  const [isSendingEmail, setIsSendingEmail] = useState(false);
-=======
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
 
   useEffect(() => {
     const storedUser = localStorage.getItem('username');
@@ -193,20 +173,6 @@ const Exam: React.FC = () => {
       return false;
     }
 
-<<<<<<< HEAD
-  const sendResultsEmail = useCallback(async (results: {
-    score: number;
-    totalQuestions: number;
-    correctAnswers: number;
-    percentage: number;
-  }): Promise<boolean> => {
-    if (!user?.email) {
-      console.error('No email found for the user');
-      return false;
-    }
-
-=======
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
     try {
       const templateParams = {
         to_email: user.email,
@@ -233,46 +199,6 @@ const Exam: React.FC = () => {
   }, [user]);
 
   const handleAutoSubmit = useCallback(async () => {
-<<<<<<< HEAD
-    setExamCompleted(true);
-    
-    // Calculate vocabulary score
-    const vocabCorrect = userAnswers
-      .filter(a => a.questionId.startsWith('vocab-') && a.correct)
-      .length;
-    setVocabScore(vocabCorrect);
-
-    const totalScore = vocabCorrect + listeningScore + speakingScore;
-    
-    try {
-      setIsSendingEmail(true);
-      const emailResult = await sendResultsEmail({
-        score: totalScore,
-        totalQuestions: VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT,
-        correctAnswers: vocabCorrect + listeningScore + speakingScore,
-        percentage: Math.round((totalScore / (VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT)) * 100),
-      });
-      setEmailStatus({
-        success: emailResult,
-        message: 'Results sent successfully'
-      });
-      
-      if (emailResult) {
-        console.log('Exam results sent successfully');
-      } else {
-        console.error('Failed to send exam results:');
-      }
-    } catch (error) {
-      console.error('Error sending exam results:', error);
-      setEmailStatus({
-        success: false,
-        message: 'An error occurred while sending results. Please contact support.'
-      });
-    } finally {
-      setIsSendingEmail(false);
-    }
-  }, [sendResultsEmail, listeningScore, speakingScore]);
-=======
     try {
       // Calculate scores
       const vocabScore = userAnswers
@@ -334,7 +260,6 @@ const Exam: React.FC = () => {
       setError('Failed to submit exam. Please try again.');
     }
   }, [userAnswers, user, sendResultsEmail]);
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
 
   useEffect(() => {
     if (!examStarted || examCompleted) return;
@@ -353,15 +278,8 @@ const Exam: React.FC = () => {
     return () => clearInterval(timer);
   }, [examStarted, examCompleted, handleAutoSubmit]);
 
-<<<<<<< HEAD
-  const getCurrentQuestions = () => {
-    if (currentSection === 'vocabulary') return vocabularyQuestions;
-    if (currentSection === 'listening' && listeningStory) return listeningStory.questions;
-    return speakingQuestions;
-=======
   const getCurrentQuestions = (): GeminiVocabularyQuestion[] => {
     return vocabularyQuestions;
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
   };
 
   const handleAnswerSelect = (answerIndex: number) => {
@@ -428,53 +346,6 @@ const Exam: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
-  const submitSpeakingTest = async () => {
-    try {
-      const score = userAnswers.filter(a => a.questionId.startsWith('speaking-')).length;
-      setSpeakingScore(score);
-      
-      const results = {
-        score: score,
-        totalQuestions: SPEAKING_QUESTION_COUNT,
-        correctAnswers: score,
-        percentage: Math.round((score / SPEAKING_QUESTION_COUNT) * 100),
-      };
-
-      await sendResultsEmail(results);
-      
-      const totalScore = vocabScore + listeningScore + score;
-      await sendResultsEmail({
-        score: totalScore,
-        totalQuestions: VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT,
-        correctAnswers: vocabScore + listeningScore + score,
-        percentage: Math.round((totalScore / (VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT)) * 100),
-      });
-      setExamCompleted(true);
-    } catch (error) {
-      console.error('Error submitting speaking test:', error);
-      setError('Failed to submit speaking test.');
-    }
-  };
-
-  const submitListeningTest = async () => {
-    const currentScore = userAnswers
-      .filter(a => a.questionId.startsWith('listening-'))
-      .filter(a => a.correct).length;
-    
-    const listeningDetails = {
-      score: currentScore,
-      totalQuestions: LISTENING_QUESTION_COUNT,
-      correctAnswers: currentScore,
-      percentage: Math.round((currentScore / LISTENING_QUESTION_COUNT) * 100),
-    };
-    
-    setListeningScore(currentScore);
-    await sendResultsEmail(listeningDetails);
-  };
-
-=======
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prev => prev - 1);
@@ -607,66 +478,6 @@ const Exam: React.FC = () => {
     );
   };
 
-<<<<<<< HEAD
-  const loadQuestions = async () => {
-    try {
-      setIsLoading(true);
-      if (!vocabularyData || !Array.isArray(vocabularyData) || vocabularyData.length < VOCAB_QUESTION_COUNT) {
-        throw new Error('Insufficient vocabulary data available. Need at least 25 non-kanji items.');
-      }
-      
-      const vocabQuestions = prepareVocabularyQuestions(vocabularyData as VocabularyItem[], VOCAB_QUESTION_COUNT);
-      if (vocabQuestions.length !== VOCAB_QUESTION_COUNT) {
-        throw new Error(`Failed to generate exactly ${VOCAB_QUESTION_COUNT} vocabulary questions.`);
-      }
-      
-      if (!listeningData || !listeningData.story || !Array.isArray(listeningData.questions)) {
-        throw new Error('Invalid listening data format.');
-      }
-      
-      const randomQuestions = getRandomItems(listeningData.questions, LISTENING_QUESTION_COUNT);
-      const listeningStory: ListeningStory = {
-        story: listeningData.story,
-        questions: randomQuestions
-      };
-
-      if (!Array.isArray(speakingData) || speakingData.length < SPEAKING_QUESTION_COUNT) {
-        throw new Error('Invalid speaking data.');
-      }
-      const speakingQs = prepareSpeakingQuestions(speakingData, SPEAKING_QUESTION_COUNT);
-      
-      setVocabularyQuestions(vocabQuestions);
-      setListeningStory(listeningStory);
-      setSpeakingQuestions(speakingQs);
-      setIsLoading(false);
-      setExamStarted(true);
-    } catch (error) {
-      console.error('Error loading questions:', error);
-      setError(error instanceof Error ? error.message : 'Failed to load questions.');
-      setIsLoading(false);
-    }
-  };
-
-  const moveToNextSection = () => {
-    if (currentSection === 'vocabulary') {
-      setCurrentSection('listening');
-    } else if (currentSection === 'listening') {
-      setCurrentSection('speaking');
-    }
-    setCurrentQuestionIndex(0);
-    setSelectedAnswer(null);
-    setRecordedAudio(null);
-  };
-
-  const preventCopyStyle: React.CSSProperties = {
-    userSelect: 'none',
-    WebkitUserSelect: 'none',
-    msUserSelect: 'none',
-    MozUserSelect: 'none',
-  };
-
-=======
->>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-gray-900 mb-8 capitalize">{currentSection} Section</h1>
