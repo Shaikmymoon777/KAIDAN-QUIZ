@@ -1,18 +1,15 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../contexts/usercontext';
 import emailjs from '@emailjs/browser';
 import vocabularyData from '../data/vocab/vocabulary.json';
 import listeningData from '../data/vocab/listening.json';
 import speakingData from '../data/vocab/speaking.json';
 
-// EmailJS Configuration
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'jBr6c1UQy5gCNkzB0';
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zb7ruvd';
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_xc0kd4e';
-
-// Check if EmailJS is properly configured
-if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
-  console.warn('EmailJS is not properly configured. Check your environment variables.');
-}
+// EmailJS Configuration - Direct values
+const EMAILJS_PUBLIC_KEY = 'apCvL9RIRkvZDjG';
+const EMAILJS_SERVICE_ID = 'service_dzsjpmy';
+const EMAILJS_TEMPLATE_ID = 'template_w3l4zw9';
 
 // Initialize EmailJS
 try {
@@ -179,6 +176,31 @@ const formatTime = (milliseconds: number): string => {
 };
 
 const Exam: React.FC = () => {
+  const { user, loading: userLoading } = useUser();
+  const navigate = useNavigate();
+  
+  // Check authentication status when user changes
+  useEffect(() => {
+    if (!userLoading && !user) {
+      navigate('/login', { 
+        state: { 
+          from: window.location.pathname,
+          message: 'Please log in to access the exam.'
+        },
+        replace: true
+      });
+    }
+  }, [user, userLoading, navigate]);
+
+  // Show loading state while checking auth
+  if (userLoading || !user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
   const [currentSection, setCurrentSection] = useState<ExamSection>('vocabulary');
   const [vocabularyQuestions, setVocabularyQuestions] = useState<GeminiVocabularyQuestion[]>([]);
   const [listeningStory, setListeningStory] = useState<ListeningStory | null>(null);
@@ -205,14 +227,6 @@ const Exam: React.FC = () => {
   const [, setAudioChunks] = useState<Blob[]>([]);
   const [emailStatus, setEmailStatus] = useState<{success: boolean; message: string} | null>(null);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
-
-  // Prevent text selection and copying
-  const preventCopyStyle: React.CSSProperties = {
-    userSelect: 'none',
-    WebkitUserSelect: 'none',
-    msUserSelect: 'none',
-    MozUserSelect: 'none',
-  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem('username');
@@ -251,44 +265,81 @@ const Exam: React.FC = () => {
     }
   }, []);
 
-  const loadQuestions = async () => {
+  const sendResultsEmail = useCallback(async (results: {
+    score: number;
+    totalQuestions: number;
+    correctAnswers: number;
+    percentage: number;
+  }): Promise<boolean> => {
+    if (!user?.email) {
+      console.error('No email found for the user');
+      return false;
+    }
+
     try {
-      setIsLoading(true);
-      if (!vocabularyData || !Array.isArray(vocabularyData) || vocabularyData.length < VOCAB_QUESTION_COUNT) {
-        throw new Error('Insufficient vocabulary data available. Need at least 25 non-kanji items.');
-      }
-      
-      const vocabQuestions = prepareVocabularyQuestions(vocabularyData as VocabularyItem[], VOCAB_QUESTION_COUNT);
-      if (vocabQuestions.length !== VOCAB_QUESTION_COUNT) {
-        throw new Error(`Failed to generate exactly ${VOCAB_QUESTION_COUNT} vocabulary questions.`);
-      }
-      
-      if (!listeningData || !listeningData.story || !Array.isArray(listeningData.questions)) {
-        throw new Error('Invalid listening data format.');
-      }
-      
-      const randomQuestions = getRandomItems(listeningData.questions, LISTENING_QUESTION_COUNT);
-      const listeningStory: ListeningStory = {
-        story: listeningData.story,
-        questions: randomQuestions
+      const templateParams = {
+        to_email: user.email,
+        to_name: user.username || 'User',
+        score: results.score,
+        total_questions: results.totalQuestions,
+        correct_answers: results.correctAnswers,
+        percentage: results.percentage,
       };
 
-      if (!Array.isArray(speakingData) || speakingData.length < SPEAKING_QUESTION_COUNT) {
-        throw new Error('Invalid speaking data.');
-      }
-      const speakingQs = prepareSpeakingQuestions(speakingData, SPEAKING_QUESTION_COUNT);
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
       
-      setVocabularyQuestions(vocabQuestions);
-      setListeningStory(listeningStory);
-      setSpeakingQuestions(speakingQs);
-      setIsLoading(false);
-      setExamStarted(true);
+      console.log('Results email sent successfully');
+      return true;
     } catch (error) {
-      console.error('Error loading questions:', error);
-      setError(error instanceof Error ? error.message : 'Failed to load questions.');
-      setIsLoading(false);
+      console.error('Failed to send results email:', error);
+      return false;
     }
-  };
+  }, [user]);
+
+  const handleAutoSubmit = useCallback(async () => {
+    setExamCompleted(true);
+    
+    // Calculate vocabulary score
+    const vocabCorrect = userAnswers
+      .filter(a => a.questionId.startsWith('vocab-') && a.correct)
+      .length;
+    setVocabScore(vocabCorrect);
+
+    const totalScore = vocabCorrect + listeningScore + speakingScore;
+    
+    try {
+      setIsSendingEmail(true);
+      const emailResult = await sendResultsEmail({
+        score: totalScore,
+        totalQuestions: VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT,
+        correctAnswers: vocabCorrect + listeningScore + speakingScore,
+        percentage: Math.round((totalScore / (VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT)) * 100),
+      });
+      setEmailStatus({
+        success: emailResult,
+        message: 'Results sent successfully'
+      });
+      
+      if (emailResult) {
+        console.log('Exam results sent successfully');
+      } else {
+        console.error('Failed to send exam results:');
+      }
+    } catch (error) {
+      console.error('Error sending exam results:', error);
+      setEmailStatus({
+        success: false,
+        message: 'An error occurred while sending results. Please contact support.'
+      });
+    } finally {
+      setIsSendingEmail(false);
+    }
+  }, [sendResultsEmail, listeningScore, speakingScore]);
 
   useEffect(() => {
     if (!examStarted || examCompleted) return;
@@ -305,188 +356,12 @@ const Exam: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [examStarted, examCompleted]);
-
-  const handleAutoSubmit = async () => {
-    setExamCompleted(true);
-    
-    // Calculate vocabulary score
-    const vocabCorrect = userAnswers
-      .filter(a => a.questionId.startsWith('vocab-') && a.correct)
-      .length;
-    setVocabScore(vocabCorrect);
-
-    const totalScore = vocabCorrect + listeningScore + speakingScore;
-    
-    try {
-      setIsSendingEmail(true);
-      const emailResult = await sendResultsEmail(totalScore);
-      setEmailStatus({
-        success: emailResult.success,
-        message: emailResult.message
-      });
-      
-      if (emailResult.success) {
-        console.log('Exam results sent successfully');
-      } else {
-        console.error('Failed to send exam results:', emailResult.error);
-      }
-    } catch (error) {
-      console.error('Error sending exam results:', error);
-      setEmailStatus({
-        success: false,
-        message: 'An error occurred while sending results. Please contact support.'
-      });
-    } finally {
-      setIsSendingEmail(false);
-    }
-  };
+  }, [examStarted, examCompleted, handleAutoSubmit]);
 
   const getCurrentQuestions = () => {
     if (currentSection === 'vocabulary') return vocabularyQuestions;
     if (currentSection === 'listening' && listeningStory) return listeningStory.questions;
     return speakingQuestions;
-  };
-
-  const sendResultsEmail = async (totalScore: number) => {
-    try {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-      const totalPossible = VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT;
-      const overallPercentage = Math.round((totalScore / totalPossible) * 100);
-
-      const templateParams = {
-        to_email: currentUser.email || 'mymoonshaik004@gmail.com',
-        to_name: currentUser.username || 'Student',
-        from_name: 'Japanese Learning App',
-        subject: `Exam Results - ${currentUser.username || 'Student'}`,
-        student_name: currentUser.username || 'Student',
-        exam_date: new Date().toLocaleString(),
-        total_score: totalScore,
-        total_questions: totalPossible,
-        percentage: overallPercentage,
-        time_spent: formatTime(EXAM_DURATION - timeLeft),
-        vocabulary_score: vocabScore,
-        listening_score: listeningScore,
-        speaking_score: speakingScore,
-        vocabulary_total: VOCAB_QUESTION_COUNT,
-        listening_total: LISTENING_QUESTION_COUNT,
-        speaking_total: SPEAKING_QUESTION_COUNT
-      };
-
-      console.log('Sending email with params:', templateParams);
-      
-      const response = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_PUBLIC_KEY
-      );
-      
-      console.log('Email sent successfully:', response);
-      return { success: true, message: 'Results sent successfully' };
-    } catch (error: any) {
-      console.error('Email sending failed:', {
-        status: error?.status,
-        text: error?.text,
-        message: error?.message,
-        stack: error?.stack
-      });
-      
-      return { 
-        success: false, 
-        message: 'Failed to send results. Please try again later.',
-        error: error?.message || 'Unknown error'
-      };
-    }
-  };
-
-  const sendTestResultsEmail = async (section: 'speaking' | 'listening', score: number, results: {
-    section: string;
-    score: number;
-    total: number;
-    percentage: number;
-    timestamp: string;
-    userAnswers: { questionId: string; selected?: number | null; spoken?: string; correct: boolean; feedback?: string; }[];
-  }) => {
-    try {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-      const userEmail = currentUser?.email || 'mymoonshaik004@gmail.com';
-
-      const vocabPercentage = Math.round((vocabScore / VOCAB_QUESTION_COUNT) * 100);
-      const listeningPercentage = Math.round((listeningScore / LISTENING_QUESTION_COUNT) * 100);
-      const speakingPercentage = Math.round((speakingScore / SPEAKING_QUESTION_COUNT) * 100);
-      
-      const now = new Date();
-      const formattedDate = now.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-
-      const templateParams = {
-        to_email: userEmail,
-        to_name: currentUser?.username || 'Student',
-        from_name: 'Japanese Learning App',
-        subject: `Test Results - ${section.toUpperCase()} - ${currentUser?.username || 'Student'}`,
-        section: section.charAt(0).toUpperCase() + section.slice(1),
-        date: formattedDate,
-        student_name: currentUser?.username || 'Student',
-        vocabulary_score: `${vocabScore}/${VOCAB_QUESTION_COUNT} (${vocabPercentage}%)`,
-        listening_score: `${listeningScore}/${LISTENING_QUESTION_COUNT} (${listeningPercentage}%)`,
-        speaking_score: `${speakingScore}/${SPEAKING_QUESTION_COUNT} (${speakingPercentage}%)`,
-        total_score: `${vocabScore + listeningScore + speakingScore}/` + 
-                   `${VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT}`,
-        current_section: section,
-        current_section_score: score,
-        current_section_total: section === 'speaking' ? SPEAKING_QUESTION_COUNT : LISTENING_QUESTION_COUNT,
-        details: JSON.stringify({
-          timestamp: now.toISOString(),
-          sectionScores: {
-            vocabulary: vocabScore,
-            listening: listeningScore,
-            speaking: speakingScore
-          },
-          userAnswers: results.userAnswers,
-          currentSection: section,
-          score: score
-        }, null, 2)
-      };
-
-      try {
-        console.log('Attempting to send email with params:', {
-          service_id: EMAILJS_SERVICE_ID,
-          template_id: EMAILJS_TEMPLATE_ID,
-          public_key: EMAILJS_PUBLIC_KEY,
-          to_email: templateParams.to_email,
-          subject: templateParams.subject
-        });
-        
-        const response = await emailjs.send(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          templateParams,
-          EMAILJS_PUBLIC_KEY
-        );
-        
-        console.log('Email sent successfully:', response);
-        return true;
-      } catch (error: any) {
-        console.error('Failed to send email:', {
-          error: error.toString(),
-          message: error.message || 'Unknown error',
-          status: error.status,
-          text: error.text,
-          response: error.response,
-          stack: error.stack
-        });
-        return false;
-      }
-    } catch (error) {
-      console.error('Error in sendTestResultsEmail:', error);
-      return false;
-    }
   };
 
   const handleAnswerSelect = (answerIndex: number) => {
@@ -645,17 +520,21 @@ const Exam: React.FC = () => {
       setSpeakingScore(score);
       
       const results = {
-        section: 'speaking',
         score: score,
-        total: SPEAKING_QUESTION_COUNT,
+        totalQuestions: SPEAKING_QUESTION_COUNT,
+        correctAnswers: score,
         percentage: Math.round((score / SPEAKING_QUESTION_COUNT) * 100),
-        timestamp: new Date().toISOString(),
-        userAnswers: userAnswers.filter(a => a.questionId.startsWith('speaking-'))
       };
 
-      await sendTestResultsEmail('speaking', score, results);
+      await sendResultsEmail(results);
+      
       const totalScore = vocabScore + listeningScore + score;
-      await sendResultsEmail(totalScore);
+      await sendResultsEmail({
+        score: totalScore,
+        totalQuestions: VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT,
+        correctAnswers: vocabScore + listeningScore + score,
+        percentage: Math.round((totalScore / (VOCAB_QUESTION_COUNT + LISTENING_QUESTION_COUNT + SPEAKING_QUESTION_COUNT)) * 100),
+      });
       setExamCompleted(true);
     } catch (error) {
       console.error('Error submitting speaking test:', error);
@@ -669,16 +548,14 @@ const Exam: React.FC = () => {
       .filter(a => a.correct).length;
     
     const listeningDetails = {
-      section: 'listening',
       score: currentScore,
-      total: LISTENING_QUESTION_COUNT,
+      totalQuestions: LISTENING_QUESTION_COUNT,
+      correctAnswers: currentScore,
       percentage: Math.round((currentScore / LISTENING_QUESTION_COUNT) * 100),
-      timestamp: new Date().toISOString(),
-      userAnswers: userAnswers.filter(a => a.questionId.startsWith('listening-'))
     };
     
     setListeningScore(currentScore);
-    await sendTestResultsEmail('listening', currentScore, listeningDetails);
+    await sendResultsEmail(listeningDetails);
   };
 
   const handlePrevious = () => {
@@ -1031,6 +908,45 @@ const Exam: React.FC = () => {
     );
   };
 
+  const loadQuestions = async () => {
+    try {
+      setIsLoading(true);
+      if (!vocabularyData || !Array.isArray(vocabularyData) || vocabularyData.length < VOCAB_QUESTION_COUNT) {
+        throw new Error('Insufficient vocabulary data available. Need at least 25 non-kanji items.');
+      }
+      
+      const vocabQuestions = prepareVocabularyQuestions(vocabularyData as VocabularyItem[], VOCAB_QUESTION_COUNT);
+      if (vocabQuestions.length !== VOCAB_QUESTION_COUNT) {
+        throw new Error(`Failed to generate exactly ${VOCAB_QUESTION_COUNT} vocabulary questions.`);
+      }
+      
+      if (!listeningData || !listeningData.story || !Array.isArray(listeningData.questions)) {
+        throw new Error('Invalid listening data format.');
+      }
+      
+      const randomQuestions = getRandomItems(listeningData.questions, LISTENING_QUESTION_COUNT);
+      const listeningStory: ListeningStory = {
+        story: listeningData.story,
+        questions: randomQuestions
+      };
+
+      if (!Array.isArray(speakingData) || speakingData.length < SPEAKING_QUESTION_COUNT) {
+        throw new Error('Invalid speaking data.');
+      }
+      const speakingQs = prepareSpeakingQuestions(speakingData, SPEAKING_QUESTION_COUNT);
+      
+      setVocabularyQuestions(vocabQuestions);
+      setListeningStory(listeningStory);
+      setSpeakingQuestions(speakingQs);
+      setIsLoading(false);
+      setExamStarted(true);
+    } catch (error) {
+      console.error('Error loading questions:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load questions.');
+      setIsLoading(false);
+    }
+  };
+
   const moveToNextSection = () => {
     if (currentSection === 'vocabulary') {
       setCurrentSection('listening');
@@ -1040,6 +956,13 @@ const Exam: React.FC = () => {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setRecordedAudio(null);
+  };
+
+  const preventCopyStyle: React.CSSProperties = {
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
+    msUserSelect: 'none',
+    MozUserSelect: 'none',
   };
 
   return (

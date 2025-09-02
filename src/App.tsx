@@ -14,6 +14,9 @@ import Listening from './pages/listening';
 import Exam from './pages/exam';
 import Home from './pages/home';
 import Admin from './pages/admin';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -27,16 +30,23 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Navigate to="/home" replace />} />
                   <Route path="/home" element={<Home />} />
-                  <Route path="/exam" element={<Exam />} />
-                  <Route path="/admin" element={<Admin />} />
-                  <Route path="/quiz" element={<Quiz />} />
-                  <Route path="/practice" element={<Practice />} />
-                  <Route path="/grammer" element={<Grammer/>} />
-                  <Route path="/listening" element={<Listening />} />
-                  <Route path="/ranking" element={<Ranking />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
                   
+                  {/* Public auth routes */}
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  
+                  {/* Protected routes */}
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/exam" element={<Exam />} />
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/quiz" element={<Quiz />} />
+                    <Route path="/practice" element={<Practice />} />
+                    <Route path="/grammer" element={<Grammer />} />
+                    <Route path="/listening" element={<Listening />} />
+                    <Route path="/ranking" element={<Ranking />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                  </Route>
                 </Routes>
               </main>
               <Footer />
