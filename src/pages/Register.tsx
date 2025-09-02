@@ -4,14 +4,14 @@ import { useUser } from '../contexts/usercontext';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { setUser } = useUser();
   const navigate = useNavigate();
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
+<<<<<<< HEAD
     setError('');
     
     try {
@@ -43,6 +43,19 @@ const Register: React.FC = () => {
     } catch (err) {
       setError('An error occurred during registration.');
       console.error('Registration error:', err);
+=======
+    const users = JSON.parse(localStorage.getItem('users') || '{}');
+    if (users[username]) {
+      setError('Username already exists. Please choose another.');
+    } else if (username && password) {
+      users[username] = password;
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('username', username);
+      navigate('/login');
+      setError('');
+    } else {
+      setError('Please enter username and password.');
+>>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
     }
   };
 
@@ -59,6 +72,7 @@ const Register: React.FC = () => {
           <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">
             {error}
           </div>
+<<<<<<< HEAD
         )}
 
         <form className="mt-8 space-y-6" onSubmit={handleRegister}>
@@ -107,6 +121,30 @@ const Register: React.FC = () => {
           </div>
 
           <div>
+=======
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <button
+            type="submit"
+            className="w-full px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
+          >
+            Register
+          </button>
+          <p className="text-sm text-center mt-4">
+            Already have an account?{' '}
+>>>>>>> 4d3957774c580a7e5924e3010122c83da2f24307
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
