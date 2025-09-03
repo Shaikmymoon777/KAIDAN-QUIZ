@@ -3,27 +3,43 @@ const router = express.Router();
 const Score = require('../models/scores');
 
 // Helper function to calculate section scores
-const calculateSectionScores = (answers, questions) => {
+const calculateSectionScores = (answers, questions, section) => {
   let score = 0;
   const total = questions.length;
   
-  const details = questions.map(q => {
-    const answer = answers[q.id];
-    const isCorrect = answer?.isCorrect || false;
+  if (section === 'speaking') {
+    // For speaking, sum up the scores (0-10 per question)
+    score = Object.values(answers).reduce((sum, answer) => {
+      return sum + (answer?.score || 0);
+    }, 0);
     
-    if (isCorrect) {
-      score += 1;
-    }
+    // Convert to 0-5 scale
+    const normalizedScore = Math.round(score / 2);
+    return { score: normalizedScore, total: total * 2, rawScore: score };
+  } else {
+    // For vocabulary and listening
+    const details = questions.map(q => {
+      const answer = answers[q.id];
+      const isCorrect = answer?.isCorrect || false;
+      
+      if (isCorrect) {
+        score += section === 'vocabulary' ? 4 : 2; // 4 points per vocab, 2 per listening
+      }
+      
+      return {
+        questionId: q.id,
+        isCorrect,
+        userAnswer: answer?.answer || null,
+        correctAnswer: q.meaning || q.correctAnswer
+      };
+    });
     
-    return {
-      questionId: q.id,
-      isCorrect,
-      userAnswer: answer?.answer || null,
-      correctAnswer: q.meaning || q.correctAnswer
+    return { 
+      score, 
+      total: section === 'vocabulary' ? total * 4 : total * 2, // 40 for vocab, 10 for listening
+      details 
     };
-  });
-  
-  return { score, total, details };
+  }
 };
 
 // @route   GET api/scores
@@ -43,8 +59,8 @@ router.get('/', async (req, res) => {
         formattedDate: new Date(score.date).toISOString().split('T')[0]
       };
       
-      // Add section scores if they exist (excluding speaking)
-      ['vocabulary', 'listening'].forEach(section => {
+      // Add section scores if they exist (including speaking)
+      ['vocabulary', 'listening', 'speaking'].forEach(section => {
         if (score.scores?.[section]) {
           response[section] = {
             score: score.scores[section].score || 0,
@@ -76,18 +92,21 @@ router.post('/', async (req, res) => {
     // Calculate scores for each section
     const sectionScores = {};
     let totalScore = 0;
-    let totalQuestions = 0;
     
     // Process each section
     ['vocabulary', 'listening', 'speaking'].forEach(section => {
       const sectionQuestions = questions[section] || [];
       const sectionAnswers = answers[section] || {};
       
-      const { score, total } = calculateSectionScores(sectionAnswers, sectionQuestions);
+      const result = calculateSectionScores(sectionAnswers, sectionQuestions, section);
       
-      sectionScores[section] = { score, total };
-      totalScore += score;
-      totalQuestions += total || 1; // Ensure at least 1 to avoid division by zero
+      sectionScores[section] = { 
+        score: result.score,
+        total: result.total,
+        ...(section === 'speaking' && { rawScore: result.rawScore })
+      };
+      
+      totalScore += result.score;
     });
 
     // Create the score document
@@ -97,9 +116,10 @@ router.post('/', async (req, res) => {
       scores: {
         ...sectionScores,
         totalScore,
-        totalQuestions
+        totalQuestions: 55 // 40 (vocab) + 10 (listening) + 5 (speaking)
       },
-      date: new Date()
+      date: new Date(),
+      rawScores: answers // Store raw answers for reference
     });
 
     const savedScore = await newScore.save();
@@ -110,7 +130,7 @@ router.post('/', async (req, res) => {
       userId: savedScore.userId,
       username: savedScore.username,
       score: totalScore,
-      totalQuestions,
+      totalQuestions: 55,
       date: savedScore.date,
       formattedDate: new Date(savedScore.date).toISOString().split('T')[0],
       ...sectionScores

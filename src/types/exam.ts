@@ -67,17 +67,33 @@ export interface SectionScore {
   score: number;
   totalQuestions: number;
   percentage: number;
-  maxPossible?: number; // For speaking section
-  averagePerQuestion?: number; // For speaking section
+  maxPossible?: number;
+  averagePerQuestion?: number;
+  rawScore?: number;
+}
+
+export interface ScoreResponse {
+  id: string;
+  userId: string;
+  username: string;
+  score: number;
+  totalQuestions: number;
+  date: string;
+  formattedDate: string;
+  vocabulary?: SectionScore;
+  listening?: SectionScore;
+  speaking?: SectionScore & {
+    rawScore?: number;
+  };
 }
 
 export interface ExamScores {
-  score: number;
-  total: any;
-  details: any;
   vocabulary: SectionScore;
   listening: SectionScore;
   speaking: SectionScore;
+  score: number;
+  total: number;
+  details?: any;
 }
 
 // Component Props

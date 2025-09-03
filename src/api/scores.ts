@@ -1,62 +1,92 @@
+import { SectionScore as ExamSectionScore } from '@/types/exam';
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 // Types
-export interface SectionScore {
-  score: number;
-  totalQuestions: number;
-  percentage: number;
-}
-
-export interface ExamScores {
-  vocabulary: SectionScore;
-  listening: SectionScore;
-  speaking: SectionScore;
+export interface SectionScores {
+  vocabulary: ExamSectionScore;
+  listening: ExamSectionScore;
+  speaking: ExamSectionScore;
 }
 
 export interface ScoreData {
   userId: string;
   username: string;
-  scores: ExamScores;
+  scores: SectionScores;
   date: string;
   totalScore?: number;
   totalQuestions?: number;
   percentage?: number;
 }
 
+interface SaveScoreParams {
+  userId: string;
+  username: string;
+  answers: {
+    vocabulary: Record<string, { answer: any; isCorrect: boolean }>;
+    listening: Record<string, { answer: any; isCorrect: boolean }>;
+    speaking: Record<string, { score: number; audioUrl?: string }>;
+  };
+  questions: {
+    vocabulary: Array<{ id: string; meaning: any }>;
+    listening: Array<{ id: string; correctAnswer: any }>;
+    speaking: Array<{ id: string }>;
+  };
+  scores: SectionScores;
+}
+
 // Save score to the database
-export const saveScore = async (
-  userId: string, 
-  scores: ExamScores,
-  scoreData: any
-) => {
+export const saveScore = async (_userId: string, _scores: SectionScores, _scoreData: { userId: string; username: string; scores: SectionScores; date: string; speakingResponses: { questionId: string; audioUrl: string | undefined; score: number; feedback: string; }[]; }, data: SaveScoreParams) => {
   try {
-    // Prepare data for backend - include all scores for storage
-    const response = await axios.post(`${API_URL}/scores`, {
-      userId,
-      username: scoreData.username || 'Anonymous',
-      answers: scoreData.answers || {},
-      questions: scoreData.questions || {},
-      // Include all scores in the request for backend storage
-      scores: {
-        vocabulary: scores.vocabulary,
-        listening: scores.listening,
-        speaking: scores.speaking // Still send speaking scores to backend
-      }
+    const response = await axios.post(`${API_URL}/api/scores`, {
+      userId: data.userId,
+      username: data.username,
+      answers: data.answers,
+      questions: data.questions,
+      scores: data.scores
     });
 
-    // Process response to remove speaking scores before returning to UI
-    const responseData = response.data;
-    
-    // Remove speaking scores from the response
-    if (responseData.speaking) {
-      delete responseData.speaking;
-    }
-    
-    return responseData;
+    return response.data;
   } catch (error) {
     console.error('Error saving score:', error);
+    throw error;
+  }
+};
+
+// Get scores for a specific user or all scores if no userId provided
+export const getScores = async (userId?: string) => {
+  try {
+    const url = userId 
+      ? `${API_URL}/api/scores?userId=${encodeURIComponent(userId)}`
+      : `${API_URL}/api/scores`;
+
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching scores:', error);
+    throw error;
+  }
+};
+
+// Get a single score by ID
+export const getScoreById = async (id: string) => {
+  try {
+    const response = await axios.get(`${API_URL}/api/scores/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching score:', error);
+    throw error;
+  }
+};
+
+// Delete a score by ID
+export const deleteScore = async (id: string) => {
+  try {
+    const response = await axios.delete(`${API_URL}/api/scores/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting score:', error);
     throw error;
   }
 };
@@ -80,7 +110,7 @@ export const getUserStats = async (userId: string) => {
       totalExams: number;
       averageScore: number;
       highestScore: number;
-      sectionAverages: Record<keyof ExamScores, number>;
+      sectionAverages: Record<keyof SectionScores, number>;
     };
   } catch (error) {
     console.error('Error fetching user stats:', error);
@@ -103,26 +133,6 @@ export const getLeaderboard = async (limit: number = 10) => {
     }>;
   } catch (error) {
     console.error('Error fetching leaderboard:', error);
-    throw error;
-  }
-};
-
-// Get all scores (for admin)
-export const getScores = async (userId: string) => {
-  try {
-    const response = await axios.get(`${API_URL}/scores?userId=${userId}`);
-    
-    // Process scores to remove speaking section
-    const scores = Array.isArray(response.data) 
-      ? response.data.map((score: any) => {
-          const { speaking, ...rest } = score;
-          return rest;
-        })
-      : [];
-      
-    return scores;
-  } catch (error) {
-    console.error('Error fetching scores:', error);
     throw error;
   }
 };

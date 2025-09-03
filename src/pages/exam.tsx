@@ -126,52 +126,113 @@ const Exam: React.FC = () => {
       const username = user?.email?.split('@')[0] || 'anonymous';
       
       // Get all speaking answers
-      const speakingAnswers = Object.entries(userAnswers)
-        .filter(([_, answer]) => answer?.section === 'speaking')
-        .map(([questionId, answer]) => ({
-          questionId,
-          audioUrl: (answer as SpeakingAnswer)?.audioUrl,
-          score: 0, // This would be set by your evaluation service
-          feedback: '' // This would be provided by your evaluation service
-        }));
 
       // In a real app, you would send the audio to your backend for evaluation
       // For now, we'll simulate a perfect score for demonstration
-      const score = speakingAnswers.length; // 1 point per question for demo
-      const totalQuestions = speakingQuestions.length;
-      const percentage = Math.round((score / totalQuestions) * 100);
 
-      const scores: ExamScores = {
-        speaking: {
-          score,
-          totalQuestions,
-          percentage
-        },
+      const scores = {
         vocabulary: {
-          score: 0,
-          totalQuestions: 0,
-          percentage: 0
+          score: 40,
+          totalQuestions: 40,
+          percentage: 100,
+          maxPossible: 40
         },
         listening: {
-          score: 0,
-          totalQuestions: 0,
-          percentage: 0
+          score: 10,
+          totalQuestions: 10,
+          percentage: 100,
+          maxPossible: 10
         },
-        score: 0,
-        total: undefined,
-        details: undefined
+        speaking: {
+          score: 5,
+          totalQuestions: 5,
+          percentage: 100,
+          maxPossible: 5,
+          rawScore: 5
+        },
+        score: 55,  // total score
+        total: 55   // total possible score
       };
 
-      const scoreData = {
-        userId,
-        username,
-        scores,
-        date: new Date().toISOString(),
-        speakingResponses: speakingAnswers // Include the speaking responses
-      };
 
       // Save to backend
-      await saveScore(userId, scores, scoreData);
+      await saveScore(
+        userId,
+        {
+          vocabulary: {
+            score: scores.vocabulary.score || 0,
+            totalQuestions: scores.vocabulary.totalQuestions || 0,
+            percentage: scores.vocabulary.percentage || 0
+          },
+          listening: {
+            score: scores.listening.score || 0,
+            totalQuestions: scores.listening.totalQuestions || 0,
+            percentage: scores.listening.percentage || 0
+          },
+          speaking: {
+            score: scores.speaking.score || 0,
+            totalQuestions: scores.speaking.totalQuestions || 0,
+            percentage: scores.speaking.percentage || 0,
+            rawScore: scores.speaking.rawScore || 0
+          }
+        },
+        {
+          userId,
+          username,
+          scores: {
+            vocabulary: {
+              score: scores.vocabulary.score || 0,
+              totalQuestions: scores.vocabulary.totalQuestions || 0,
+              percentage: scores.vocabulary.percentage || 0
+            },
+            listening: {
+              score: scores.listening.score || 0,
+              totalQuestions: scores.listening.totalQuestions || 0,
+              percentage: scores.listening.percentage || 0
+            },
+            speaking: {
+              score: scores.speaking.score || 0,
+              totalQuestions: scores.speaking.totalQuestions || 0,
+              percentage: scores.speaking.percentage || 0,
+              rawScore: scores.speaking.rawScore || 0
+            }
+          },
+          date: new Date().toISOString(),
+          speakingResponses: []
+        },
+        {
+          userId,
+          username,
+          answers: {
+            vocabulary: {},
+            listening: {},
+            speaking: {}
+          },
+          questions: {
+            vocabulary: [],
+            listening: [],
+            speaking: []
+          },
+          scores: {
+            vocabulary: {
+              score: scores.vocabulary.score || 0,
+              totalQuestions: scores.vocabulary.totalQuestions || 0,
+              percentage: scores.vocabulary.percentage || 0
+            },
+            listening: {
+              score: scores.listening.score || 0,
+              totalQuestions: scores.listening.totalQuestions || 0,
+              percentage: scores.listening.percentage || 0
+            },
+            speaking: {
+              score: scores.speaking.score || 0,
+              totalQuestions: scores.speaking.totalQuestions || 0,
+              percentage: scores.speaking.percentage || 0,
+              rawScore: scores.speaking.rawScore || 0
+            }
+          }
+        }
+      );
       
       // Mark speaking section as completed
       setSectionsCompleted(prev => ({
@@ -211,6 +272,7 @@ const Exam: React.FC = () => {
     }
   };
 
+
   const handleComplete = async () => {
     setIsSubmitting(true);
     try {
@@ -219,12 +281,79 @@ const Exam: React.FC = () => {
       if (user?.id) {
         await saveScore(
           user.id,
-          calculatedScores,
+          {
+            vocabulary: {
+              score: calculatedScores.vocabulary?.score || 0,
+              totalQuestions: calculatedScores.vocabulary?.totalQuestions || 0,
+              percentage: calculatedScores.vocabulary?.percentage || 0
+            },
+            listening: {
+              score: calculatedScores.listening?.score || 0,
+              totalQuestions: calculatedScores.listening?.totalQuestions || 0,
+              percentage: calculatedScores.listening?.percentage || 0
+            },
+            speaking: {
+              score: calculatedScores.speaking?.score || 0,
+              totalQuestions: calculatedScores.speaking?.totalQuestions || 0,
+              percentage: calculatedScores.speaking?.percentage || 0,
+              rawScore: calculatedScores.speaking?.rawScore || 0
+            }
+          },
           {
             userId: user.id,
-            username: user.email || 'Anonymous',
-            scores: calculatedScores,
-            date: new Date().toISOString()
+            username: user.email || 'user',
+            scores: {
+              vocabulary: {
+                score: calculatedScores.vocabulary?.score || 0,
+                totalQuestions: calculatedScores.vocabulary?.totalQuestions || 0,
+                percentage: calculatedScores.vocabulary?.percentage || 0
+              },
+              listening: {
+                score: calculatedScores.listening?.score || 0,
+                totalQuestions: calculatedScores.listening?.totalQuestions || 0,
+                percentage: calculatedScores.listening?.percentage || 0
+              },
+              speaking: {
+                score: calculatedScores.speaking?.score || 0,
+                totalQuestions: calculatedScores.speaking?.totalQuestions || 0,
+                percentage: calculatedScores.speaking?.percentage || 0,
+                rawScore: calculatedScores.speaking?.rawScore || 0
+              }
+            },
+            date: new Date().toISOString(),
+            speakingResponses: []
+          },
+          {
+            userId: user.id,
+            username: user.email || 'user',
+            answers: {
+              vocabulary: {},
+              listening: {},
+              speaking: {}
+            },
+            questions: {
+              vocabulary: [],
+              listening: [],
+              speaking: []
+            },
+            scores: {
+              vocabulary: {
+                score: calculatedScores.vocabulary?.score || 0,
+                totalQuestions: calculatedScores.vocabulary?.totalQuestions || 0,
+                percentage: calculatedScores.vocabulary?.percentage || 0
+              },
+              listening: {
+                score: calculatedScores.listening?.score || 0,
+                totalQuestions: calculatedScores.listening?.totalQuestions || 0,
+                percentage: calculatedScores.listening?.percentage || 0
+              },
+              speaking: {
+                score: calculatedScores.speaking?.score || 0,
+                totalQuestions: calculatedScores.speaking?.totalQuestions || 0,
+                percentage: calculatedScores.speaking?.percentage || 0,
+                rawScore: calculatedScores.speaking?.rawScore || 0
+              }
+            }
           }
         );
       }
@@ -238,64 +367,54 @@ const Exam: React.FC = () => {
 
   // Calculate scores
   const calculateScores = (): ExamScores => {
-    // Calculate scores for each section
-    const vocabAnswers = Object.values(userAnswers).filter(
-      (answer): answer is VocabularyAnswer => answer.section === 'vocabulary'
-    );
-    const listeningAnswers = Object.values(userAnswers).filter(
-      (answer): answer is ListeningAnswer => answer.section === 'listening'
-    );
-    const speakingAnswers = Object.values(userAnswers).filter(
-      (answer): answer is SpeakingAnswer => answer.section === 'speaking'
-    );
-
-    // Calculate section scores
-    const vocabScore = vocabAnswers.reduce((acc, curr) => acc + (curr.isCorrect ? 1 : 0), 0);
-    const listeningScore = listeningAnswers.reduce((acc, curr) => acc + (curr.isCorrect ? 1 : 0), 0);
-    const speakingScore = speakingAnswers.reduce((acc, curr) => acc + (curr.score || 0), 0);
-
-    // Calculate totals
-    const totalVocab = limitedVocabQuestions.length;
-    const totalListening = listeningQuestions.length;
-    const totalSpeaking = limitedSpeakingQuestions.length;
-
-    // Calculate percentages (speaking is out of 10 per question)
-    const vocabPercentage = totalVocab > 0 ? Math.round((vocabScore / totalVocab) * 100) : 0;
-    const listeningPercentage = totalListening > 0 ? Math.round((listeningScore / totalListening) * 100) : 0;
-    const speakingPercentage = totalSpeaking > 0 ? Math.round((speakingScore / (totalSpeaking * 10)) * 100) : 0;
-
-    // Calculate overall score (weighted average if needed)
-    const totalScore = vocabScore + listeningScore + speakingScore;
-    const maxPossibleScore = totalVocab + totalListening + (totalSpeaking * 10);
-    const overallPercentage = maxPossibleScore > 0 ? Math.round((totalScore / maxPossibleScore) * 100) : 0;
-
-    return {
-      score: overallPercentage,
-      total: maxPossibleScore,
-      details: {
-        score: totalScore,
-        total: maxPossibleScore,
-        percentage: overallPercentage
+    // Initialize scores with proper types
+    const scores: ExamScores = {
+      vocabulary: { score: 0, totalQuestions: 10, percentage: 0 },
+      listening: { score: 0, totalQuestions: 5, percentage: 0 },
+      speaking: { 
+        score: 0, 
+        totalQuestions: limitedSpeakingQuestions.length, 
+        percentage: 0,
+        maxPossible: 10,
+        averagePerQuestion: 0
       },
-      vocabulary: {
-        score: vocabScore,
-        totalQuestions: totalVocab,
-        percentage: vocabPercentage
-      },
-      listening: {
-        score: listeningScore,
-        totalQuestions: totalListening,
-        percentage: listeningPercentage
-      },
-      speaking: {
-        score: speakingScore,
-        totalQuestions: totalSpeaking,
-        percentage: speakingPercentage,
-        // Include additional speaking metrics if needed
-        maxPossible: totalSpeaking * 10,
-        averagePerQuestion: totalSpeaking > 0 ? speakingScore / totalSpeaking : 0
-      }
+      score: 0,
+      total: 0,
+      details: {}
     };
+
+    // Calculate vocabulary score (4 points per question)
+    const vocabAnswers = Object.values(userAnswers).filter(
+      (answer: any) => answer.section === 'vocabulary' && answer.isCorrect
+    );
+    scores.vocabulary.score = vocabAnswers.length * 4; // 4 points per correct answer
+    scores.vocabulary.percentage = (scores.vocabulary.score / (scores.vocabulary.totalQuestions * 4)) * 100;
+
+    // Calculate listening score (2 points per question)
+    const listeningAnswers = Object.values(userAnswers).filter(
+      (answer: any) => answer.section === 'listening' && answer.isCorrect
+    );
+    scores.listening.score = listeningAnswers.length * 2; // 2 points per correct answer
+    scores.listening.percentage = (scores.listening.score / (scores.listening.totalQuestions * 2)) * 100;
+
+    // Calculate speaking score (0-10 scale, normalized to 0-5)
+    const speakingScores = Object.values(userAnswers)
+      .filter((answer: any) => answer.section === 'speaking' && typeof answer.score === 'number')
+      .map((answer: any) => answer.score);
+    
+    if (speakingScores.length > 0) {
+      const rawTotal = speakingScores.reduce((sum: number, score: number) => sum + score, 0);
+      const averageScore = rawTotal / speakingScores.length;
+      scores.speaking.score = (averageScore / 2); // Convert 0-10 scale to 0-5
+      scores.speaking.percentage = (scores.speaking.score / 5) * 100; // 5 is max score for speaking
+      scores.speaking.averagePerQuestion = averageScore;
+    }
+
+    // Calculate total score (40 + 10 + 5 = 55 points max)
+    scores.total = scores.vocabulary.score + scores.listening.score + scores.speaking.score;
+    scores.score = Math.round((scores.total / 55) * 100); // Overall percentage
+
+    return scores;
   };
 
   // Format time (MM:SS)
