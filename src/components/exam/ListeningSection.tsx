@@ -28,18 +28,27 @@ const ListeningSection: React.FC<ListeningSectionProps> = ({
   story
 }) => {
   const [showScript, setShowScript] = useState(false);
+  const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
   const currentQuestion = questions[currentQuestionIndex];
   const { speak: speakStory } = useSpeechSynthesis(story?.content || '');
   const { speak: speakQuestion } = useSpeechSynthesis(currentQuestion?.q || '');
 
   useEffect(() => {
-    // Clean up any ongoing speech when component unmounts or question changes
+    if (currentQuestion?.options) {
+      const options = [...currentQuestion.options];
+      for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [options[i], options[j]] = [options[j], options[i]];
+      }
+      setShuffledOptions(options);
+    }
+    
     return () => {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
     };
-  }, [currentQuestionIndex]);
+  }, [currentQuestionIndex, currentQuestion?.options]);
 
   const handlePlayStory = () => {
     if (story?.content) {
@@ -53,12 +62,6 @@ const ListeningSection: React.FC<ListeningSectionProps> = ({
     }
   };
 
-  const handleAnswerSelect = (answerIndex: number) => {
-    if (!currentQuestion) return;
-    
-    const isCorrect = currentQuestion.options[answerIndex] === currentQuestion.answer;
-    onAnswerSelect(currentQuestion.id, answerIndex, isCorrect);
-  };
 
   if (!currentQuestion) return null;
 
@@ -103,15 +106,15 @@ const ListeningSection: React.FC<ListeningSectionProps> = ({
           <div className="mt-6">
             <h3 className="text-lg font-medium mb-4">{currentQuestion.q}</h3>
             <div className="space-y-2">
-              {currentQuestion.options.map((option, index) => (
+              {shuffledOptions.map((option, index) => (
                 <button
                   key={index}
-                  onClick={() => handleAnswerSelect(index)}
                   className={`w-full text-left p-3 rounded border ${
                     selectedAnswer === index
                       ? 'bg-blue-100 border-blue-500'
                       : 'hover:bg-gray-50 border-gray-200'
                   }`}
+                  onClick={() => onAnswerSelect(currentQuestion.id, index, currentQuestion.answer === option || currentQuestion.correct === index)}
                 >
                   {String.fromCharCode(65 + index)}. {option}
                 </button>

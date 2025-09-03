@@ -203,26 +203,36 @@ const SpeakingSection: React.FC<SpeakingSectionProps> = ({
 
           {/* Playback */}
           {userAnswer?.audioUrl && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <div className="flex items-center gap-4">
-                <span className="font-medium">Your recording:</span>
-                <audio
-                  src={userAnswer.audioUrl}
-                  controls
-                  className="flex-1"
-                />
+            <div className="mt-4 flex flex-col items-center">
+              <audio
+                src={userAnswer.audioUrl}
+                controls
+                className="w-full max-w-md mb-2"
+                ref={audioRef}
+              />
+              <div className="flex space-x-2 mt-2">
+                <button
+                  onClick={() => {
+                    if (audioRef.current) {
+                      audioRef.current.play();
+                    }
+                  }}
+                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                >
+                  Play
+                </button>
+                <button
+                  onClick={() => {
+                    if (audioRef.current) {
+                      audioRef.current.pause();
+                      audioRef.current.currentTime = 0;
+                    }
+                  }}
+                  className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
+                >
+                  Stop
+                </button>
               </div>
-              
-              {userAnswer.score !== undefined && (
-                <div className="mt-2 text-sm">
-                  <span className="font-medium">Score:</span> {userAnswer.score}/10
-                  {userAnswer.feedback && (
-                    <div className="mt-1 p-2 bg-blue-50 text-blue-700 rounded">
-                      {userAnswer.feedback}
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           )}
         </div>
