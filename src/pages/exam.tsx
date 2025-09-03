@@ -50,7 +50,7 @@ const Exam: React.FC = () => {
   );
 
   // Get first 10 vocabulary questions
-  const limitedVocabQuestions = vocabularyQuestions.vocabulary.slice(0, 10);
+  const limitedVocabQuestions = vocabularyQuestions.vocabulary.slice(0, 25);
 
   // Get first 5 speaking questions
   const limitedSpeakingQuestions = speakingQuestions.slice(0, 5);
