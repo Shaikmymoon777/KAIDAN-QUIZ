@@ -1,53 +1,412 @@
-[
-  { "id": 100, "japanese": "あられ", "reading": "あられ", "meaning": "kind of cookie, cartoon character" },
-  { "id": 101, "japanese": "現われ", "reading": "あらわれ", "meaning": "embodiment, materialization" },
-  { "id": 102, "japanese": "現われる", "reading": "あらわれる", "meaning": "to appear, to come in sight, to become visible, to come out, to embody, to materialize, to express oneself" },
-  { "id": 103, "japanese": "有難う", "reading": "ありがとう", "meaning": "Thank you" },
-  { "id": 104, "japanese": "有様", "reading": "ありさま", "meaning": "state, condition, circumstances, the way things are or should be, truth" },
-  { "id": 105, "japanese": "有りのまま", "reading": "ありのまま", "meaning": "the truth, fact, as it is, frankly" },
-  { "id": 106, "japanese": "或る", "reading": "ある", "meaning": "a certain..., some..." },
-  { "id": 107, "japanese": "或いは", "reading": "あるいは", "meaning": "or, possibly" },
-  { "id": 108, "japanese": "彼此", "reading": "あれこれ", "meaning": "one thing or another, this and that, this or that" },
-  { "id": 109, "japanese": "合わす", "reading": "あわす", "meaning": "to join together, to face, to unite, to be opposite, to combine, to connect, to add up, to mix, to match, to" },
-  { "id": 110, "japanese": "合わせ", "reading": "あわせ", "meaning": "joint together, opposite, facing" },
-  { "id": 111, "japanese": "慌ただしい", "reading": "あわただしい", "meaning": "busy, hurried, confused, flurried" },
-  { "id": 112, "japanese": "慌てる", "reading": "あわてる", "meaning": "to become confused (disconcerted disorganized)" },
-  { "id": 113, "japanese": "暗殺", "reading": "あんさつ", "meaning": "assassination" },
-  { "id": 114, "japanese": "暗算", "reading": "あんざん", "meaning": "mental arithmetic" },
-  { "id": 115, "japanese": "暗示", "reading": "あんじ", "meaning": "hint, suggestion" },
-  { "id": 116, "japanese": "案じる", "reading": "あんじる", "meaning": "to be anxious, to ponder" },
-  { "id": 117, "japanese": "安静", "reading": "あんせい", "meaning": "rest" },
-  { "id": 118, "japanese": "案の定", "reading": "あんのじょう", "meaning": "sure enough, as usual" },
-  { "id": 119, "japanese": "余り", "reading": "あんまり", "meaning": "not very (this form only used as adverb), not much, remainder, rest, remnant, surplus, balance, excess, rema" },
-  { "id": 120, "japanese": "依", "reading": "い", "meaning": "depending on" },
-  { "id": 121, "japanese": "良い", "reading": "いい", "meaning": "good" },
-  { "id": 122, "japanese": "伊井", "reading": "いい", "meaning": "that one, Italy" },
-  { "id": 123, "japanese": "否", "reading": "いいえ", "meaning": "no, nay, yes, well" },
-  { "id": 124, "japanese": "いい加減", "reading": "いいかげん", "meaning": "moderate, right, random, not thorough, vague, irresponsible, halfhearted" },
-  { "id": 125, "japanese": "言い訳", "reading": "いいわけ", "meaning": "excuse, explanation" },
-  { "id": 126, "japanese": "家出", "reading": "いえで", "meaning": "running away from home, leaving home" },
-  { "id": 127, "japanese": "家主", "reading": "いえぬし", "meaning": "landlord" },
-  { "id": 128, "japanese": "如何", "reading": "いかが", "meaning": "topi" },
-  { "id": 129, "japanese": "生かす", "reading": "いかす", "meaning": "to revive, to resuscitate, to make use of" },
-  { "id": 130, "japanese": "雷", "reading": "いかずち", "meaning": "thunder" },
-  { "id": 131, "japanese": "如何に", "reading": "いかに", "meaning": "how?, in what way?, how much?, however, whatever" },
-  { "id": 132, "japanese": "如何にも", "reading": "いかにも", "meaning": "indeed, really, phrase meaning agreement" },
-  { "id": 133, "japanese": "怒り", "reading": "いかり", "meaning": "anger, hatred" },
-  { "id": 134, "japanese": "怒る", "reading": "いかる", "meaning": "to get angry, to be angry" },
-  { "id": 135, "japanese": "歪む", "reading": "いがむ", "meaning": "to warp, to swerve, to deflect, to be crooked, to be distorted, to be bent, to incline, to slant, to be perv" },
-  { "id": 136, "japanese": "粋", "reading": "いき", "meaning": "chic, style, purity, essence" },
-  { "id": 137, "japanese": "域外", "reading": "いきがい", "meaning": "outside the area" },
-  { "id": 138, "japanese": "意気込む", "reading": "いきごむ", "meaning": "to be enthusiastic about" },
-  { "id": 139, "japanese": "経緯", "reading": "いきさつ", "meaning": "1. details, whole story, sequence of events, particulars, how it started, how things got this way, 2. c" },
-  { "id": 140, "japanese": "行き違い", "reading": "いきちがい", "meaning": "misunderstanding, estrangement, disagreement, crossing without meeting, going astray" },
-  { "id": 141, "japanese": "行き成り", "reading": "いきなり", "meaning": "suddenly" },
-  { "id": 142, "japanese": "異議", "reading": "いぎ", "meaning": "objection, dissent, protest" },
-  { "id": 143, "japanese": "", "reading": "いく", "meaning": "to come, to orgasm" },
-  { "id": 144, "japanese": "軍", "reading": "いくさ", "meaning": "war, battle, campaign, fight" },
-  { "id": 145, "japanese": "戦", "reading": "いくさ", "meaning": "war, battle, campaign, fight" },
-  { "id": 146, "japanese": "育成", "reading": "いくせい", "meaning": "rearing, training, nurture, cultivation, promotion" },
-  { "id": 147, "japanese": "幾多", "reading": "いくた", "meaning": "many, numerous" },
-  { "id": 148, "japanese": "活ける", "reading": "いける", "meaning": "to arrange (flowers)" },
-  { "id": 149, "japanese": "異見", "reading": "いけん", "meaning": "different opinion, objection" },
-  { "id": 150, "japanese": "意向", "reading": "いこう", "meaning": "intention, idea, inclination" }
-]
+{
+  "vocabulary": [
+    {
+      "id": "vocab-250",
+      "index": 250,
+      "word": "動き",
+      "japanese": "動き",
+      "reading": "うごき",
+      "meaning": "movement, activity, trend, development, change"
+    },
+    {
+      "id": "vocab-251",
+      "index": 251,
+      "word": "潮",
+      "japanese": "潮",
+      "reading": "うしお",
+      "meaning": "tide"
+    },
+    {
+      "id": "vocab-252",
+      "index": 252,
+      "word": "氏",
+      "japanese": "氏",
+      "reading": "うじ",
+      "meaning": "family name"
+    },
+    {
+      "id": "vocab-253",
+      "index": 253,
+      "word": "渦",
+      "japanese": "渦",
+      "reading": "うず",
+      "meaning": "swirl"
+    },
+    {
+      "id": "vocab-254",
+      "index": 254,
+      "word": "埋まる",
+      "japanese": "埋まる",
+      "reading": "うずまる",
+      "meaning": "to be buried, to be surrounded, to overflow, to be filled"
+    },
+    {
+      "id": "vocab-255",
+      "index": 255,
+      "word": "嘘つき",
+      "japanese": "嘘つき",
+      "reading": "うそつき",
+      "meaning": "liar (sometimes said with not much seriousness), fibber"
+    },
+    {
+      "id": "vocab-256",
+      "index": 256,
+      "word": "打ち合わせ",
+      "japanese": "打ち合わせ",
+      "reading": "うちあわせ",
+      "meaning": "business meeting, previous arrangement, appointment"
+    },
+    {
+      "id": "vocab-257",
+      "index": 257,
+      "word": "打ち合わせる",
+      "japanese": "打ち合わせる",
+      "reading": "うちあわせる",
+      "meaning": "to knock together, to arrange"
+    },
+    {
+      "id": "vocab-258",
+      "index": 258,
+      "word": "打ち切る",
+      "japanese": "打ち切る",
+      "reading": "うちきる",
+      "meaning": "to stop, to abort, to discontinue, to close"
+    },
+    {
+      "id": "vocab-259",
+      "index": 259,
+      "word": "打ち消し",
+      "japanese": "打ち消し",
+      "reading": "うちけし",
+      "meaning": "negation, denial, negative"
+    },
+    {
+      "id": "vocab-260",
+      "index": 260,
+      "word": "打ち込む",
+      "japanese": "打ち込む",
+      "reading": "うちこむ",
+      "meaning": "to drive in (e.g. nail stake), to devote oneself to, to shoot into, to smash, to throw into, to cast into"
+    },
+    {
+      "id": "vocab-261",
+      "index": 261,
+      "word": "団扇",
+      "japanese": "団扇",
+      "reading": "うちわ",
+      "meaning": "fan"
+    },
+    {
+      "id": "vocab-262",
+      "index": 262,
+      "word": "内訳",
+      "japanese": "内訳",
+      "reading": "うちわけ",
+      "meaning": "the items, breakdown, classification"
+    },
+    {
+      "id": "vocab-263",
+      "index": 263,
+      "word": "訴え",
+      "japanese": "訴え",
+      "reading": "うったえ",
+      "meaning": "lawsuit, complaint"
+    },
+    {
+      "id": "vocab-264",
+      "index": 264,
+      "word": "鬱陶しい",
+      "japanese": "鬱陶しい",
+      "reading": "うっとうしい",
+      "meaning": "gloomy, depressing"
+    },
+    {
+      "id": "vocab-265",
+      "index": 265,
+      "word": "写し",
+      "japanese": "写し",
+      "reading": "うつし",
+      "meaning": "copy, duplicate, facsimile, transcript"
+    },
+    {
+      "id": "vocab-266",
+      "index": 266,
+      "word": "空ろ",
+      "japanese": "空ろ",
+      "reading": "うつろ",
+      "meaning": "blank, cavity, hollow, empty (space)"
+    },
+    {
+      "id": "vocab-267",
+      "index": 267,
+      "word": "器",
+      "japanese": "器",
+      "reading": "うつわ",
+      "meaning": "bowl, vessel, container"
+    },
+    {
+      "id": "vocab-268",
+      "index": 268,
+      "word": "雨天",
+      "japanese": "雨天",
+      "reading": "うてん",
+      "meaning": "rainy weather"
+    },
+    {
+      "id": "vocab-269",
+      "index": 269,
+      "word": "腕前",
+      "japanese": "腕前",
+      "reading": "うでまえ",
+      "meaning": "ability, skill, facility"
+    },
+    {
+      "id": "vocab-270",
+      "index": 270,
+      "word": "饂飩",
+      "japanese": "饂飩",
+      "reading": "うどん",
+      "meaning": "noodles (Japanese)"
+    },
+    {
+      "id": "vocab-271",
+      "index": 271,
+      "word": "促す",
+      "japanese": "促す",
+      "reading": "うながす",
+      "meaning": "to urge, to press, to suggest, to demand, to stimulate, to quicken, to incite, to invite (attention to)"
+    },
+    {
+      "id": "vocab-272",
+      "index": 272,
+      "word": "唸る",
+      "japanese": "唸る",
+      "reading": "うなる",
+      "meaning": "to groan, to moan, to roar, to howl, to growl, to hum, to buzz, to sough"
+    },
+    {
+      "id": "vocab-273",
+      "index": 273,
+      "word": "自惚れ",
+      "japanese": "自惚れ",
+      "reading": "うぬぼれ",
+      "meaning": "pretension, conceit, hubris"
+    },
+    {
+      "id": "vocab-274",
+      "index": 274,
+      "word": "甘い",
+      "japanese": "甘い",
+      "reading": "うまい",
+      "meaning": "delicious"
+    },
+    {
+      "id": "vocab-275",
+      "index": 275,
+      "word": "生まれつき",
+      "japanese": "生まれつき",
+      "reading": "うまれつき",
+      "meaning": "by nature, by birth, native"
+    },
+    {
+      "id": "vocab-276",
+      "index": 276,
+      "word": "海路",
+      "japanese": "海路",
+      "reading": "うみじ",
+      "meaning": "sea route"
+    },
+    {
+      "id": "vocab-277",
+      "index": 277,
+      "word": "産む",
+      "japanese": "産む",
+      "reading": "うむ",
+      "meaning": "to give birth, to deliver, to produce"
+    },
+    {
+      "id": "vocab-278",
+      "index": 278,
+      "word": "埋め込む",
+      "japanese": "埋め込む",
+      "reading": "うめこむ",
+      "meaning": "to bury"
+    },
+    {
+      "id": "vocab-279",
+      "index": 279,
+      "word": "梅干",
+      "japanese": "梅干",
+      "reading": "うめぼし",
+      "meaning": "dried plum"
+    },
+    {
+      "id": "vocab-280",
+      "index": 280,
+      "word": "末",
+      "japanese": "末",
+      "reading": "うら",
+      "meaning": "top end, tip"
+    },
+    {
+      "id": "vocab-281",
+      "index": 281,
+      "word": "裏返し",
+      "japanese": "裏返し",
+      "reading": "うらがえし",
+      "meaning": "inside out, upside down"
+    },
+    {
+      "id": "vocab-282",
+      "index": 282,
+      "word": "売り出し",
+      "japanese": "売り出し",
+      "reading": "うりだし",
+      "meaning": "(bargain) sale"
+    },
+    {
+      "id": "vocab-283",
+      "index": 283,
+      "word": "売り出す",
+      "japanese": "売り出す",
+      "reading": "うりだす",
+      "meaning": "to put on sale, to market, to become popular"
+    },
+    {
+      "id": "vocab-284",
+      "index": 284,
+      "word": "潤う",
+      "japanese": "潤う",
+      "reading": "うるおう",
+      "meaning": "to be moist, to be damp, to get wet, to profit by, to be watered, to receive benefits, to charm"
+    },
+    {
+      "id": "vocab-285",
+      "index": 285,
+      "word": "五月蝿い",
+      "japanese": "五月蝿い",
+      "reading": "うるさい",
+      "meaning": "noisy, loud, fussy"
+    },
+    {
+      "id": "vocab-286",
+      "index": 286,
+      "word": "売れ行き",
+      "japanese": "売れ行き",
+      "reading": "うれゆき",
+      "meaning": "sales"
+    },
+    {
+      "id": "vocab-287",
+      "index": 287,
+      "word": "浮気",
+      "japanese": "浮気",
+      "reading": "うわき",
+      "meaning": "flighty, fickle, wanton, unfaithful"
+    },
+    {
+      "id": "vocab-288",
+      "index": 288,
+      "word": "上手",
+      "japanese": "上手",
+      "reading": "うわて",
+      "meaning": "upper part, upper stream, left side (of a stage), skillful (only in comparisons)"
+    },
+    {
+      "id": "vocab-289",
+      "index": 289,
+      "word": "上回る",
+      "japanese": "上回る",
+      "reading": "うわまわる",
+      "meaning": "to exceed"
+    },
+    {
+      "id": "vocab-290",
+      "index": 290,
+      "word": "植わる",
+      "japanese": "植わる",
+      "reading": "うわる",
+      "meaning": "to be planted"
+    },
+    {
+      "id": "vocab-291",
+      "index": 291,
+      "word": "運営",
+      "japanese": "運営",
+      "reading": "うんえい",
+      "meaning": "management, administration, operation"
+    },
+    {
+      "id": "vocab-292",
+      "index": 292,
+      "word": "",
+      "japanese": "",
+      "reading": "うんざり",
+      "meaning": "tedious, boring, being fed up with"
+    },
+    {
+      "id": "vocab-293",
+      "index": 293,
+      "word": "運送",
+      "japanese": "運送",
+      "reading": "うんそう",
+      "meaning": "shipping, marine transportation"
+    },
+    {
+      "id": "vocab-294",
+      "index": 294,
+      "word": "運賃",
+      "japanese": "運賃",
+      "reading": "うんちん",
+      "meaning": "freight rates, shipping expenses, fare"
+    },
+    {
+      "id": "vocab-295",
+      "index": 295,
+      "word": "云々",
+      "japanese": "云々",
+      "reading": "うんぬん",
+      "meaning": "and so on, and so forth, comment"
+    },
+    {
+      "id": "vocab-296",
+      "index": 296,
+      "word": "運搬",
+      "japanese": "運搬",
+      "reading": "うんぱん",
+      "meaning": "transport, carriage"
+    },
+    {
+      "id": "vocab-297",
+      "index": 297,
+      "word": "運命",
+      "japanese": "運命",
+      "reading": "うんめい",
+      "meaning": "fate"
+    },
+    {
+      "id": "vocab-298",
+      "index": 298,
+      "word": "運輸",
+      "japanese": "運輸",
+      "reading": "うんゆ",
+      "meaning": "transportation"
+    },
+    {
+      "id": "vocab-299",
+      "index": 299,
+      "word": "運用",
+      "japanese": "運用",
+      "reading": "うんよう",
+      "meaning": "making use of, application, investment, practical use"
+    },
+    {
+      "id": "vocab-300",
+      "index": 300,
+      "word": "会",
+      "japanese": "会",
+      "reading": "え",
+      "meaning": "understanding"
+    }
+  ]
+}

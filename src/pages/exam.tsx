@@ -1,490 +1,545 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../contexts/usercontext';
-import emailjs from '@emailjs/browser';
-import vocabularyData from '../data/vocab/vocabulary.json';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import VocabularySection from '../components/exam/VocabularySection';
+import ListeningSection from '../components/exam/ListeningSection';
+import SpeakingSection from '../components/exam/SpeakingSection';
 import { saveScore } from '../api/scores';
+import { 
+  UserAnswer, 
+  ExamSection, 
+  ExamScores,
+  SpeakingAnswer,
+  ListeningAnswer,
+  VocabularyAnswer} from '../types/exam';
+import vocabularyQuestions from '../data/vocab/vocabulary.json';
+import listeningData from '../data/vocab/listening.json';
+import speakingQuestions from '../data/vocab/speaking.json';
 
-// EmailJS Configuration - Direct values
-const EMAILJS_PUBLIC_KEY = 'apCvL9RIRkvZDjG';
-const EMAILJS_SERVICE_ID = 'service_dzsjpmy';
-const EMAILJS_TEMPLATE_ID = 'template_w3l4zw9';
-
-// Initialize EmailJS
-try {
-  emailjs.init(EMAILJS_PUBLIC_KEY);
-  console.log('EmailJS initialized successfully');
-} catch (error) {
-  console.error('Failed to initialize EmailJS:', error);
-}
-
-type ExamSection = 'vocabulary';
-
-interface GeminiVocabularyQuestion {
-  id: string;
-  question: string;
-  options: string[];
-  correct: number;
-  explanation: string;
-  part: string;
-  type: 'vocabulary' | 'grammar' | 'kanji' | 'reading';
-  japanese?: string;
-  reading?: string;
-  meaning?: string;
-}
-
-interface VocabularyItem {
-  id: number;
-  japanese: string;
-  reading: string;
-  meaning: string;
-  kanji?: string;
-}
-
-// Function to shuffle an array using a seeded random algorithm
-const prepareVocabularyQuestions = (vocabData: VocabularyItem[], count: number = 25): GeminiVocabularyQuestion[] => {
-  // Filter out items with kanji
-  const filteredVocabData = vocabData.filter(item => !item.kanji || item.kanji.trim() === '');
-  
-  // Use a seeded random for consistent randomization per user
-  const seededRandom = (seed: number) => {
-    const x = Math.sin(seed++) * 10000;
-    return x - Math.floor(x);
-  };
-
-  const userSeed = localStorage.getItem('userId') 
-    ? parseInt(localStorage.getItem('userId') || '0', 36) 
-    : Math.floor(Math.random() * 1000000);
-  
-  const shuffled = [...filteredVocabData].sort((a, b) => 
-    seededRandom(userSeed + a.id) - seededRandom(userSeed + b.id)
-  );
-  
-  // Ensure exactly 25 questions (or less if data is limited)
-  const selectedQuestions = shuffled.slice(0, Math.min(count, shuffled.length));
-  
-  return selectedQuestions.map((item, index) => {
-    const options = generateOptions(filteredVocabData, item.meaning, 3);
-    const correctIndex = options.findIndex(opt => opt === item.meaning);
-    
-    return {
-      id: `vocab-${index}`,
-      question: `What is the meaning of "${item.reading}"?`,
-      options: options,
-      correct: correctIndex >= 0 ? correctIndex : 0,
-      explanation: `The correct answer is: ${item.meaning} (${item.japanese})`,
-      part: 'vocabulary',
-      type: 'vocabulary',
-      japanese: item.japanese,
-      reading: item.reading,
-      meaning: item.meaning
-    };
-  });
-};
-
-const generateOptions = (vocabData: VocabularyItem[], correctAnswer: string, count: number) => {
-  const otherWords = vocabData
-    .filter(w => w.meaning !== correctAnswer)
-    .sort(() => 0.5 - Math.random())
-    .slice(0, count)
-    .map(w => w.meaning);
-  
-  const options = [correctAnswer, ...otherWords].sort(() => 0.5 - Math.random());
-  
-  return options;
-};
-
-const VOCAB_QUESTION_COUNT = 25;
-const EXAM_DURATION = 30 * 60 * 1000;
-
-// Format time in milliseconds to MM:SS format
-const formatTime = (milliseconds: number): string => {
-  const totalSeconds = Math.floor(milliseconds / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-};
+const EXAM_DURATION = 30 * 60 * 1000; // 30 minutes in milliseconds
 
 const Exam: React.FC = () => {
-  const { user, loading: userLoading } = useUser();
-  const navigate = useNavigate();
+  const { user } = useAuth();
   
-  // Check authentication status when user changes
-  useEffect(() => {
-    if (!userLoading && !user) {
-      navigate('/login', { 
-        state: { 
-          from: window.location.pathname,
-          message: 'Please log in to access the exam.'
-        },
-        replace: true
-      });
-    }
-  }, [user, userLoading, navigate]);
-
-  // Show loading state while checking auth
-  if (userLoading || !user) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  const [currentSection] = useState<ExamSection>('vocabulary');
-  const [vocabularyQuestions, setVocabularyQuestions] = useState<GeminiVocabularyQuestion[]>([]);
+  // State
+  const [currentSection, setCurrentSection] = useState<ExamSection>('vocabulary');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [examCompleted, setExamCompleted] = useState(false);
-  const [, setVocabScore] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<{questionId: string; selected?: number | null; correct: boolean; feedback?: string; section?: string}[]>([]);
-  const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
-  const [examStarted, setExamStarted] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(EXAM_DURATION);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
+  const [, setError] = useState<string | null>(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [sectionsCompleted, setSectionsCompleted] = useState<Record<ExamSection, boolean>>({
+    vocabulary: false,
+    listening: false,
+    speaking: false,
+    results: false
+  });
+  
+  // Initialize user answers state
+  const [userAnswers, setUserAnswers] = useState<Record<string, UserAnswer>>({});
+  const [, setScores] = useState<ExamScores | null>(null);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('username');
-    if (storedUser) {
-      // setUsername(storedUser);
+  // Extract listening questions from the listening data
+  const listeningQuestions = listeningData.stories.flatMap(story => 
+    story.questions.map(q => ({
+      ...q,
+      story: story.story,
+      title: story.title,
+      id: `listening-${story.title}-${q.q}`.replace(/\s+/g, '-')
+    }))
+  );
+
+  // Get first 10 vocabulary questions
+  const limitedVocabQuestions = vocabularyQuestions.vocabulary.slice(0, 10);
+
+  // Get first 5 speaking questions
+  const limitedSpeakingQuestions = speakingQuestions.slice(0, 5);
+
+  // Handle answer selection
+  const handleAnswerSelect = async (questionId: string, answer: any, isCorrect: boolean | number) => {
+    if (isSubmitting || isComplete) return;
+
+    let newAnswer: UserAnswer;
+
+    if (currentSection === 'speaking') {
+      // For speaking, isCorrect is actually the score (0-10)
+      const score = typeof isCorrect === 'number' ? isCorrect : 0;
+      newAnswer = {
+        section: 'speaking',
+        questionId: questionId.toString(),
+        timestamp: new Date().toISOString(),
+        audioUrl: answer.audioUrl,
+        score,
+        isCorrect: score >= 5 // Consider 5/10 as passing
+      } as SpeakingAnswer;
+    } else if (currentSection === 'listening') {
+      newAnswer = {
+        answer,
+        isCorrect: Boolean(isCorrect),
+        section: 'listening',
+        questionId: questionId.toString(),
+        timestamp: new Date().toISOString()
+      } as ListeningAnswer;
+    } else {
+      // vocabulary
+      newAnswer = {
+        answer,
+        isCorrect: Boolean(isCorrect),
+        section: 'vocabulary',
+        questionId: questionId.toString(),
+        timestamp: new Date().toISOString()
+      } as VocabularyAnswer;
     }
 
-    const history = localStorage.getItem('scoreHistory');
-    if (history) {
+    const newAnswers = {
+      ...userAnswers,
+      [questionId]: newAnswer
+    };
+
+    setUserAnswers(newAnswers);
+
+    // Count how many speaking questions have been answered
+    const answeredSpeakingQuestions = Object.values(newAnswers).filter(
+      answer => answer?.section === 'speaking'
+    ).length;
+
+    // Submit after 5 speaking questions are answered
+    if (currentSection === 'speaking' && answeredSpeakingQuestions >= 5) {
+      setIsSubmitting(true);
       try {
-        // setScoreHistory(JSON.parse(history));
+        await submitSpeakingResults();
+        setShowSuccessMessage(true);
+        setIsComplete(true); // Mark exam as complete
+        setCurrentSection('results'); // Navigate to results
       } catch (err) {
-        console.error('Error parsing score history:', err);
+        setError('Failed to submit. Please try again.');
+        setIsSubmitting(false);
       }
     }
+  };
 
-    // Load questions when component mounts
-    loadQuestions();
-  }, []);
+  // Handle speaking recording submission
 
-  const sendResultsEmail = useCallback(async (results: {
-    score: number;
-    totalQuestions: number;
-    correctAnswers: number;
-    percentage: number;
-  }): Promise<boolean> => {
-    if (!user?.email) {
-      console.error('No email found for the user');
-      return false;
-    }
-
+  const submitSpeakingResults = async () => {
     try {
-      const templateParams = {
-        to_email: user.email,
-        to_name: user.username || 'User',
-        score: results.score,
-        total_questions: results.totalQuestions,
-        correct_answers: results.correctAnswers,
-        percentage: results.percentage,
+      const userId = user?.id || 'anonymous';
+      const username = user?.email?.split('@')[0] || 'anonymous';
+      
+      // Get all speaking answers
+      const speakingAnswers = Object.entries(userAnswers)
+        .filter(([_, answer]) => answer?.section === 'speaking')
+        .map(([questionId, answer]) => ({
+          questionId,
+          audioUrl: (answer as SpeakingAnswer)?.audioUrl,
+          score: 0, // This would be set by your evaluation service
+          feedback: '' // This would be provided by your evaluation service
+        }));
+
+      // In a real app, you would send the audio to your backend for evaluation
+      // For now, we'll simulate a perfect score for demonstration
+      const score = speakingAnswers.length; // 1 point per question for demo
+      const totalQuestions = speakingQuestions.length;
+      const percentage = Math.round((score / totalQuestions) * 100);
+
+      const scores: ExamScores = {
+        speaking: {
+          score,
+          totalQuestions,
+          percentage
+        },
+        vocabulary: {
+          score: 0,
+          totalQuestions: 0,
+          percentage: 0
+        },
+        listening: {
+          score: 0,
+          totalQuestions: 0,
+          percentage: 0
+        },
+        score: 0,
+        total: undefined,
+        details: undefined
       };
 
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_PUBLIC_KEY
-      );
-      
-      console.log('Results email sent successfully');
-      return true;
-    } catch (error) {
-      console.error('Failed to send results email:', error);
-      return false;
-    }
-  }, [user]);
-
-  const handleAutoSubmit = useCallback(async () => {
-    try {
-      // Calculate scores
-      const vocabScore = userAnswers
-        .filter(a => a.questionId.startsWith('vocab-') && a.correct)
-        .length;
-      
-      const totalQuestions = VOCAB_QUESTION_COUNT; // Adjust if you have more sections
-      const percentage = Math.round((vocabScore / totalQuestions) * 100);
-
-      // Save score to MongoDB
-      if (user) {
-        try {
-          await saveScore({
-            userId: user.id || 'unknown',
-            username: user.username || 'Anonymous',
-            score: vocabScore,
-            totalQuestions: totalQuestions
-          });
-          console.log('Score saved successfully');
-        } catch (error) {
-          console.error('Failed to save score:', error);
-          // Continue with exam completion even if saving fails
-        }
-      }
-
-      // Send email with results
-      const emailSent = await sendResultsEmail({
-        score: vocabScore,
-        totalQuestions,
-        correctAnswers: vocabScore,
-        percentage
-      });
-
-      if (!emailSent) {
-        console.warn('Failed to send results email');
-      }
-
-      // Update local state
-      setVocabScore(vocabScore);
-      setExamCompleted(true);
-      
-      // Update score history in local storage
-      const history = localStorage.getItem('scoreHistory');
-      const newScore = {
+      const scoreData = {
+        userId,
+        username,
+        scores,
         date: new Date().toISOString(),
-        score: vocabScore,
-        total: totalQuestions,
-        percentage
+        speakingResponses: speakingAnswers // Include the speaking responses
       };
+
+      // Save to backend
+      await saveScore(userId, scores, scoreData);
       
-      const updatedHistory = history 
-        ? [...JSON.parse(history), newScore] 
-        : [newScore];
+      // Mark speaking section as completed
+      setSectionsCompleted(prev => ({
+        ...prev,
+        speaking: true
+      }));
       
-      localStorage.setItem('scoreHistory', JSON.stringify(updatedHistory));
+      // Redirect to sakuralingua.com after a short delay
+      setTimeout(() => {
+        window.location.href = 'https://sakuralingua.com';
+      }, 1500);
       
     } catch (error) {
-      console.error('Error submitting exam:', error);
-      setError('Failed to submit exam. Please try again.');
+      console.error('Error submitting speaking results:', error);
+      setError('Failed to submit speaking results. Please try again.');
     }
-  }, [userAnswers, user, sendResultsEmail]);
+  };
 
+  const handleSectionComplete = async () => {
+    setSectionsCompleted(prev => ({
+      ...prev,
+      [currentSection]: true
+    }));
+
+    // Move to next section or complete exam
+    if (currentSection === 'vocabulary') {
+      setCurrentSection('listening');
+      setCurrentQuestionIndex(0);
+    } else if (currentSection === 'listening') {
+      setCurrentSection('speaking');
+      setCurrentQuestionIndex(0);
+    } else {
+      // Speaking section completed
+      await submitSpeakingResults();
+      setShowSuccessMessage(true);
+      setIsComplete(true);
+    }
+  };
+
+  const handleComplete = async () => {
+    setIsSubmitting(true);
+    try {
+      const calculatedScores = calculateScores();
+      setScores(calculatedScores);
+      if (user?.id) {
+        await saveScore(
+          user.id,
+          calculatedScores,
+          {
+            userId: user.id,
+            username: user.email || 'Anonymous',
+            scores: calculatedScores,
+            date: new Date().toISOString()
+          }
+        );
+      }
+      setIsComplete(true);
+    } catch (error) {
+      setError('Failed to submit exam. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Calculate scores
+  const calculateScores = (): ExamScores => {
+    // Calculate scores for each section
+    const vocabAnswers = Object.values(userAnswers).filter(
+      (answer): answer is VocabularyAnswer => answer.section === 'vocabulary'
+    );
+    const listeningAnswers = Object.values(userAnswers).filter(
+      (answer): answer is ListeningAnswer => answer.section === 'listening'
+    );
+    const speakingAnswers = Object.values(userAnswers).filter(
+      (answer): answer is SpeakingAnswer => answer.section === 'speaking'
+    );
+
+    // Calculate section scores
+    const vocabScore = vocabAnswers.reduce((acc, curr) => acc + (curr.isCorrect ? 1 : 0), 0);
+    const listeningScore = listeningAnswers.reduce((acc, curr) => acc + (curr.isCorrect ? 1 : 0), 0);
+    const speakingScore = speakingAnswers.reduce((acc, curr) => acc + (curr.score || 0), 0);
+
+    // Calculate totals
+    const totalVocab = limitedVocabQuestions.length;
+    const totalListening = listeningQuestions.length;
+    const totalSpeaking = limitedSpeakingQuestions.length;
+
+    // Calculate percentages (speaking is out of 10 per question)
+    const vocabPercentage = totalVocab > 0 ? Math.round((vocabScore / totalVocab) * 100) : 0;
+    const listeningPercentage = totalListening > 0 ? Math.round((listeningScore / totalListening) * 100) : 0;
+    const speakingPercentage = totalSpeaking > 0 ? Math.round((speakingScore / (totalSpeaking * 10)) * 100) : 0;
+
+    // Calculate overall score (weighted average if needed)
+    const totalScore = vocabScore + listeningScore + speakingScore;
+    const maxPossibleScore = totalVocab + totalListening + (totalSpeaking * 10);
+    const overallPercentage = maxPossibleScore > 0 ? Math.round((totalScore / maxPossibleScore) * 100) : 0;
+
+    return {
+      score: overallPercentage,
+      total: maxPossibleScore,
+      details: {
+        score: totalScore,
+        total: maxPossibleScore,
+        percentage: overallPercentage
+      },
+      vocabulary: {
+        score: vocabScore,
+        totalQuestions: totalVocab,
+        percentage: vocabPercentage
+      },
+      listening: {
+        score: listeningScore,
+        totalQuestions: totalListening,
+        percentage: listeningPercentage
+      },
+      speaking: {
+        score: speakingScore,
+        totalQuestions: totalSpeaking,
+        percentage: speakingPercentage,
+        // Include additional speaking metrics if needed
+        maxPossible: totalSpeaking * 10,
+        averagePerQuestion: totalSpeaking > 0 ? speakingScore / totalSpeaking : 0
+      }
+    };
+  };
+
+  // Format time (MM:SS)
+  const formatTime = (ms: number): string => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  // Timer effect
   useEffect(() => {
-    if (!examStarted || examCompleted) return;
+    if (timeRemaining <= 0 || isComplete) return;
 
     const timer = setInterval(() => {
-      setTimeLeft(prevTime => {
-        if (prevTime <= 1000) {
+      setTimeRemaining(prev => {
+        if (prev <= 1000) {
           clearInterval(timer);
-          handleAutoSubmit();
+          handleComplete();
           return 0;
         }
-        return prevTime - 1000;
+        return prev - 1000;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [examStarted, examCompleted, handleAutoSubmit]);
+  }, [timeRemaining, isComplete]);
 
-  const getCurrentQuestions = (): GeminiVocabularyQuestion[] => {
-    return vocabularyQuestions;
-  };
-
-  const handleAnswerSelect = (answerIndex: number) => {
-    const currentQuestions = getCurrentQuestions();
-    const currentQuestion = currentQuestions[currentQuestionIndex];
-    
-    setSelectedAnswer(answerIndex);
-    
-    setUserAnswers(prev => {
-      const existingAnswerIndex = prev.findIndex(a => a.questionId === currentQuestion.id);
-      
-      const isCorrect = answerIndex === currentQuestion.correct;
-
-      if (existingAnswerIndex >= 0) {
-        const updated = [...prev];
-        updated[existingAnswerIndex] = {
-          ...updated[existingAnswerIndex],
-          selected: answerIndex,
-          correct: isCorrect,
-          section: currentSection
-        };
-        return updated;
-      }
-      return [
-        ...prev,
-        {
-          questionId: currentQuestion.id,
-          selected: answerIndex,
-          correct: isCorrect,
-          section: currentSection
-        }
-      ];
-    });
-  };
-
-  useEffect(() => {
-    const currentQuestions = getCurrentQuestions();
-    if (currentQuestions.length === 0) return;
-    
-    const currentQuestion = currentQuestions[currentQuestionIndex];
-    const existingAnswer = userAnswers.find(a => a.questionId === currentQuestion.id);
-    
-    setSelectedAnswer(existingAnswer?.selected ?? null);
-  }, [currentQuestionIndex, currentSection, userAnswers]);
-
-  const handleNext = async () => {
-    const currentQuestions = getCurrentQuestions();
-    
-    // If it's the last question of the vocabulary section
-    if (currentSection === 'vocabulary' && currentQuestionIndex === VOCAB_QUESTION_COUNT - 1) {
-      const currentScore = userAnswers
-        .filter(a => a.questionId.startsWith('vocab-') && a.correct)
-        .length;
-      setVocabScore(currentScore);
-      await handleAutoSubmit();  
-      return;
-    }
-    
-    if (currentQuestionIndex < currentQuestions.length - 1) {
-      setCurrentQuestionIndex(prev => prev + 1);
-      setSelectedAnswer(null);
-    } else {
-      await handleAutoSubmit();
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(prev => prev - 1);
-      setSelectedAnswer(null);
-    }
-  };
-
-  const loadQuestions = async () => {
+  // Handle recording for speaking section
+  const handleRecord = async (_questionId: string, audioBlob: Blob): Promise<{ audioUrl: string; score: number }> => {
     try {
-      setIsLoading(true);
-      if (!vocabularyData || !Array.isArray(vocabularyData) || vocabularyData.length < VOCAB_QUESTION_COUNT) {
-        throw new Error('Insufficient vocabulary data available. Need at least 25 non-kanji items.');
-      }
+      // In a real app, you would upload the audio to a server here
+      // For now, we'll simulate a response
+      const audioUrl = URL.createObjectURL(audioBlob);
       
-      const vocabQuestions = prepareVocabularyQuestions(vocabularyData as VocabularyItem[], VOCAB_QUESTION_COUNT);
-      if (vocabQuestions.length !== VOCAB_QUESTION_COUNT) {
-        throw new Error(`Failed to generate exactly ${VOCAB_QUESTION_COUNT} vocabulary questions.`);
-      }
+      // Simulate a score (0-10) - in a real app, this would come from a speech recognition service
+      const score = Math.floor(Math.random() * 11); // Random score between 0-10
       
-      setVocabularyQuestions(vocabQuestions);
-      setIsLoading(false);
-      setExamStarted(true);
+      return { audioUrl, score };
     } catch (error) {
-      console.error('Error loading questions:', error);
-      setError(error instanceof Error ? error.message : 'Failed to load questions.');
-      setIsLoading(false);
+      console.error('Error processing recording:', error);
+      throw error;
     }
   };
 
-  const renderQuestion = () => {
-    if (examCompleted) {
-      return (
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100 text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Thank you for taking the exam!</h2>
-            <p className="text-gray-600">Your results have been sent to the administrator. You'll receive feedback soon.</p>
-          </div>
-        </div>
-      );
+  // Render current section
+  const renderCurrentSection = () => {
+    switch (currentSection) {
+      case 'vocabulary':
+        const currentVocabQuestion = limitedVocabQuestions[currentQuestionIndex];
+        const vocabAnswer = userAnswers[currentVocabQuestion?.id] as { answer?: string | number } | undefined;
+        
+        return (
+          <VocabularySection
+            questions={limitedVocabQuestions}
+            currentQuestionIndex={currentQuestionIndex}
+            selectedAnswer={vocabAnswer?.answer?.toString() ?? null}
+            onAnswerSelect={(questionId, answer, correctAnswer) => {
+              handleAnswerSelect(
+                questionId.toString(), 
+                answer.toString(), 
+                answer.toString() === correctAnswer
+              );
+            }}
+          />
+        );
+      
+      case 'listening':
+        const currentListeningQuestion = listeningQuestions[currentQuestionIndex];
+        const listeningAnswer = userAnswers[currentListeningQuestion?.id] as { answer?: number } | undefined;
+        
+        return (
+          <ListeningSection
+            questions={listeningQuestions}
+            currentQuestionIndex={currentQuestionIndex}
+            selectedAnswer={listeningAnswer?.answer ?? null}
+            onAnswerSelect={(questionId, answerIndex, isCorrect) => {
+              handleAnswerSelect(
+                questionId.toString(),
+                answerIndex,
+                isCorrect
+              );
+            }}
+            story={{
+              title: listeningQuestions[currentQuestionIndex]?.title || '',
+              content: listeningQuestions[currentQuestionIndex]?.story || ''
+            }}
+          />
+        );
+      
+      case 'speaking':
+        return (
+          <SpeakingSection
+            questions={limitedSpeakingQuestions}
+            currentQuestionIndex={currentQuestionIndex}
+            onRecord={handleRecord}
+            userAnswers={userAnswers}
+            onAnswerSelect={handleAnswerSelect}
+          />
+        );
+      
+      default:
+        return null;
     }
+  };
 
-    const currentQuestions = getCurrentQuestions();
-    
-    if (isLoading) {
-      return <div className="text-center py-8 text-gray-600">Loading questions...</div>;
-    }
+  // Render navigation buttons
+  const renderNavigation = () => {
+    if (isComplete) return null; // Don't show navigation if exam is complete
 
-    if (error) {
-      return (
-        <div className="bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-lg mb-6">
-          {error}
-        </div>
-      );
-    }
+    const currentQuestions = {
+      vocabulary: limitedVocabQuestions,
+      listening: listeningQuestions,
+      speaking: limitedSpeakingQuestions,
+      results: []
+    }[currentSection] || [];
 
-    if (!currentQuestions.length) {
-      return (
-        <div className="text-center py-8">
-          <p className="text-gray-600 mb-4">No questions available for {currentSection}.</p>
-          <button
-            onClick={loadQuestions}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Retry
-          </button>
-        </div>
-      );
-    }
-
-    const currentQuestion = currentQuestions[currentQuestionIndex];
-    if (!currentQuestion) {
-      return (
-        <div className="text-center py-8">
-          <p className="text-gray-600 mb-4">Error loading question.</p>
-          <button
-            onClick={loadQuestions}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Reload Questions
-          </button>
-        </div>
-      );
-    }
+    const isLastQuestion = currentQuestionIndex === Math.max(0, currentQuestions.length - 1);
 
     return (
-      <div className="space-y-6">
-        <h3 className="text-xl font-semibold text-gray-800">{currentQuestion.question}</h3>
-        <div className="space-y-3">
-          {currentQuestion.options.map((option, index) => (
-            <div 
-              key={index}
-              onClick={() => handleAnswerSelect(index)}
-              className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
-                selectedAnswer === index 
-                  ? 'bg-blue-50 border-blue-500' 
-                  : 'border-gray-200 hover:bg-gray-50'
-              }`}
-            >
-              <div className="flex items-center">
-                <div className={`w-6 h-6 rounded-full border mr-4 flex items-center justify-center ${
-                  selectedAnswer === index ? 'border-blue-500' : 'border-gray-300'
-                }`}>
-                  {selectedAnswer === index && (
-                    <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                  )}
-                </div>
-                <span className="text-gray-700">{option}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="flex justify-between mt-8">
+        <button
+          onClick={() => {
+            if (currentQuestionIndex > 0) {
+              setCurrentQuestionIndex(prev => prev - 1);
+            } else if (currentSection === 'listening') {
+              setCurrentSection('vocabulary');
+              setCurrentQuestionIndex(limitedVocabQuestions.length - 1);
+            } else if (currentSection === 'speaking') {
+              setCurrentSection('listening');
+              setCurrentQuestionIndex(listeningQuestions.length - 1);
+            }
+          }}
+          disabled={currentQuestionIndex === 0 && currentSection === 'vocabulary' || isSubmitting}
+          className="px-4 py-2 bg-gray-300 rounded-lg disabled:opacity-50"
+        >
+          Previous
+        </button>
         
-        <div className="mt-8 flex justify-between">
-          <button
-            onClick={handlePrevious}
-            disabled={currentQuestionIndex === 0}
-            className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Previous
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={selectedAnswer === null}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-          >
-            {currentQuestionIndex < currentQuestions.length - 1 ? 'Next' : 'Submit'}
-          </button>
-        </div>
+        <button
+          onClick={async () => {
+            if (isLastQuestion) {
+              if (currentSection === 'speaking') {
+                setIsSubmitting(true);
+                try {
+                  await submitSpeakingResults();
+                  setShowSuccessMessage(true);
+                  setIsComplete(true);
+                } catch (err) {
+                  setError('Failed to submit. Please try again.');
+                  setIsSubmitting(false);
+                }
+              } else {
+                handleSectionComplete();
+              }
+            } else {
+              setCurrentQuestionIndex(prev => prev + 1);
+            }
+          }}
+          disabled={isSubmitting}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
+        >
+          {isLastQuestion ? 'Submit Exam' : 'Next'}
+        </button>
       </div>
     );
   };
 
-  return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8 capitalize">{currentSection} Section</h1>
-      <div className="mb-6 text-lg font-semibold text-gray-800">
-        Time Remaining: {formatTime(timeLeft)}
+  if (isComplete) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="p-8 text-center">
+          <h2 className="text-2xl font-bold text-green-600 mb-4">
+            Exam Submitted Successfully!
+          </h2>
+          <p className="text-gray-600">
+            Thank you for completing the exam. You will be redirected shortly...
+          </p>
+        </div>
       </div>
-      {renderQuestion()}
+    );
+  }
+
+  return (
+    <div className="container mx-auto p-4 max-w-4xl">
+      {/* Progress Bar */}
+      <div className="mb-8">
+        <div className="flex justify-between mb-2">
+          {(['vocabulary', 'listening', 'speaking', 'results'] as const).map((section) => (
+            <div key={section} className="text-center">
+              <div className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-1 ${
+                (sectionsCompleted[section] || currentSection === section)
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-600'
+              }`}>
+                {section === 'vocabulary' ? 'V' : section === 'listening' ? 'L' : section === 'speaking' ? 'S' : 'R'}
+              </div>
+              <span className="text-sm capitalize">{section}</span>
+            </div>
+          ))}
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div 
+            className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" 
+            style={{
+              width: `${(Object.values(sectionsCompleted).filter(Boolean).length / 4) * 100}%`
+            }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Section Title */}
+      <h2 className="text-2xl font-bold mb-6 capitalize">
+        {currentSection} Section
+        {['listening', 'speaking', 'results'].includes(currentSection) && (
+          <span className="ml-2 text-sm text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
+            {sectionsCompleted.vocabulary ? '✓' : ''}
+            {currentSection === 'speaking' && sectionsCompleted.listening ? '✓' : ''}
+            {currentSection === 'results' && sectionsCompleted.speaking ? '✓' : ''}
+          </span>
+        )}
+      </h2>
+
+      {/* Success Message */}
+      {showSuccessMessage && currentSection === 'speaking' && (
+        <p className="mb-6 text-green-600 font-semibold">
+          Successfully completed, thank you!
+        </p>
+      )}
+
+      {/* Current Section Content */}
+      <div className="mb-8">
+        {renderCurrentSection()}
+      </div>
+
+      {/* Navigation */}
+      {renderNavigation()}
+
+      {/* Timer */}
+      <div className="fixed bottom-4 right-4 bg-white p-3 rounded-lg shadow-lg">
+        <div className="text-center">
+          <div className="text-sm text-gray-600">Time Remaining</div>
+          <div className="text-2xl font-mono">{formatTime(timeRemaining)}</div>
+        </div>
+      </div>
     </div>
   );
 };
