@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useCallback } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 interface VocabularyQuestion {
   id: string | number;
@@ -14,8 +14,6 @@ interface VocabularySectionProps {
   selectedAnswer: string | null;
   onAnswerSelect: (questionId: string | number, answer: string, correctAnswer: string, isCorrect: boolean) => void;
 }
-
-// Helper function to get random items from array
 
 // Speech synthesis function
 const speak = (text: string, lang = 'ja-JP') => {
@@ -35,43 +33,57 @@ const VocabularySection: React.FC<VocabularySectionProps> = ({
 }) => {
   const currentQuestion = questions[currentQuestionIndex];
   
-  // Generate a stable key for consistent randomization based on question id
-  const getStableOptions = useCallback((question: VocabularyQuestion, allQuestions: VocabularyQuestion[]) => {
-    if (question.options && question.options.length > 0) {
-      return [...question.options];
-    }
-
-    // Create a stable seed based on question id
-    const seed = question.id.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  // Pre-generate all options when the component mounts
+  const questionOptions = useMemo(() => {
+    const optionsMap = new Map<string | number, {text: string, key: string}[]>();
     
-    // Get all possible options (meanings of other questions)
-    const allOptions = allQuestions
-      .filter(q => q.id !== question.id)
-      .map(q => q.meaning);
+    questions.forEach(question => {
+      if (question.options?.length) {
+        optionsMap.set(question.id, question.options.map(opt => ({
+          text: opt,
+          key: `${question.id}-${opt}`
+        })));
+        return;
+      }
+      
+      const seed = question.id.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      const allOptions = questions
+        .filter(q => q.id !== question.id)
+        .map(q => q.meaning);
+      
+      const selectedOptions: string[] = [];
+      const usedIndices = new Set<number>();
+      
+      // Select 3 unique options
+      for (let i = 0; i < 3 && usedIndices.size < allOptions.length; i++) {
+        const index = Math.abs((seed * (i + 1)) % allOptions.length);
+        if (!usedIndices.has(index)) {
+          selectedOptions.push(allOptions[index]);
+          usedIndices.add(index);
+        }
+      }
+      
+      // Combine with correct answer and sort
+      const finalOptions = [question.meaning, ...selectedOptions];
+      
+      // Stable sort based on content hash
+      finalOptions.sort((a, b) => {
+        const hashA = a.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        const hashB = b.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return (seed + hashA) - (seed + hashB);
+      });
+      
+      // Store with stable keys
+      optionsMap.set(question.id, finalOptions.map(opt => ({
+        text: opt,
+        key: `${question.id}-${opt}`
+      })));
+    });
     
-    // Select 3 unique options using the seed
-    const selectedOptions: string[] = [];
-    let options = [...allOptions];
-    
-    // Simple deterministic shuffle based on seed
-    for (let i = 0; i < 3 && options.length > 0; i++) {
-      const randomIndex = (seed * (i + 1)) % options.length;
-      selectedOptions.push(options[randomIndex]);
-      options = options.filter((_, idx) => idx !== randomIndex);
-    }
-    
-    // Combine with correct answer and shuffle
-    const finalOptions = [question.meaning, ...selectedOptions];
-    return finalOptions.sort((a, b) => 
-      (question.id.toString() + a).localeCompare(question.id.toString() + b)
-    );
-  }, []);
-
-  // Memoize the options to be consistent for each question
-  const options = useMemo(() => {
-    if (!currentQuestion) return [];
-    return getStableOptions(currentQuestion, questions);
-  }, [currentQuestion, questions, getStableOptions]);
+    return optionsMap;
+  }, [questions]);
+  
+  const currentOptions = questionOptions.get(currentQuestion.id) || [];
 
   // Speak the Japanese text when question changes
   useEffect(() => {
@@ -81,7 +93,7 @@ const VocabularySection: React.FC<VocabularySectionProps> = ({
     return () => {
       speechSynthesis.cancel();
     };
-  }, [currentQuestion]);
+  }, [currentQuestion?.id]);
 
   const handleAnswerClick = (option: string) => {
     if (!currentQuestion) return;
@@ -89,7 +101,7 @@ const VocabularySection: React.FC<VocabularySectionProps> = ({
     onAnswerSelect(currentQuestion.id, option, currentQuestion.meaning, isCorrect);
   };
 
-  if (!currentQuestion) return null;
+  if (!currentQuestion || currentOptions.length === 0) return null;
 
   return (
     <div className="space-y-6">
@@ -102,24 +114,24 @@ const VocabularySection: React.FC<VocabularySectionProps> = ({
             aria-label="Play pronunciation"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
             </svg>
           </button>
         </div>
         <p className="text-gray-600 mb-6">{currentQuestion.reading}</p>
         
         <div className="space-y-3">
-          {options.map((option, index) => (
+          {currentOptions.map(option => (
             <div 
-              key={index}
-              onClick={() => handleAnswerClick(option)}
+              key={option.key}
+              onClick={() => handleAnswerClick(option.text)}
               className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                selectedAnswer === option 
+                selectedAnswer === option.text 
                   ? 'bg-blue-100 border-blue-500' 
                   : 'hover:bg-gray-50 border-gray-200'
               }`}
             >
-              {option}
+              {option.text}
             </div>
           ))}
         </div>

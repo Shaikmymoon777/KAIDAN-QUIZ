@@ -19,6 +19,8 @@ interface SpeakingSectionProps {
   }>;
   currentQuestionIndex: number;
   onAnswerSelect: (questionId: string, answer: { audioUrl: string }, score: number) => void;
+  onSubmit: () => void;
+  isLastQuestion: boolean;
 }
 
 const SpeakingSection: React.FC<SpeakingSectionProps> = ({
@@ -26,7 +28,9 @@ const SpeakingSection: React.FC<SpeakingSectionProps> = ({
   onRecord,
   userAnswers,
   currentQuestionIndex,
-  onAnswerSelect
+  onAnswerSelect,
+  onSubmit,
+  isLastQuestion
 }) => {
   const [isRecording, setIsRecording] = useState<string | null>(null);
   const [mediaRecorders, setMediaRecorders] = useState<Record<string, MediaRecorder>>({});
@@ -237,6 +241,17 @@ const SpeakingSection: React.FC<SpeakingSectionProps> = ({
           )}
         </div>
       </div>
+
+      {isLastQuestion && userAnswer?.audioUrl && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={onSubmit}
+            className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+          >
+            Submit Exam
+          </button>
+        </div>
+      )}
 
       {/* Hidden audio element for prompt playback */}
       <audio

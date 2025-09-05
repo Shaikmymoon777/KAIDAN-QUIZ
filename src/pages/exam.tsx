@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import VocabularySection from '../components/exam/VocabularySection';
 import ListeningSection from '../components/exam/ListeningSection';
 import SpeakingSection from '../components/exam/SpeakingSection';
+import Results from '../components/exam/Results';
 import { saveScore } from '../api/scores';
 import { 
   UserAnswer, 
@@ -37,7 +38,7 @@ const Exam: React.FC = () => {
   
   // Initialize user answers state
   const [userAnswers, setUserAnswers] = useState<Record<string, UserAnswer>>({});
-  const [, setScores] = useState<ExamScores | null>(null);
+  const [scores, setScores] = useState<ExamScores | null>(null);
 
   // Extract listening questions from the listening data
   const listeningQuestions = listeningData.stories.flatMap(story => 
@@ -49,11 +50,24 @@ const Exam: React.FC = () => {
     }))
   );
 
-  // Get first 10 vocabulary questions
-  const limitedVocabQuestions = vocabularyQuestions.vocabulary.slice(0, 25);
+  // Shuffle and get first 25 vocabulary questions - memoized to prevent re-shuffling
+  const limitedVocabQuestions = useMemo(() => {
+    const shuffleArray = (array: any[]) => {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+    
+    return shuffleArray(vocabularyQuestions.vocabulary).slice(0, 25);
+  }, []); // Empty dependency array ensures this only runs once
 
-  // Get first 5 speaking questions
-  const limitedSpeakingQuestions = speakingQuestions.slice(0, 5);
+  // Get first 5 speaking questions - memoized to prevent recreation
+  const limitedSpeakingQuestions = useMemo(() => 
+    speakingQuestions.slice(0, 5),
+  []);
 
   // Handle answer selection
   const handleAnswerSelect = async (questionId: string, answer: any, isCorrect: boolean | number) => {
@@ -97,25 +111,6 @@ const Exam: React.FC = () => {
     };
 
     setUserAnswers(newAnswers);
-
-    // Count how many speaking questions have been answered
-    const answeredSpeakingQuestions = Object.values(newAnswers).filter(
-      answer => answer?.section === 'speaking'
-    ).length;
-
-    // Submit after 5 speaking questions are answered
-    if (currentSection === 'speaking' && answeredSpeakingQuestions >= 5) {
-      setIsSubmitting(true);
-      try {
-        await submitSpeakingResults();
-        setShowSuccessMessage(true);
-        setIsComplete(true); // Mark exam as complete
-        setCurrentSection('results'); // Navigate to results
-      } catch (err) {
-        setError('Failed to submit. Please try again.');
-        setIsSubmitting(false);
-      }
-    }
   };
 
   // Handle speaking recording submission
@@ -125,34 +120,13 @@ const Exam: React.FC = () => {
       const userId = user?.id || 'anonymous';
       const username = user?.email?.split('@')[0] || 'anonymous';
       
-      // Get all speaking answers
-
-      // In a real app, you would send the audio to your backend for evaluation
-      // For now, we'll simulate a perfect score for demonstration
-
-      const scores = {
-        vocabulary: {
-          score: 40,
-          totalQuestions: 40,
-          percentage: 100,
-          maxPossible: 40
-        },
-        listening: {
-          score: 10,
-          totalQuestions: 10,
-          percentage: 100,
-          maxPossible: 10
-        },
-        speaking: {
-          score: 5,
-          totalQuestions: 5,
-          percentage: 100,
-          maxPossible: 5,
-          rawScore: 5
-        },
-        score: 55,  // total score
-        total: 55   // total possible score
-      };
+      // Calculate actual scores based on user answers
+      const calculatedScores = calculateScores();
+      console.log('Setting scores:', calculatedScores);
+      setScores(calculatedScores);
+      
+      // Set exam as complete to show results
+      setIsComplete(true);
 
 
       // Save to backend
@@ -160,20 +134,20 @@ const Exam: React.FC = () => {
         userId,
         {
           vocabulary: {
-            score: scores.vocabulary.score || 0,
-            totalQuestions: scores.vocabulary.totalQuestions || 0,
-            percentage: scores.vocabulary.percentage || 0
+            score: calculatedScores.vocabulary.score || 0,
+            totalQuestions: calculatedScores.vocabulary.totalQuestions || 0,
+            percentage: calculatedScores.vocabulary.percentage || 0
           },
           listening: {
-            score: scores.listening.score || 0,
-            totalQuestions: scores.listening.totalQuestions || 0,
-            percentage: scores.listening.percentage || 0
+            score: calculatedScores.listening.score || 0,
+            totalQuestions: calculatedScores.listening.totalQuestions || 0,
+            percentage: calculatedScores.listening.percentage || 0
           },
           speaking: {
-            score: scores.speaking.score || 0,
-            totalQuestions: scores.speaking.totalQuestions || 0,
-            percentage: scores.speaking.percentage || 0,
-            rawScore: scores.speaking.rawScore || 0
+            score: calculatedScores.speaking.score || 0,
+            totalQuestions: calculatedScores.speaking.totalQuestions || 0,
+            percentage: calculatedScores.speaking.percentage || 0,
+            rawScore: calculatedScores.speaking.rawScore || 0
           }
         },
         {
@@ -181,20 +155,20 @@ const Exam: React.FC = () => {
           username,
           scores: {
             vocabulary: {
-              score: scores.vocabulary.score || 0,
-              totalQuestions: scores.vocabulary.totalQuestions || 0,
-              percentage: scores.vocabulary.percentage || 0
+              score: calculatedScores.vocabulary.score || 0,
+              totalQuestions: calculatedScores.vocabulary.totalQuestions || 0,
+              percentage: calculatedScores.vocabulary.percentage || 0
             },
             listening: {
-              score: scores.listening.score || 0,
-              totalQuestions: scores.listening.totalQuestions || 0,
-              percentage: scores.listening.percentage || 0
+              score: calculatedScores.listening.score || 0,
+              totalQuestions: calculatedScores.listening.totalQuestions || 0,
+              percentage: calculatedScores.listening.percentage || 0
             },
             speaking: {
-              score: scores.speaking.score || 0,
-              totalQuestions: scores.speaking.totalQuestions || 0,
-              percentage: scores.speaking.percentage || 0,
-              rawScore: scores.speaking.rawScore || 0
+              score: calculatedScores.speaking.score || 0,
+              totalQuestions: calculatedScores.speaking.totalQuestions || 0,
+              percentage: calculatedScores.speaking.percentage || 0,
+              rawScore: calculatedScores.speaking.rawScore || 0
             }
           },
           date: new Date().toISOString(),
@@ -215,20 +189,20 @@ const Exam: React.FC = () => {
           },
           scores: {
             vocabulary: {
-              score: scores.vocabulary.score || 0,
-              totalQuestions: scores.vocabulary.totalQuestions || 0,
-              percentage: scores.vocabulary.percentage || 0
+              score: calculatedScores.vocabulary.score || 0,
+              totalQuestions: calculatedScores.vocabulary.totalQuestions || 0,
+              percentage: calculatedScores.vocabulary.percentage || 0
             },
             listening: {
-              score: scores.listening.score || 0,
-              totalQuestions: scores.listening.totalQuestions || 0,
-              percentage: scores.listening.percentage || 0
+              score: calculatedScores.listening.score || 0,
+              totalQuestions: calculatedScores.listening.totalQuestions || 0,
+              percentage: calculatedScores.listening.percentage || 0
             },
             speaking: {
-              score: scores.speaking.score || 0,
-              totalQuestions: scores.speaking.totalQuestions || 0,
-              percentage: scores.speaking.percentage || 0,
-              rawScore: scores.speaking.rawScore || 0
+              score: calculatedScores.speaking.score || 0,
+              totalQuestions: calculatedScores.speaking.totalQuestions || 0,
+              percentage: calculatedScores.speaking.percentage || 0,
+              rawScore: calculatedScores.speaking.rawScore || 0
             }
           }
         }
@@ -240,14 +214,23 @@ const Exam: React.FC = () => {
         speaking: true
       }));
       
-      // Redirect to sakuralingua.com after a short delay
-      setTimeout(() => {
-        window.location.href = 'https://sakuralingua.com';
-      }, 1500);
+      // Don't redirect automatically - let user see results first
       
     } catch (error) {
       console.error('Error submitting speaking results:', error);
       setError('Failed to submit speaking results. Please try again.');
+    }
+  };
+
+  const handleExamSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      await submitSpeakingResults();
+      setShowSuccessMessage(true);
+      // Don't set isComplete here - it's already set in submitSpeakingResults
+    } catch (err) {
+      setError('Failed to submit. Please try again.');
+      setIsSubmitting(false);
     }
   };
 
@@ -268,7 +251,7 @@ const Exam: React.FC = () => {
       // Speaking section completed
       await submitSpeakingResults();
       setShowSuccessMessage(true);
-      setIsComplete(true);
+      // Don't set isComplete here - it's already set in submitSpeakingResults
     }
   };
 
@@ -369,8 +352,8 @@ const Exam: React.FC = () => {
   const calculateScores = (): ExamScores => {
     // Initialize scores with proper types
     const scores: ExamScores = {
-      vocabulary: { score: 0, totalQuestions: 10, percentage: 0 },
-      listening: { score: 0, totalQuestions: 5, percentage: 0 },
+      vocabulary: { score: 0, totalQuestions: limitedVocabQuestions.length, percentage: 0 },
+      listening: { score: 0, totalQuestions: listeningQuestions.length, percentage: 0 },
       speaking: { 
         score: 0, 
         totalQuestions: limitedSpeakingQuestions.length, 
@@ -383,19 +366,19 @@ const Exam: React.FC = () => {
       details: {}
     };
 
-    // Calculate vocabulary score (4 points per question)
+    // Calculate vocabulary score (1 point per question for simplicity)
     const vocabAnswers = Object.values(userAnswers).filter(
       (answer: any) => answer.section === 'vocabulary' && answer.isCorrect
     );
-    scores.vocabulary.score = vocabAnswers.length * 4; // 4 points per correct answer
-    scores.vocabulary.percentage = (scores.vocabulary.score / (scores.vocabulary.totalQuestions * 4)) * 100;
+    scores.vocabulary.score = vocabAnswers.length; // 1 point per correct answer
+    scores.vocabulary.percentage = (scores.vocabulary.score / scores.vocabulary.totalQuestions) * 100;
 
-    // Calculate listening score (2 points per question)
+    // Calculate listening score (1 point per question for simplicity)
     const listeningAnswers = Object.values(userAnswers).filter(
       (answer: any) => answer.section === 'listening' && answer.isCorrect
     );
-    scores.listening.score = listeningAnswers.length * 2; // 2 points per correct answer
-    scores.listening.percentage = (scores.listening.score / (scores.listening.totalQuestions * 2)) * 100;
+    scores.listening.score = listeningAnswers.length; // 1 point per correct answer
+    scores.listening.percentage = (scores.listening.score / scores.listening.totalQuestions) * 100;
 
     // Calculate speaking score (0-10 scale, normalized to 0-5)
     const speakingScores = Object.values(userAnswers)
@@ -410,10 +393,12 @@ const Exam: React.FC = () => {
       scores.speaking.averagePerQuestion = averageScore;
     }
 
-    // Calculate total score (40 + 10 + 5 = 55 points max)
+    // Calculate total score
     scores.total = scores.vocabulary.score + scores.listening.score + scores.speaking.score;
-    scores.score = Math.round((scores.total / 55) * 100); // Overall percentage
+    const maxTotal = scores.vocabulary.totalQuestions + scores.listening.totalQuestions + scores.speaking.totalQuestions;
+    scores.score = maxTotal > 0 ? Math.round((scores.total / maxTotal) * 100) : 0; // Overall percentage
 
+    console.log('Calculated scores:', scores); // Debug log
     return scores;
   };
 
@@ -512,6 +497,8 @@ const Exam: React.FC = () => {
             onRecord={handleRecord}
             userAnswers={userAnswers}
             onAnswerSelect={handleAnswerSelect}
+            onSubmit={handleExamSubmit}
+            isLastQuestion={currentQuestionIndex === limitedSpeakingQuestions.length - 1}
           />
         );
       
@@ -583,16 +570,15 @@ const Exam: React.FC = () => {
   };
 
   if (isComplete) {
+    // Always calculate scores if not already calculated
+    const finalScores = scores || calculateScores();
+    
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="p-8 text-center">
-          <h2 className="text-2xl font-bold text-green-600 mb-4">
-            Exam Submitted Successfully!
-          </h2>
-          <p className="text-gray-600">
-            Thank you for completing the exam. You will be redirected shortly...
-          </p>
-        </div>
+      <div className="container mx-auto p-4 max-w-4xl">
+        <Results 
+          scores={finalScores} 
+          onBackToDashboard={() => window.location.href = 'https://sakuralingua.com'} 
+        />
       </div>
     );
   }

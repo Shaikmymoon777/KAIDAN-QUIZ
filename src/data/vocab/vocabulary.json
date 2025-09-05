@@ -1,412 +1,412 @@
 {
   "vocabulary": [
     {
-      "id": "vocab-250",
-      "index": 250,
-      "word": "動き",
-      "japanese": "動き",
-      "reading": "うごき",
-      "meaning": "movement, activity, trend, development, change"
-    },
-    {
-      "id": "vocab-251",
-      "index": 251,
-      "word": "潮",
-      "japanese": "潮",
-      "reading": "うしお",
-      "meaning": "tide"
-    },
-    {
-      "id": "vocab-252",
-      "index": 252,
-      "word": "氏",
-      "japanese": "氏",
-      "reading": "うじ",
-      "meaning": "family name"
-    },
-    {
-      "id": "vocab-253",
-      "index": 253,
-      "word": "渦",
-      "japanese": "渦",
-      "reading": "うず",
-      "meaning": "swirl"
-    },
-    {
-      "id": "vocab-254",
-      "index": 254,
-      "word": "埋まる",
-      "japanese": "埋まる",
-      "reading": "うずまる",
-      "meaning": "to be buried, to be surrounded, to overflow, to be filled"
-    },
-    {
-      "id": "vocab-255",
-      "index": 255,
-      "word": "嘘つき",
-      "japanese": "嘘つき",
-      "reading": "うそつき",
-      "meaning": "liar (sometimes said with not much seriousness), fibber"
-    },
-    {
-      "id": "vocab-256",
-      "index": 256,
-      "word": "打ち合わせ",
-      "japanese": "打ち合わせ",
-      "reading": "うちあわせ",
-      "meaning": "business meeting, previous arrangement, appointment"
-    },
-    {
-      "id": "vocab-257",
-      "index": 257,
-      "word": "打ち合わせる",
-      "japanese": "打ち合わせる",
-      "reading": "うちあわせる",
-      "meaning": "to knock together, to arrange"
-    },
-    {
-      "id": "vocab-258",
-      "index": 258,
-      "word": "打ち切る",
-      "japanese": "打ち切る",
-      "reading": "うちきる",
-      "meaning": "to stop, to abort, to discontinue, to close"
-    },
-    {
-      "id": "vocab-259",
-      "index": 259,
-      "word": "打ち消し",
-      "japanese": "打ち消し",
-      "reading": "うちけし",
-      "meaning": "negation, denial, negative"
-    },
-    {
-      "id": "vocab-260",
-      "index": 260,
-      "word": "打ち込む",
-      "japanese": "打ち込む",
-      "reading": "うちこむ",
-      "meaning": "to drive in (e.g. nail stake), to devote oneself to, to shoot into, to smash, to throw into, to cast into"
-    },
-    {
-      "id": "vocab-261",
-      "index": 261,
-      "word": "団扇",
-      "japanese": "団扇",
-      "reading": "うちわ",
-      "meaning": "fan"
-    },
-    {
-      "id": "vocab-262",
-      "index": 262,
-      "word": "内訳",
-      "japanese": "内訳",
-      "reading": "うちわけ",
-      "meaning": "the items, breakdown, classification"
-    },
-    {
-      "id": "vocab-263",
-      "index": 263,
-      "word": "訴え",
-      "japanese": "訴え",
-      "reading": "うったえ",
-      "meaning": "lawsuit, complaint"
-    },
-    {
-      "id": "vocab-264",
-      "index": 264,
-      "word": "鬱陶しい",
-      "japanese": "鬱陶しい",
-      "reading": "うっとうしい",
-      "meaning": "gloomy, depressing"
-    },
-    {
-      "id": "vocab-265",
-      "index": 265,
-      "word": "写し",
-      "japanese": "写し",
-      "reading": "うつし",
-      "meaning": "copy, duplicate, facsimile, transcript"
-    },
-    {
-      "id": "vocab-266",
-      "index": 266,
-      "word": "空ろ",
-      "japanese": "空ろ",
-      "reading": "うつろ",
-      "meaning": "blank, cavity, hollow, empty (space)"
-    },
-    {
-      "id": "vocab-267",
-      "index": 267,
-      "word": "器",
-      "japanese": "器",
-      "reading": "うつわ",
-      "meaning": "bowl, vessel, container"
-    },
-    {
-      "id": "vocab-268",
-      "index": 268,
-      "word": "雨天",
-      "japanese": "雨天",
-      "reading": "うてん",
-      "meaning": "rainy weather"
-    },
-    {
-      "id": "vocab-269",
-      "index": 269,
-      "word": "腕前",
-      "japanese": "腕前",
-      "reading": "うでまえ",
-      "meaning": "ability, skill, facility"
-    },
-    {
-      "id": "vocab-270",
-      "index": 270,
-      "word": "饂飩",
-      "japanese": "饂飩",
-      "reading": "うどん",
-      "meaning": "noodles (Japanese)"
-    },
-    {
-      "id": "vocab-271",
-      "index": 271,
-      "word": "促す",
-      "japanese": "促す",
-      "reading": "うながす",
-      "meaning": "to urge, to press, to suggest, to demand, to stimulate, to quicken, to incite, to invite (attention to)"
-    },
-    {
-      "id": "vocab-272",
-      "index": 272,
-      "word": "唸る",
-      "japanese": "唸る",
-      "reading": "うなる",
-      "meaning": "to groan, to moan, to roar, to howl, to growl, to hum, to buzz, to sough"
-    },
-    {
-      "id": "vocab-273",
-      "index": 273,
-      "word": "自惚れ",
-      "japanese": "自惚れ",
-      "reading": "うぬぼれ",
-      "meaning": "pretension, conceit, hubris"
-    },
-    {
-      "id": "vocab-274",
-      "index": 274,
-      "word": "甘い",
-      "japanese": "甘い",
-      "reading": "うまい",
-      "meaning": "delicious"
-    },
-    {
-      "id": "vocab-275",
-      "index": 275,
-      "word": "生まれつき",
-      "japanese": "生まれつき",
-      "reading": "うまれつき",
-      "meaning": "by nature, by birth, native"
-    },
-    {
-      "id": "vocab-276",
-      "index": 276,
-      "word": "海路",
-      "japanese": "海路",
-      "reading": "うみじ",
-      "meaning": "sea route"
-    },
-    {
-      "id": "vocab-277",
-      "index": 277,
-      "word": "産む",
-      "japanese": "産む",
-      "reading": "うむ",
-      "meaning": "to give birth, to deliver, to produce"
-    },
-    {
-      "id": "vocab-278",
-      "index": 278,
-      "word": "埋め込む",
-      "japanese": "埋め込む",
-      "reading": "うめこむ",
-      "meaning": "to bury"
-    },
-    {
-      "id": "vocab-279",
-      "index": 279,
-      "word": "梅干",
-      "japanese": "梅干",
-      "reading": "うめぼし",
-      "meaning": "dried plum"
-    },
-    {
-      "id": "vocab-280",
-      "index": 280,
-      "word": "末",
-      "japanese": "末",
-      "reading": "うら",
-      "meaning": "top end, tip"
-    },
-    {
-      "id": "vocab-281",
-      "index": 281,
-      "word": "裏返し",
-      "japanese": "裏返し",
-      "reading": "うらがえし",
-      "meaning": "inside out, upside down"
-    },
-    {
-      "id": "vocab-282",
-      "index": 282,
-      "word": "売り出し",
-      "japanese": "売り出し",
-      "reading": "うりだし",
-      "meaning": "(bargain) sale"
-    },
-    {
-      "id": "vocab-283",
-      "index": 283,
-      "word": "売り出す",
-      "japanese": "売り出す",
-      "reading": "うりだす",
-      "meaning": "to put on sale, to market, to become popular"
-    },
-    {
-      "id": "vocab-284",
-      "index": 284,
-      "word": "潤う",
-      "japanese": "潤う",
-      "reading": "うるおう",
-      "meaning": "to be moist, to be damp, to get wet, to profit by, to be watered, to receive benefits, to charm"
-    },
-    {
-      "id": "vocab-285",
-      "index": 285,
-      "word": "五月蝿い",
-      "japanese": "五月蝿い",
-      "reading": "うるさい",
-      "meaning": "noisy, loud, fussy"
-    },
-    {
-      "id": "vocab-286",
-      "index": 286,
-      "word": "売れ行き",
-      "japanese": "売れ行き",
-      "reading": "うれゆき",
-      "meaning": "sales"
-    },
-    {
-      "id": "vocab-287",
-      "index": 287,
-      "word": "浮気",
-      "japanese": "浮気",
-      "reading": "うわき",
-      "meaning": "flighty, fickle, wanton, unfaithful"
-    },
-    {
-      "id": "vocab-288",
-      "index": 288,
-      "word": "上手",
-      "japanese": "上手",
-      "reading": "うわて",
-      "meaning": "upper part, upper stream, left side (of a stage), skillful (only in comparisons)"
-    },
-    {
-      "id": "vocab-289",
-      "index": 289,
-      "word": "上回る",
-      "japanese": "上回る",
-      "reading": "うわまわる",
-      "meaning": "to exceed"
-    },
-    {
-      "id": "vocab-290",
-      "index": 290,
-      "word": "植わる",
-      "japanese": "植わる",
-      "reading": "うわる",
-      "meaning": "to be planted"
-    },
-    {
-      "id": "vocab-291",
-      "index": 291,
-      "word": "運営",
-      "japanese": "運営",
-      "reading": "うんえい",
-      "meaning": "management, administration, operation"
-    },
-    {
-      "id": "vocab-292",
-      "index": 292,
-      "word": "",
-      "japanese": "",
-      "reading": "うんざり",
-      "meaning": "tedious, boring, being fed up with"
-    },
-    {
-      "id": "vocab-293",
-      "index": 293,
-      "word": "運送",
-      "japanese": "運送",
-      "reading": "うんそう",
-      "meaning": "shipping, marine transportation"
-    },
-    {
-      "id": "vocab-294",
-      "index": 294,
-      "word": "運賃",
-      "japanese": "運賃",
-      "reading": "うんちん",
-      "meaning": "freight rates, shipping expenses, fare"
-    },
-    {
-      "id": "vocab-295",
-      "index": 295,
-      "word": "云々",
-      "japanese": "云々",
-      "reading": "うんぬん",
-      "meaning": "and so on, and so forth, comment"
-    },
-    {
-      "id": "vocab-296",
-      "index": 296,
-      "word": "運搬",
-      "japanese": "運搬",
-      "reading": "うんぱん",
-      "meaning": "transport, carriage"
-    },
-    {
-      "id": "vocab-297",
-      "index": 297,
-      "word": "運命",
-      "japanese": "運命",
-      "reading": "うんめい",
-      "meaning": "fate"
-    },
-    {
-      "id": "vocab-298",
-      "index": 298,
-      "word": "運輸",
-      "japanese": "運輸",
-      "reading": "うんゆ",
-      "meaning": "transportation"
-    },
-    {
-      "id": "vocab-299",
-      "index": 299,
-      "word": "運用",
-      "japanese": "運用",
-      "reading": "うんよう",
-      "meaning": "making use of, application, investment, practical use"
-    },
-    {
       "id": "vocab-300",
       "index": 300,
       "word": "会",
       "japanese": "会",
       "reading": "え",
       "meaning": "understanding"
+    },
+    {
+      "id": "vocab-301",
+      "index": 301,
+      "word": "重",
+      "japanese": "重",
+      "reading": "え",
+      "meaning": "-fold, -ply"
+    },
+    {
+      "id": "vocab-302",
+      "index": 302,
+      "word": "",
+      "japanese": "",
+      "reading": "えい",
+      "meaning": "ray (fish)"
+    },
+    {
+      "id": "vocab-303",
+      "index": 303,
+      "word": "映写",
+      "japanese": "映写",
+      "reading": "えいしゃ",
+      "meaning": "projection"
+    },
+    {
+      "id": "vocab-304",
+      "index": 304,
+      "word": "英字",
+      "japanese": "英字",
+      "reading": "えいじ",
+      "meaning": "English letter (character)"
+    },
+    {
+      "id": "vocab-305",
+      "index": 305,
+      "word": "衛生",
+      "japanese": "衛生",
+      "reading": "えいせい",
+      "meaning": "health, hygiene, sanitation, medical"
+    },
+    {
+      "id": "vocab-306",
+      "index": 306,
+      "word": "映像",
+      "japanese": "映像",
+      "reading": "えいぞう",
+      "meaning": "reflection, image"
+    },
+    {
+      "id": "vocab-307",
+      "index": 307,
+      "word": "英雄",
+      "japanese": "英雄",
+      "reading": "えいゆう",
+      "meaning": "hero, great man"
+    },
+    {
+      "id": "vocab-308",
+      "index": 308,
+      "word": "液",
+      "japanese": "液",
+      "reading": "えき",
+      "meaning": "liquid, fluid"
+    },
+    {
+      "id": "vocab-309",
+      "index": 309,
+      "word": "役",
+      "japanese": "役",
+      "reading": "えき",
+      "meaning": "war, campaign, battle"
+    },
+    {
+      "id": "vocab-310",
+      "index": 310,
+      "word": "閲覧",
+      "japanese": "閲覧",
+      "reading": "えつらん",
+      "meaning": "inspection, reading"
+    },
+    {
+      "id": "vocab-311",
+      "index": 311,
+      "word": "獲物",
+      "japanese": "獲物",
+      "reading": "えもの",
+      "meaning": "game, spoils, trophy"
+    },
+    {
+      "id": "vocab-312",
+      "index": 312,
+      "word": "襟",
+      "japanese": "襟",
+      "reading": "えり",
+      "meaning": "neck, collar, lapel, neckband"
+    },
+    {
+      "id": "vocab-313",
+      "index": 313,
+      "word": "縁",
+      "japanese": "縁",
+      "reading": "えん",
+      "meaning": "chance, fate, destiny, relation, bonds, connection, karma"
+    },
+    {
+      "id": "vocab-314",
+      "index": 314,
+      "word": "塩",
+      "japanese": "塩",
+      "reading": "えん",
+      "meaning": "salt"
+    },
+    {
+      "id": "vocab-315",
+      "index": 315,
+      "word": "艶",
+      "japanese": "艶",
+      "reading": "えん",
+      "meaning": "charming, fascinating, voluptuous"
+    },
+    {
+      "id": "vocab-316",
+      "index": 316,
+      "word": "園",
+      "japanese": "園",
+      "reading": "えん",
+      "meaning": "garden (esp. man-made)"
+    },
+    {
+      "id": "vocab-317",
+      "index": 317,
+      "word": "円滑",
+      "japanese": "円滑",
+      "reading": "えんかつ",
+      "meaning": "harmony, smoothness"
+    },
+    {
+      "id": "vocab-318",
+      "index": 318,
+      "word": "縁側",
+      "japanese": "縁側",
+      "reading": "えんがわ",
+      "meaning": "veranda, porch, balcony, open corridor"
+    },
+    {
+      "id": "vocab-319",
+      "index": 319,
+      "word": "沿岸",
+      "japanese": "沿岸",
+      "reading": "えんがん",
+      "meaning": "coast, shore"
+    },
+    {
+      "id": "vocab-320",
+      "index": 320,
+      "word": "婉曲",
+      "japanese": "婉曲",
+      "reading": "えんきょく",
+      "meaning": "euphemistic, circumlocution, roundabout, indirect, insinuating"
+    },
+    {
+      "id": "vocab-321",
+      "index": 321,
+      "word": "演習",
+      "japanese": "演習",
+      "reading": "えんしゅう",
+      "meaning": "practice, exercises, maneuvers"
+    },
+    {
+      "id": "vocab-322",
+      "index": 322,
+      "word": "演出",
+      "japanese": "演出",
+      "reading": "えんしゅつ",
+      "meaning": "production (e.g. play), direction"
+    },
+    {
+      "id": "vocab-323",
+      "index": 323,
+      "word": "演じる",
+      "japanese": "演じる",
+      "reading": "えんじる",
+      "meaning": "to perform (a play), to play (a part), to act (a part), to commit (a blunder)"
+    },
+    {
+      "id": "vocab-324",
+      "index": 324,
+      "word": "演ずる",
+      "japanese": "演ずる",
+      "reading": "えんずる",
+      "meaning": "to perform, to play"
+    },
+    {
+      "id": "vocab-325",
+      "index": 325,
+      "word": "沿線",
+      "japanese": "沿線",
+      "reading": "えんせん",
+      "meaning": "along railway line"
+    },
+    {
+      "id": "vocab-326",
+      "index": 326,
+      "word": "縁談",
+      "japanese": "縁談",
+      "reading": "えんだん",
+      "meaning": "marriage proposal, engagement"
+    },
+    {
+      "id": "vocab-327",
+      "index": 327,
+      "word": "遠方",
+      "japanese": "遠方",
+      "reading": "えんぽう",
+      "meaning": "long way, distant place"
+    },
+    {
+      "id": "vocab-328",
+      "index": 328,
+      "word": "円満",
+      "japanese": "円満",
+      "reading": "えんまん",
+      "meaning": "perfection, harmony, peace, smoothness, completeness, satisfaction, integrity"
+    },
+    {
+      "id": "vocab-329",
+      "index": 329,
+      "word": "尾",
+      "japanese": "尾",
+      "reading": "お",
+      "meaning": "tail, ridge"
+    },
+    {
+      "id": "vocab-330",
+      "index": 330,
+      "word": "於",
+      "japanese": "於",
+      "reading": "お",
+      "meaning": "at, in, on"
+    },
+    {
+      "id": "vocab-331",
+      "index": 331,
+      "word": "甥",
+      "japanese": "甥",
+      "reading": "おい",
+      "meaning": "nephew"
+    },
+    {
+      "id": "vocab-332",
+      "index": 332,
+      "word": "追い込む",
+      "japanese": "追い込む",
+      "reading": "おいこむ",
+      "meaning": "to herd, to corner, to drive"
+    },
+    {
+      "id": "vocab-333",
+      "index": 333,
+      "word": "美味しい",
+      "japanese": "美味しい",
+      "reading": "おいしい",
+      "meaning": "delicious, tasty"
+    },
+    {
+      "id": "vocab-334",
+      "index": 334,
+      "word": "追い出す",
+      "japanese": "追い出す",
+      "reading": "おいだす",
+      "meaning": "to expel, to drive out"
+    },
+    {
+      "id": "vocab-335",
+      "index": 335,
+      "word": "於いて",
+      "japanese": "於いて",
+      "reading": "おいて",
+      "meaning": "at, in, on"
+    },
+    {
+      "id": "vocab-336",
+      "index": 336,
+      "word": "お出でになる",
+      "japanese": "お出でになる",
+      "reading": "おいでになる",
+      "meaning": "to be"
+    },
+    {
+      "id": "vocab-337",
+      "index": 337,
+      "word": "老いる",
+      "japanese": "老いる",
+      "reading": "おいる",
+      "meaning": "to age, to grow old"
+    },
+    {
+      "id": "vocab-338",
+      "index": 338,
+      "word": "負う",
+      "japanese": "負う",
+      "reading": "おう",
+      "meaning": "to bear, to owe"
+    },
+    {
+      "id": "vocab-339",
+      "index": 339,
+      "word": "応急",
+      "japanese": "応急",
+      "reading": "おうきゅう",
+      "meaning": "emergency"
+    },
+    {
+      "id": "vocab-340",
+      "index": 340,
+      "word": "黄金",
+      "japanese": "黄金",
+      "reading": "おうごん",
+      "meaning": "gold"
+    },
+    {
+      "id": "vocab-341",
+      "index": 341,
+      "word": "黄色",
+      "japanese": "黄色",
+      "reading": "おうしょく",
+      "meaning": "yellow"
+    },
+    {
+      "id": "vocab-342",
+      "index": 342,
+      "word": "応募",
+      "japanese": "応募",
+      "reading": "おうぼ",
+      "meaning": "subscription, application"
+    },
+    {
+      "id": "vocab-343",
+      "index": 343,
+      "word": "",
+      "japanese": "",
+      "reading": "おおい",
+      "meaning": "hey!"
+    },
+    {
+      "id": "vocab-344",
+      "index": 344,
+      "word": "大方",
+      "japanese": "大方",
+      "reading": "おおかた",
+      "meaning": "perhaps, almost all, majority"
+    },
+    {
+      "id": "vocab-345",
+      "index": 345,
+      "word": "大柄",
+      "japanese": "大柄",
+      "reading": "おおがら",
+      "meaning": "large build, large pattern"
+    },
+    {
+      "id": "vocab-346",
+      "index": 346,
+      "word": "大げさ",
+      "japanese": "大げさ",
+      "reading": "おおげさ",
+      "meaning": "grandiose, exaggerated"
+    },
+    {
+      "id": "vocab-347",
+      "index": 347,
+      "word": "大事",
+      "japanese": "大事",
+      "reading": "おおごと",
+      "meaning": "important, valuable, serious matter"
+    },
+    {
+      "id": "vocab-348",
+      "index": 348,
+      "word": "大ざっぱ",
+      "japanese": "大ざっぱ",
+      "reading": "おおざっぱ",
+      "meaning": "rough (as in not precise), broad, sketchy"
+    },
+    {
+      "id": "vocab-349",
+      "index": 349,
+      "word": "大筋",
+      "japanese": "大筋",
+      "reading": "おおすじ",
+      "meaning": "outline, summary"
+    },
+    {
+      "id": "vocab-350",
+      "index": 350,
+      "word": "大空",
+      "japanese": "大空",
+      "reading": "おおぞら",
+      "meaning": "heaven, firmament, the sky"
     }
   ]
 }
